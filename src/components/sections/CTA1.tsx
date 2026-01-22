@@ -10,7 +10,7 @@ export default function CTA1() {
             Первые ИИ-сотрудники
           </h2>
 
-          <div className="mt-4 text-white font-semibold tracking-[-0.01em] text-[18px] sm:text-[32px] lg:text-[42px]">
+          <div className="mt-1 text-white font-semibold tracking-[-0.01em] text-[18px] sm:text-[32px] lg:text-[42px]">
             уже готовы работать бесплатно
           </div>
         </div>
