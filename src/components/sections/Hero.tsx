@@ -8,13 +8,55 @@ export default function Hero() {
       <div className="mx-auto max-w-[1240px] px-4">
         {/* Заголовок (по ТЗ: весь белый) */}
 <h1 className="premium-title mx-auto max-w-[980px] text-center text-white leading-[0.94] tracking-[-0.02em]">
-  <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
+  <span className="premium-line text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
     Кабинет твоей
   </span>
 
-  <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
-    <span className="premium-word" data-text="команды">
-      команды
+  <span className="premium-line text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
+    <span className="premium-word">
+      {/* Обычный текст (база) */}
+      <span className="word-fill">команды</span>
+
+      {/* SVG-обводка поверх */}
+      <svg
+        className="word-svg"
+        viewBox="0 0 100 24"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <linearGradient id="uniOutlineGrad" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="var(--uni-red)" />
+            <stop offset="0.55" stopColor="var(--uni-blue)" />
+            <stop offset="1" stopColor="var(--uni-red)" />
+          </linearGradient>
+        </defs>
+
+        {/* Важно: textLength растягивает слово в ширину контейнера.
+           Поэтому базовый белый текст остаётся HTML, а SVG только для обводки. */}
+        <text
+          x="0"
+          y="18"
+          textLength="100"
+          lengthAdjust="spacingAndGlyphs"
+          style={{ fontFamily: "inherit", fontWeight: 600, fontSize: 18 }}
+          className="stroke-base"
+        >
+          команды
+        </text>
+
+        <text
+          x="0"
+          y="18"
+          textLength="100"
+          lengthAdjust="spacingAndGlyphs"
+          style={{ fontFamily: "inherit", fontWeight: 600, fontSize: 18 }}
+          className="stroke-run"
+        >
+          команды
+        </text>
+      </svg>
     </span>{" "}
     ИИ-агентов
   </span>
