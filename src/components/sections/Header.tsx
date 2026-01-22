@@ -317,7 +317,7 @@ export default function Header() {
               </a>
 
               {/* Center */}
-              <nav className="hidden md:flex items-center gap-6 text-[13px] text-white/90">
+              <nav className="hidden md:flex items-center gap-6 text-[13px] font-semibold text-white/90">
                 {nav.map((item) => (
                   <a
                     key={item.label}
@@ -360,14 +360,14 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="ml-1 inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-[800] text-[#c73f40] hover:bg-[#c73f40]/10"
+                  className="ml-1 inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40] hover:bg-[#c73f40]/10"
                 >
                   Войти
                 </a>
 
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-[800] text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
                 >
                   Начать бесплатно
                 </a>
@@ -441,13 +441,13 @@ export default function Header() {
               <div className="mt-4 grid gap-2">
                 <a
                   href={LINKS.login}
-                  className="inline-flex h-11 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[14px] font-medium text-[#c73f40] hover:bg-[#c73f40]/10"
+                  className="inline-flex h-11 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[14px] font-semibold text-[#c73f40] hover:bg-[#c73f40]/10"
                 >
                   Войти
                 </a>
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-11 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[14px] font-medium text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="inline-flex h-11 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[14px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
                 >
                   Начать бесплатно
                 </a>
