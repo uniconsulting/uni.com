@@ -18,7 +18,8 @@ return (
 // (опционально) то же самое для Telegram, если захочешь унифицировать
 export function TelegramIcon(props: React.SVGProps<SVGSVGElement>) {
 return (
-    <svg viewBox="0 0 28 28" fill="none" {...props}>
+    <svg viewBox="0 0 32 32" fill="none" {...props}>
+      <g transform="translate(-1.5 0)">
       <path
         d="M21.7 3.9L2.9 11.2c-.9.4-.9 1.6.1 1.9l4.7 1.5 1.8 5.7c.3.9 1.4 1.1 2 .4l2.6-3.2 5 3.7c.8.6 2 .1 2.2-.9l3.2-15.6c.2-1.1-.9-2-2-1.6Z"
         stroke="currentColor"
