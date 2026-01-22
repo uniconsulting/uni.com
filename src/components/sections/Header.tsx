@@ -293,7 +293,7 @@ export default function Header() {
     <>
       <header className="sticky top-4 z-50">
         <div className="mx-auto max-w-[1240px] px-4">
-          <div className="rounded-[999px] border border-white/40 bg-white/15 p-2 shadow-[0_18px_60px_rgba(0,0,0,0.22)] backdrop-blur-[24px]">
+          <div className="rounded-[999px] border border-white/40 bg-white/15 p-2 shadow-[0_14px_44px_rgba(0,0,0,0.14)] backdrop-blur-[24px]">
             <div className="flex items-center justify-between gap-3">
               {/* Left */}
               <a href="#top" className="flex items-center gap-3">
