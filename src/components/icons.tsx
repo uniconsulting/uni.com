@@ -34,6 +34,7 @@ return (
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
+    </g>
+  </svg>
   );
 }
