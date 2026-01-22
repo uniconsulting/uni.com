@@ -2,13 +2,6 @@
 
 import React from "react";
 
-export default function Hero() {
-  return (
-    <section id="top" className="relative pt-16 pb-10 md:pt-24 md:pb-16">
-      <div className="mx-auto max-w-[1240px] px-4">
-        {/* Заголовок (по ТЗ: весь белый) */}
-"use client";
-
 function KomandyWord() {
   return (
     <span className="komandy-svg" aria-label="команды">
