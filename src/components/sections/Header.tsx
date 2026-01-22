@@ -344,7 +344,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px] hover:bg-white/22"
+                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-[18px]"
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
@@ -355,7 +355,7 @@ export default function Header() {
                   href={LINKS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px] hover:bg-white/22"
+                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-[18px]"
                   aria-label="Telegram"
                   title="Telegram"
                 >
@@ -364,14 +364,14 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40] hover:bg-[#c73f40]/10"
+                  className="btn-login-slow inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
                 >
                   Войти
                 </a>
 
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.05)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="btn-primary-slow inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)]"
                 >
                   Начать бесплатно
                 </a>
