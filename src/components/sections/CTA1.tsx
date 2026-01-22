@@ -185,21 +185,14 @@ export default function CTA1() {
                   "
                 >
                   {/* Иконка телефона (stroke = currentColor) */}
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="h-6 w-6"
-                    aria-hidden="true"
+                  <span
+                    className="
+                      inline-flex h-14 w-14 items-center justify-center
+                      rounded-full bg-[#c73f40]
+                      liquid-outline
+                    "
                   >
-                    <path
-                      d="M21 16.5v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.5 2.68 2 2 0 0 1 3.5.5h2a2 2 0 0 1 2 1.72c.12.9.31 1.77.57 2.62a2 2 0 0 1-.45 2.11L6.7 7.87a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.85.26 1.72.45 2.62.57A2 2 0 0 1 21 16.5Z"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
                     <PhoneIcon className="h-6 w-6 text-white" />
-                  </svg>
                 </span>
 
                 <span className="text-[13px] font-semibold text-[#c73f40] whitespace-nowrap">
