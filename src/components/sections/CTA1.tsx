@@ -6,7 +6,7 @@ export default function CTA1() {
       <div className="mx-auto w-full max-w-[1240px] px-4">
         {/* Заголовки */}
         <div className="text-center">
-          <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[48px] sm:text-[64px] lg:text-[84px]">
+          <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
             Первые ИИ-сотрудники
           </h2>
 
@@ -26,9 +26,9 @@ export default function CTA1() {
               border
               border-white/35
               bg-white/14
-              p-3
+              p-2
               backdrop-blur-[26px]
-              shadow-[0_14px_60px_rgba(0,0,0,0.14)]
+              shadow-[0_14px_60px_rgba(0,0,0,0.05)]
             "
           >
             <div
@@ -68,7 +68,7 @@ export default function CTA1() {
               </a>
 
               {/* Divider 1 */}
-              <div className="hidden sm:block h-10 w-px bg-white/18" />
+              <div className="hidden sm:block h-10 w-px bg-white/24" />
 
               {/* Соц-кнопки */}
               <div className="flex items-center gap-3">
@@ -149,7 +149,7 @@ export default function CTA1() {
               </div>
 
               {/* Divider 2 */}
-              <div className="hidden sm:block h-10 w-px bg-white/18" />
+              <div className="hidden sm:block h-10 w-px bg-white/24" />
 
               {/* Заказать звонок */}
               <a
