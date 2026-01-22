@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { PhoneIcon } from "@/components/icons";
+import { LIQUID_ICON_ANIM } from "@/styles/liquid";
 
 type NavItem = { label: string; href: string; chevron?: boolean };
 
@@ -186,26 +187,26 @@ export default function Header() {
 
               {/* Right */}
               <div className="hidden md:flex items-center gap-3">
-                <PhoneIcon className="h-5 w-5 text-white/80" />
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
                   justify-center
-                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px]"
+                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px] ${LIQUID_ICON_ANIM}`"
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
+                  <PhoneIcon className="h-6 w-6" />
                 </button>
 
                 <a
                   href={LINKS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px]"
+                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px] ${LIQUID_ICON_ANIM}`"
                   aria-label="Telegram"
                   title="Telegram"
                 >
-                  <TelegramIcon className="h-5 w-5" />
+                  <TelegramIcon className="h-6 w-6" />
                 </a>
 
                 <a
