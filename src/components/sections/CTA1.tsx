@@ -19,6 +19,8 @@ export default function CTA1() {
         <div className="mt-10">
           <div
             className="
+              relative isolate 
+              overflow-hidden
               mx-auto
               w-full
               max-w-[710px]
@@ -34,6 +36,8 @@ export default function CTA1() {
             <div
               className="
                 flex
+                relative 
+                z-10
                 items-center
                 justify-center
                 gap-4
