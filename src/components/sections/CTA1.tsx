@@ -21,7 +21,7 @@ export default function CTA1() {
             className="
               mx-auto
               w-full
-              max-w-[780px]
+              max-w-[720px]
               rounded-[999px]
               border
               border-white/35
