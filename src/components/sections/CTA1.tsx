@@ -21,7 +21,7 @@ export default function CTA1() {
             className="
               mx-auto
               w-full
-              max-w-[800px]
+              max-w-[820px]
               rounded-[999px]
               border
               border-white/35
@@ -68,7 +68,7 @@ export default function CTA1() {
               </a>
 
               {/* Divider 1 */}
-              <div className="hidden sm:block h-10 w-[2px] bg-neutral-200/35 blur-[0.2px]" />
+              <div className="hidden sm:block h-10 w-[4px] bg-neutral-200/100 blur-[0.2px]" />
 
               {/* Соц-кнопки */}
               <div className="flex items-center gap-3">
