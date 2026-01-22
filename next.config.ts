@@ -1,13 +1,21 @@
 import type { NextConfig } from "next";
 
-const repo = "UNI-Landing"; // имя репозитория
+const isGitHubActions = process.env.GITHUB_ACTIONS === "true";
+const repo = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "";
+const basePath = isGitHubActions && repo ? `/${repo}` : "";
 
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  basePath: `/${repo}`,
-  assetPrefix: `/${repo}/`,
+
+  basePath,
+  assetPrefix: basePath,
+
+  // Чтобы CSS мог подставить префикс для public-ассетов
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
 };
 
 export default nextConfig;
