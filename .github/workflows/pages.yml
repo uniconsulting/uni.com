@@ -27,7 +27,7 @@ jobs:
           node-version: "20"
 
       - name: Install
-        run: npm ci
+      - run: npm install
 
       - name: Build (static export)
         run: npm run build
