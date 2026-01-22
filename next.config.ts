@@ -1,13 +1,15 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
+const repo = "uni.com";
+const isGithubPages = process.env.GITHUB_ACTIONS === "true";
 
-export default {
+const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  basePath: isProd ? "/uni.com" : "",
-  assetPrefix: isProd ? "/uni.com/" : "",
+
+  basePath: isGithubPages ? `/${repo}` : "",
+  assetPrefix: isGithubPages ? `/${repo}/` : "",
 };
 
 export default nextConfig;
