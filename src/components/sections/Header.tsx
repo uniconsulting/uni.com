@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 type NavItem = { label: string; href: string; chevron?: boolean };
 
@@ -96,30 +96,6 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function CallModal({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
-  const [agree, setAgree] = useState(true);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = prev;
-    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -178,7 +154,7 @@ function CallModal({
               (tg ? `Telegram: ${tg}\n` : "") +
               (comment ? `Комментарий: ${comment}\n` : "");
 
-            // Работает на статике: откроет “поделиться в Telegram”
+            // Работает на статике: откроеexport default function Headerт “поделиться в Telegram”
             const shareUrl =
               "https://t.me/share/url?url=" +
               encodeURIComponent(window.location.href) +
