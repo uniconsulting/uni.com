@@ -135,7 +135,7 @@ function CallModal({
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-[18px] font-[800] leading-tight">
+            <div className="text-[18px] font-semibold leading-tight">
               Заказать звонок
             </div>
             <div className="mt-1 text-[13px] text-[#667085]">
@@ -360,14 +360,14 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="ml-1 inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-medium text-[#c73f40] hover:bg-[#c73f40]/10"
+                  className="ml-1 inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-[800] text-[#c73f40] hover:bg-[#c73f40]/10"
                 >
                   Войти
                 </a>
 
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-medium text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-[800] text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
                 >
                   Начать бесплатно
                 </a>
