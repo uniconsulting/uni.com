@@ -8,6 +8,7 @@ export default function CTA1() {
         <div className="text-center">
           <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
             Первые ИИ-сотрудники
+            уже готовы работать бесплатно
           </h2>
 
           <div className="mt-4 text-white/70 font-medium tracking-[-0.01em] text-[18px] sm:text-[22px] lg:text-[28px]">
@@ -21,7 +22,7 @@ export default function CTA1() {
             className="
               mx-auto
               w-full
-              max-w-[820px]
+              max-w-[780px]
               rounded-[999px]
               border
               border-white/35
