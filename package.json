@@ -27,6 +27,7 @@
     "postcss": "*",
     "prettier": "*",
     "tailwindcss": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "@tailwindcss/postcss": "*"
   }
 }
