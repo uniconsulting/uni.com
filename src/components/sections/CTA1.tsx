@@ -157,49 +157,41 @@ export default function CTA1() {
               <div className="hidden sm:block h-10 w-[3px] bg-neutral-150/100 blur-[0.2px]" />
 
               {/* Заказать звонок */}
-              <a
-                href="#"
-                aria-label="Заказать звонок"
-                className="
-                  flex
-                  items-center
-                  gap-4
-                  rounded-[999px]
-                  pr-2
-                "
-              >
-                <span
-                  className="
-                    lg-border
-                    grid
-                    h-10
-                    w-10
-                    place-items-center
-                    rounded-full
-                    bg-[#c73f40]
-                    text-white
-                    transition-transform
-                    duration-[900ms]
-                    ease-out
-                    hover:scale-[1.08]
-                    active:scale-[0.98]
-                  "
-                >
-                  {/* Иконка телефона (stroke = currentColor) */}
-                  <span
-                    className="
-                      inline-flex h-14 w-14 items-center justify-center
-                      rounded-full bg-[#c73f40]
-                      liquid-outline
-                    "
-                  >
-                    <PhoneIcon className="h-6 w-6 text-white" />
-                </span>
+<a
+  href="#"
+  aria-label="Заказать звонок"
+  className="
+    flex items-center gap-4
+    rounded-[999px]
+    pr-2
+  "
+>
+  {/* Круглая кнопка с иконкой */}
+  <span
+    className="
+      lg-border
+      grid
+      h-10 w-10
+      place-items-center
+      rounded-full
+      bg-[#c73f40]
+      text-white
+      liquid-outline
+      transition-transform
+      duration-[900ms]
+      ease-out
+      hover:scale-[1.08]
+      active:scale-[0.98]
+    "
+  >
+    <PhoneIcon className="h-6 w-6 text-white" aria-hidden="true" />
+  </span>
 
-                <span className="text-[13px] font-semibold text-[#c73f40] whitespace-nowrap">
-                  Заказать звонок
-                </span>
-              </a>
+  {/* Текст */}
+  <span className="text-[13px] font-semibold text-[#c73f40] whitespace-nowrap">
+    Заказать звонок
+  </span>
+</a>
             </div>
           </div>
         </div>
