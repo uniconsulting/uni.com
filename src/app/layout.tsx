@@ -6,7 +6,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body
-        className="bg-uni"
+        className="bg-uni min-h-screen text-[rgba(255,255,255,0.96)] antialiased"
         style={
           {
             // задаём корректные пути для public-ассетов с учётом basePath
