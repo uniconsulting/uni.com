@@ -68,7 +68,7 @@ export default function CTA1() {
               </a>
 
               {/* Divider 1 */}
-              <div className="hidden sm:block h-10 w-[3px] bg-neutral-100/50 blur-[0.2px]" />
+              <div className="hidden sm:block h-10 w-[3px] bg-neutral-20/50 blur-[0.2px]" />
 
               {/* Соц-кнопки */}
               <div className="flex items-center gap-3">
@@ -149,7 +149,7 @@ export default function CTA1() {
               </div>
 
               {/* Divider 2 */}
-              <div className="hidden sm:block h-10 w-[3px] bg-neutral-200/10 blur-[0.2px]" />
+              <div className="hidden sm:block h-10 w-[3px] bg-neutral-100/100 blur-[0.2px]" />
 
               {/* Заказать звонок */}
               <a
