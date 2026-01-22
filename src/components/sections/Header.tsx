@@ -190,7 +190,8 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
-                  className="lg-border inline-flexl grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px]"
+                  justify-center
+                  className="lg-border inline-flexl btn-login-slow grid h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px]"
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
@@ -209,7 +210,7 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="lg-border btn-login-slow inline-flexl h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
+                  className="lg-border inline-flexl btn-login-slow h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
                 >
                   Войти
                 </a>
