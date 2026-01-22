@@ -7,60 +7,99 @@ export default function Hero() {
     <section id="top" className="relative pt-16 pb-10 md:pt-24 md:pb-16">
       <div className="mx-auto max-w-[1240px] px-4">
         {/* Заголовок (по ТЗ: весь белый) */}
-<h1 className="premium-title mx-auto max-w-[980px] text-center text-white leading-[0.94] tracking-[-0.02em]">
-  <span className="premium-line text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
-    Кабинет твоей
-  </span>
+"use client";
 
-  <span className="premium-line text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
-    <span className="premium-word">
-      {/* Обычный текст (база) */}
-      <span className="word-fill">команды</span>
-
-      {/* SVG-обводка поверх */}
-      <svg
-        className="word-svg"
-        viewBox="0 0 100 24"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-        focusable="false"
-      >
+function KomandyWord() {
+  return (
+    <span className="komandy-svg" aria-label="команды">
+      <svg viewBox="0 0 520 90" role="img" aria-hidden="true" preserveAspectRatio="xMinYMid meet">
         <defs>
-          <linearGradient id="uniOutlineGrad" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="var(--uni-red)" />
-            <stop offset="0.55" stopColor="var(--uni-blue)" />
-            <stop offset="1" stopColor="var(--uni-red)" />
+          <linearGradient id="komandyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#c73f40" />
+            <stop offset="55%" stopColor="#1e80ff" />
+            <stop offset="100%" stopColor="#c73f40" />
           </linearGradient>
+
+          <filter id="komandyGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="0.6" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
-        {/* Важно: textLength растягивает слово в ширину контейнера.
-           Поэтому базовый белый текст остаётся HTML, а SVG только для обводки. */}
+        {/* fill (белый текст) */}
         <text
           x="0"
-          y="18"
-          textLength="100"
-          lengthAdjust="spacingAndGlyphs"
-          style={{ fontFamily: "inherit", fontWeight: 600, fontSize: 18 }}
-          className="stroke-base"
+          y="68"
+          fill="#ffffff"
+          fontSize="72"
+          fontWeight="600"
+          letterSpacing="-0.02em"
+          fontFamily="inherit"
         >
           команды
         </text>
 
+        {/* базовая тонкая обводка, еле заметная */}
         <text
           x="0"
-          y="18"
-          textLength="100"
-          lengthAdjust="spacingAndGlyphs"
-          style={{ fontFamily: "inherit", fontWeight: 600, fontSize: 18 }}
-          className="stroke-run"
+          y="68"
+          fill="transparent"
+          stroke="rgba(255,255,255,0.20)"
+          strokeWidth="2"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          fontSize="72"
+          fontWeight="600"
+          letterSpacing="-0.02em"
+          fontFamily="inherit"
+        >
+          команды
+        </text>
+
+        {/* бегущий градиентный блик по контуру */}
+        <text
+          className="komandy-sweep"
+          x="0"
+          y="68"
+          fill="transparent"
+          stroke="url(#komandyGrad)"
+          strokeWidth="3"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          filter="url(#komandyGlow)"
+          fontSize="72"
+          fontWeight="600"
+          letterSpacing="-0.02em"
+          fontFamily="inherit"
         >
           команды
         </text>
       </svg>
-    </span>{" "}
-    ИИ-агентов
-  </span>
-</h1>
+    </span>
+  );
+}
+
+export default function Hero() {
+  return (
+    <section id="top" className="relative pt-16 pb-10 md:pt-24 md:pb-16">
+      <div className="mx-auto max-w-[1240px] px-4">
+        <h1 className="hero-title--in mx-auto max-w-[980px] text-center text-white leading-[0.94] tracking-[-0.02em]">
+          <span data-line className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
+            Кабинет твоей
+          </span>
+
+          <span data-line className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
+            <KomandyWord />{" "}
+            <span className="whitespace-nowrap">ИИ-агентов</span>
+          </span>
+        </h1>
+      </div>
+    </section>
+  );
+}
 
         {/* Плейсхолдер видео/скрина */}
         <div className="mt-8 md:mt-12">
