@@ -19,11 +19,11 @@ const LINKS = {
 
 function ChevronDown(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 20 24" fill="none" {...props}>
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
       <path
         d="M5.5 7.75L10 12.25L14.5 7.75"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
