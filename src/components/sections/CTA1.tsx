@@ -68,7 +68,7 @@ export default function CTA1() {
               </a>
 
               {/* Divider 1 */}
-              <div className="hidden sm:block h-10 w-px bg-white/24" />
+              <div className="hidden sm:block h-10 w-px bg-white/34" />
 
               {/* Соц-кнопки */}
               <div className="flex items-center gap-3">
@@ -149,7 +149,7 @@ export default function CTA1() {
               </div>
 
               {/* Divider 2 */}
-              <div className="hidden sm:block h-10 w-px bg-white/24" />
+              <div className="hidden sm:block h-20 w-px bg-white/34" />
 
               {/* Заказать звонок */}
               <a
