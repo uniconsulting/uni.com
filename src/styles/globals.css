@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px; /* чтобы якоря не уезжали под header */
+}
+
 html, body {
   height: 100%;
 }
