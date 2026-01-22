@@ -23,7 +23,7 @@ export default function CTA1() {
               overflow-hidden
               mx-auto
               w-full
-              max-w-[710px]
+              max-w-[715px]
               rounded-[999px]
               border
               border-white/35
@@ -198,6 +198,7 @@ export default function CTA1() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
+                    <PhoneIcon className="h-6 w-6 text-white" />
                   </svg>
                 </span>
 
