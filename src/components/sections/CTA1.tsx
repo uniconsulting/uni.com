@@ -51,12 +51,12 @@ export default function CTA1() {
                 className="
                   lg-border
                   inline-flex
-                  h-14
+                  h-10
                   items-center
                   justify-center
                   rounded-[999px]
                   bg-[#c73f40]
-                  px-10
+                  px-4
                   text-[13px]
                   font-semibold
                   text-white
@@ -83,8 +83,8 @@ export default function CTA1() {
                   className="
                     lg-border
                     grid
-                    h-14
-                    w-14
+                    h-10
+                    w-10
                     place-items-center
                     rounded-full
                     bg-[#9AA0A6]
@@ -108,8 +108,8 @@ export default function CTA1() {
                   className="
                     lg-border
                     grid
-                    h-14
-                    w-14
+                    h-10
+                    w-10
                     place-items-center
                     rounded-full
                     bg-[#c73f40]
@@ -133,8 +133,8 @@ export default function CTA1() {
                   className="
                     lg-border
                     grid
-                    h-14
-                    w-14
+                    h-10
+                    w-10
                     place-items-center
                     rounded-full
                     bg-[#0077FF]
@@ -171,8 +171,8 @@ export default function CTA1() {
                   className="
                     lg-border
                     grid
-                    h-14
-                    w-14
+                    h-10
+                    w-10
                     place-items-center
                     rounded-full
                     bg-[#c73f40]
