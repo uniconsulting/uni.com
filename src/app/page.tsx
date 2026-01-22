@@ -6,7 +6,6 @@ export default function Page() {
   return (
     <>
       <Header />
-      <CTA1 />
         <Hero />
           <CTA1 />
       </main>
