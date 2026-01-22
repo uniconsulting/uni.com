@@ -282,6 +282,8 @@ function CallModal({
 }
 
 export default function Header() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [callOpen, setCallOpen] = useState(false);
 
@@ -297,7 +299,7 @@ export default function Header() {
               <a href="#top" className="flex items-center gap-3">
                 <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.18)] backdrop-blur-[18px]">
                   <img
-                    src={`${basePath}/public/brand/logo.svg`}
+                    src={`${basePath}/brand/logo.svg`}
                     alt="ЮНИ.ai"
                     className="h-6 w-6 object-contain"
                     draggable={false}
