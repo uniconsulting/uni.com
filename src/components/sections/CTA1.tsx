@@ -21,7 +21,7 @@ export default function CTA1() {
             className="
               mx-auto
               w-full
-              max-w-[1040px]
+              max-w-[800px]
               rounded-[999px]
               border
               border-white/35
@@ -68,7 +68,7 @@ export default function CTA1() {
               </a>
 
               {/* Divider 1 */}
-              <div className="hidden sm:block h-10 w-px bg-white/34" />
+              <div className="hidden sm:block h-10 w-[2px] bg-neutral-200/35 blur-[0.2px]" />
 
               {/* Соц-кнопки */}
               <div className="flex items-center gap-3">
@@ -149,7 +149,7 @@ export default function CTA1() {
               </div>
 
               {/* Divider 2 */}
-              <div className="hidden sm:block h-20 w-px bg-white/34" />
+              <div className="hidden sm:block h-10 w-[2px] bg-neutral-200/35 blur-[0.2px]" />
 
               {/* Заказать звонок */}
               <a
