@@ -31,8 +31,6 @@ function ChevronDown(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-<PhoneIcon className="h-5 w-5 text-white/80" />
   
 function TelegramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -195,7 +193,7 @@ export default function Header() {
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
-                  <PhoneIcon className="h-5 w-5" />
+                  <PhoneIcon className="h-5 w-5 text-white/80" />
                 </button>
 
                 <a
