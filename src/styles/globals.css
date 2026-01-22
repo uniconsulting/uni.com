@@ -172,3 +172,35 @@ body {
 .group:hover .nav-underline{
   background: #c73f40;
 }
+
+/* LiquidGlass: тонкий "хаотичный" контур бликов (не заливка) */
+.lg-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.lg-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* толщина контура */
+  pointer-events: none;
+
+  /* "хаотичные" блики по окружности */
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0.60),
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.80)
+  );
+
+  opacity: 0.75;
+
+  /* маска: оставляем только “ободок”, без заливки внутри */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
