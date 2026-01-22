@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://uniconsulting.github.io/uni.com/sitemap.xml
