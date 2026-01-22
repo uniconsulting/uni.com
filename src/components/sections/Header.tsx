@@ -333,7 +333,7 @@ export default function Header() {
                       <span className="absolute -bottom-[6px] left-0 h-[1px] w-0 bg-white/60 transition-all group-hover:w-full" />
                     </span>
                     {item.chevron ? (
-                      <ChevronDown className="h-4 w-4 opacity-80 block translate-y-[1px]" />
+                      <ChevronDown className="h-4 w-4 opacity-80 block translate-y-[2px]" />
                     ) : null}
                   </a>
                 ))}
@@ -344,7 +344,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-[18px] hover:bg-white/22"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.10)] backdrop-blur-[18px] hover:bg-white/22"
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
@@ -355,7 +355,7 @@ export default function Header() {
                   href={LINKS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-[18px] hover:bg-white/22"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.10)] backdrop-blur-[18px] hover:bg-white/22"
                   aria-label="Telegram"
                   title="Telegram"
                 >
@@ -371,7 +371,7 @@ export default function Header() {
 
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.10)] hover:bg-[#b43738] active:bg-[#9f2f30]"
                 >
                   Начать бесплатно
                 </a>
