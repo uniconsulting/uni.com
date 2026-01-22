@@ -191,7 +191,7 @@ export default function Header() {
                   type="button"
                   onClick={() => setCallOpen(true)}
                   justify-center
-                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px] ${LIQUID_ICON_ANIM}`"
+                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.03)] backdrop-blur-[18px] ${LIQUID_ICON_ANIM}`"
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
@@ -202,7 +202,7 @@ export default function Header() {
                   href={LINKS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.05)] backdrop-blur-[18px] ${LIQUID_ICON_ANIM}`"
+                  className="liquid-icon-btn grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.03)] backdrop-blur-[18px] ${LIQUID_ICON_ANIM}`"
                   aria-label="Telegram"
                   title="Telegram"
                 >
