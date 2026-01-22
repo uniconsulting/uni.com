@@ -23,7 +23,7 @@ function ChevronDown(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M5.5 7.75L10 12.25L14.5 7.75"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -37,7 +37,7 @@ function PhoneIcon(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M8.7 10.3c1.3 2.5 3.5 4.7 6 6l1.9-1.9c.3-.3.8-.4 1.2-.2 1.1.4 2.3.7 3.6.8.6.1 1 .6 1 1.2V20c0 .7-.6 1.2-1.3 1.2C11 21.2 2.8 13 2.8 2.9 2.8 2.2 3.4 1.6 4.1 1.6H7c.6 0 1.1.4 1.2 1 .1 1.2.4 2.5.8 3.6.1.4 0 .9-.3 1.2L6.9 9.2"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -76,7 +76,7 @@ function BurgerIcon(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M5 7h14M5 12h14M5 17h14"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="1.6"
         strokeLinecap="round"
       />
     </svg>
@@ -89,7 +89,7 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M6 6l12 12M18 6L6 18"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="1.6"
         strokeLinecap="round"
       />
     </svg>
@@ -333,7 +333,7 @@ export default function Header() {
                       <span className="absolute -bottom-[6px] left-0 h-[1px] w-0 bg-white/60 transition-all group-hover:w-full" />
                     </span>
                     {item.chevron ? (
-                      <ChevronDown className="h-4 w-4 opacity-80" />
+                      <ChevronDown className="h-4 w-4 opacity-80 block translate-y-[1px]" />
                     ) : null}
                   </a>
                 ))}
