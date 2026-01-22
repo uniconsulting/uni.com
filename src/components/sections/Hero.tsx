@@ -136,6 +136,5 @@ export default function Hero() {
             <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.05),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.05),transparent_65%)] opacity-80" />
         </div>
       </div>
-    </section>
   );
 }
