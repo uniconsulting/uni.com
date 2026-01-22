@@ -152,6 +152,7 @@ body {
 .btn-primary-slow:hover{
   background-color: #d04f50; /* чуть светлее #c73f40 */
 }
+
 /* Центр-меню: медленно краснеет при hover */
 .nav-link-slow{
   transition: color 1200ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -161,3 +162,13 @@ body {
   color: #c73f40;
 }
 
+.nav-underline{
+  background: rgba(255,255,255,0.6);
+  transition:
+    width 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .nav-underline{
+  background: #c73f40;
+}
