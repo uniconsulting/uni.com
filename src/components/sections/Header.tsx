@@ -297,11 +297,11 @@ export default function Header() {
     <>
       <header className="sticky top-4 z-50">
         <div className="mx-auto max-w-[1240px] px-4">
-          <div className="rounded-[999px] border border-white/40 bg-white/15 p-2 shadow-[0_12px_36px_rgba(0,0,0,0.10)] backdrop-blur-[24px]">
+          <div className="rounded-[999px] border border-white/40 bg-white/15 p-2 shadow-[0_12px_36px_rgba(0,0,0,0.5)] backdrop-blur-[24px]">
             <div className="flex items-center justify-between gap-3">
               {/* Left */}
               <a href="#top" className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.18)] backdrop-blur-[18px]">
+                <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-[18px]">
                   <img
                     src="brand/logo.svg"
                     alt="ЮНИ.ai"
@@ -344,7 +344,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.10)] backdrop-blur-[18px] hover:bg-white/22"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.5)] backdrop-blur-[18px] hover:bg-white/22"
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
@@ -355,7 +355,7 @@ export default function Header() {
                   href={LINKS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.10)] backdrop-blur-[18px] hover:bg-white/22"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-white/16 text-white shadow-[0_10px_28px_rgba(0,0,0,0.5)] backdrop-blur-[18px] hover:bg-white/22"
                   aria-label="Telegram"
                   title="Telegram"
                 >
@@ -371,7 +371,7 @@ export default function Header() {
 
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.10)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.5)] hover:bg-[#b43738] active:bg-[#9f2f30]"
                 >
                   Начать бесплатно
                 </a>
@@ -409,7 +409,7 @@ export default function Header() {
           >
             <div className="absolute inset-0 bg-black/35 backdrop-blur-[6px]" />
             <div
-              className="absolute right-3 top-3 w-[min(92vw,420px)] rounded-[28px] border border-white/40 bg-white/18 p-4 text-white shadow-[0_12px_36px_rgba(0,0,0,0.10)] backdrop-blur-[26px]"
+              className="absolute right-3 top-3 w-[min(92vw,420px)] rounded-[28px] border border-white/40 bg-white/18 p-4 text-white shadow-[0_12px_36px_rgba(0,0,0,0.5)] backdrop-blur-[26px]"
               onMouseDown={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between">
@@ -451,7 +451,7 @@ export default function Header() {
                 </a>
                 <a
                   href={LINKS.start}
-                  className="inline-flex h-11 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[14px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30]"
+                  className="inline-flex h-11 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[14px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.5)] hover:bg-[#b43738] active:bg-[#9f2f30]"
                 >
                   Начать бесплатно
                 </a>
