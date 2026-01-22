@@ -326,7 +326,7 @@ export default function Header() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="group inline-flex items-center gap-1 rounded-full px-2 py-1 hover:text-white"
+                    className="group nav-link-slow inline-flex items-center gap-1 rounded-full px-2 py-1"
                   >
                     <span className="relative">
                       {item.label}
