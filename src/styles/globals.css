@@ -17,8 +17,8 @@ body {
 }
 
 :root {
-  --japan-pattern-url: "/bg/japan-pattern-01.svg";
-  --grain-url: "/bg/grain.png";
+  --japan-pattern-url: "/uni.com/bg/japan-pattern-01.svg";
+  --grain-url: "/uni.com/bg/grain.png";
 }
 
 /* Фоновая “пластика” + японская фактура (под ассеты из /public/bg) */
