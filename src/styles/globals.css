@@ -1,11 +1,52 @@
+/* src/styles/globals.css */
+@import "./tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
+html, body {
+  height: 100%;
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  color: rgb(var(--fg-rgb));
+  background: rgb(var(--bg-rgb));
+}
+
+/* Фоновая “пластика” + японская фактура (под ассеты из /public/bg) */
+.bg-uni {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(1200px 700px at 15% 15%, rgba(255,255,255,0.22), rgba(255,255,255,0) 55%),
+              radial-gradient(900px 600px at 85% 25%, rgba(0,170,255,0.14), rgba(255,255,255,0) 60%),
+              radial-gradient(900px 700px at 70% 85%, rgba(var(--accent-rgb), 0.10), rgba(255,255,255,0) 60%),
+              rgb(var(--bg-rgb));
+}
+
+.bg-uni::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/bg/japan-pattern-01.svg");
+  background-repeat: repeat;
+  background-size: 520px 520px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.bg-uni::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/bg/grain.png");
+  background-repeat: repeat;
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Небольшая “страховка” для читабельности на фоне */
+.text-on-bg {
+  color: rgba(255, 255, 255, 0.92);
 }
