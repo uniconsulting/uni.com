@@ -1,16 +1,15 @@
-import type { ReactNode } from "react";
-
+import type { Metadata } from "next";
 import "../styles/globals.css";
 
-export const metadata = {
-  title: "Uni Landing",
-  description: "Premium landing for Uni",
+export const metadata: Metadata = {
+  title: "ЮНИ",
+  description: "ЮНИ - ИИ в каждый бизнес",
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => (
-  <html lang="ru">
-    <body>{children}</body>
-  </html>
-);
-
-export default RootLayout;
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ru">
+      <body className="bg-uni">{children}</body>
+    </html>
+  );
+}
