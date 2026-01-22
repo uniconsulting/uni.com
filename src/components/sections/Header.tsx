@@ -186,6 +186,7 @@ export default function Header() {
 
               {/* Right */}
               <div className="hidden md:flex items-center gap-3">
+                <PhoneIcon className="h-5 w-5 text-white/80" />
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
@@ -193,7 +194,6 @@ export default function Header() {
                   aria-label="Заказать звонок"
                   title="Заказать звонок"
                 >
-                  <PhoneIcon className="h-5 w-5 text-white/80" />
                 </button>
 
                 <a
@@ -209,14 +209,14 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="lg-border inline-flexl btn-login-slow h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
+                  className="lg-border btn-login-slow inline-flexl h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
                 >
                   Войти
                 </a>
 
                 <a
                   href={LINKS.start}
-                  className="lg-border inline-flexl btn-primary-slow inline-flex h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.05)]"
+                  className="lg-border btn-primary-slow inline-flexl h-10 items-center justify-center rounded-full bg-[#c73f40] px-4 text-[13px] font-semibold text-white shadow-[0_16px_42px_rgba(199,63,64,0.05)]"
                 >
                   Начать бесплатно
                 </a>
