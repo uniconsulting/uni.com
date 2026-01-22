@@ -85,3 +85,71 @@ body {
     0 18px 60px rgba(17, 24, 39, 0.12),
     0 2px 10px rgba(17, 24, 39, 0.05);
 }
+
+/* ===== Header interactions ===== */
+
+/* 1) “Жидкое” увеличение для круглых иконок */
+.liquid-icon-btn{
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+  transition:
+    transform 750ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 750ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 750ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-icon-btn::before{
+  content: "";
+  position: absolute;
+  inset: -45%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255,255,255,0.55),
+    rgba(255,255,255,0) 60%
+  );
+  opacity: 0;
+  transform: translate3d(-18%, -18%, 0) scale(0.75);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.liquid-icon-btn:hover{
+  transform: scale(1.085);
+  background-color: rgba(255,255,255,0.22);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+}
+
+.liquid-icon-btn:hover::before{
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+}
+
+.liquid-icon-btn:active{
+  transform: scale(1.045);
+}
+
+/* 2) “Войти” медленно заливается белым, контур остаётся */
+.btn-login-slow{
+  transition:
+    background-color 1200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-login-slow:hover{
+  background-color: rgba(255,255,255,0.72);
+  box-shadow: 0 18px 52px rgba(255,255,255,0.22);
+}
+
+/* 3) “Начать бесплатно” медленно светлеет */
+.btn-primary-slow{
+  transition: background-color 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary-slow:hover{
+  background-color: #d04f50; /* чуть светлее #c73f40 */
+}
+
