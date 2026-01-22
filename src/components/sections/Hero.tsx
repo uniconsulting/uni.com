@@ -8,10 +8,10 @@ export default function Hero() {
       <div className="mx-auto max-w-[1240px] px-4">
         {/* Заголовок (по ТЗ: весь белый) */}
         <h1 className="mx-auto max-w-[980px] text-center text-white leading-[0.94] tracking-[-0.02em]">
-          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
+          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[400]">
             Кабинет твоей
           </span>
-          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
+          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[400]">
             команды ИИ-агентов
           </span>
         </h1>
@@ -25,7 +25,7 @@ export default function Hero() {
               border border-white/18
               bg-white/10
               p-[10px]
-              shadow-[0_22px_70px_rgba(0,0,0,0.18)]
+              shadow-[0_22px_70px_rgba(0,0,0,0.05)]
               backdrop-blur-[26px]
             "
           >
@@ -55,7 +55,7 @@ export default function Hero() {
             </div>
 
             {/* Очень тонкая “подложка-пластика” внутри контейнера */}
-            <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.20),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.12),transparent_65%)] opacity-80" />
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.05),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.05),transparent_65%)] opacity-80" />
           </div>
         </div>
       </div>
