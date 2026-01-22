@@ -14,6 +14,11 @@ body {
   background: rgb(var(--bg-rgb));
 }
 
+:root {
+  --japan-pattern-url: "/bg/japan-pattern-01.svg";
+  --grain-url: "/bg/grain.png";
+}
+
 /* Фоновая “пластика” + японская фактура (под ассеты из /public/bg) */
 .bg-uni {
   position: relative;
@@ -28,7 +33,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/bg/japan-pattern-01.svg");
+  background-image: url(var(--japan-pattern-url));
   background-repeat: repeat;
   background-size: 520px 520px;
   opacity: 0.05;
@@ -39,7 +44,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/bg/grain.png");
+  background-image: url(var(--grain-url));
   background-repeat: repeat;
   opacity: 0.06;
   mix-blend-mode: soft-light;
