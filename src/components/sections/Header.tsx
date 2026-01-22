@@ -209,7 +209,7 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="btn-login-slow inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
+                  className="lg-border inline-flexl btn-login-slow h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40]"
                 >
                   Войти
                 </a>
