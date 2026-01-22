@@ -340,7 +340,7 @@ export default function Header() {
               </nav>
 
               {/* Right */}
-              <div className="hidden md:flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setCallOpen(true)}
@@ -364,7 +364,7 @@ export default function Header() {
 
                 <a
                   href={LINKS.login}
-                  className="ml-1 inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40] hover:bg-[#c73f40]/10"
+                  className="inline-flex h-10 items-center justify-center rounded-full border border-[#c73f40] bg-white/0 px-4 text-[13px] font-semibold text-[#c73f40] hover:bg-[#c73f40]/10"
                 >
                   Войти
                 </a>
