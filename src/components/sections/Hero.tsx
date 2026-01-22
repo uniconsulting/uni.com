@@ -8,10 +8,10 @@ export default function Hero() {
       <div className="mx-auto max-w-[1240px] px-4">
         {/* Заголовок (по ТЗ: весь белый) */}
         <h1 className="mx-auto max-w-[980px] text-center text-white leading-[0.94] tracking-[-0.02em]">
-          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[800]">
+          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
             Кабинет твоей
           </span>
-          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[800]">
+          <span className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
             команды ИИ-агентов
           </span>
         </h1>
