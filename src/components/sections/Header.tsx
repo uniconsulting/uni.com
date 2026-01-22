@@ -135,7 +135,7 @@ function CallModal({
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-[18px] font-semibold leading-tight">
+            <div className="text-[18px] font-[800] leading-tight">
               Заказать звонок
             </div>
             <div className="mt-1 text-[13px] text-[#667085]">
