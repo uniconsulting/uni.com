@@ -12,8 +12,9 @@
   --muted-fg-rgb: 90 90 90;
 
   /* Accent: #c73f40 */
-  --accent-rgb: 199 63 64;
-  --accent-fg-rgb: 255 255 255;
+  --accent: 199 63 64;          /* #c73f40 */
+  --accent-hover: 180 55 56;    /* #b43738 */
+  --accent-active: 159 47 48;   /* #9f2f30 */
 
   /* Glass + borders */
   --border-rgb: 255 255 255;
