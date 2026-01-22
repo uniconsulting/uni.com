@@ -6,24 +6,27 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier . --write"
   },
   "dependencies": {
-    "framer-motion": "^11.0.0",
-    "next": "^14.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "framer-motion": "*",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "clsx": "*",
+    "tailwind-merge": "*"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "@next/eslint-plugin-next": "^14.0.0",
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "autoprefixer": "^10.4.0",
-    "eslint": "^9.0.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.0.0"
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "autoprefixer": "*",
+    "eslint": "*",
+    "eslint-config-next": "*",
+    "postcss": "*",
+    "prettier": "*",
+    "tailwindcss": "*",
+    "typescript": "*"
   }
 }
