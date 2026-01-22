@@ -267,7 +267,7 @@ function CallModal({
             <button
               type="submit"
               disabled={!agree}
-              className="h-11 rounded-[999px] bg-[#c73f40] px-5 text-[14px] font-medium text-white shadow-[0_16px_40px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30] disabled:cursor-not-allowed disabled:opacity-60"
+              className="h-11 rounded-[999px] bg-[#c73f40] px-5 text-[14px] font-medium text-white shadow-[0_12px_36px_rgba(199,63,64,0.35)] hover:bg-[#b43738] active:bg-[#9f2f30] disabled:cursor-not-allowed disabled:opacity-60"
             >
               Отправить
             </button>
@@ -297,7 +297,7 @@ export default function Header() {
     <>
       <header className="sticky top-4 z-50">
         <div className="mx-auto max-w-[1240px] px-4">
-          <div className="rounded-[999px] border border-white/40 bg-white/15 p-2 shadow-[0_14px_44px_rgba(0,0,0,0.14)] backdrop-blur-[24px]">
+          <div className="rounded-[999px] border border-white/40 bg-white/15 p-2 shadow-[0_12px_36px_rgba(0,0,0,0.10)] backdrop-blur-[24px]">
             <div className="flex items-center justify-between gap-3">
               {/* Left */}
               <a href="#top" className="flex items-center gap-3">
@@ -409,7 +409,7 @@ export default function Header() {
           >
             <div className="absolute inset-0 bg-black/35 backdrop-blur-[6px]" />
             <div
-              className="absolute right-3 top-3 w-[min(92vw,420px)] rounded-[28px] border border-white/40 bg-white/18 p-4 text-white shadow-[0_24px_90px_rgba(0,0,0,0.40)] backdrop-blur-[26px]"
+              className="absolute right-3 top-3 w-[min(92vw,420px)] rounded-[28px] border border-white/40 bg-white/18 p-4 text-white shadow-[0_12px_36px_rgba(0,0,0,0.10)] backdrop-blur-[26px]"
               onMouseDown={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between">
