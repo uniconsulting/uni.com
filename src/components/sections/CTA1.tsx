@@ -53,7 +53,7 @@ export default function CTA1() {
                   rounded-[999px]
                   bg-[#c73f40]
                   px-10
-                  text-[18px]
+                  text-[13px]
                   font-semibold
                   text-white
                   transition-colors
@@ -84,7 +84,7 @@ export default function CTA1() {
                     place-items-center
                     rounded-full
                     bg-[#9AA0A6]
-                    text-[18px]
+                    text-[13px]
                     font-semibold
                     text-white
                     transition-transform
@@ -109,7 +109,7 @@ export default function CTA1() {
                     place-items-center
                     rounded-full
                     bg-[#c73f40]
-                    text-[18px]
+                    text-[13px]
                     font-semibold
                     text-white
                     transition-transform
@@ -134,7 +134,7 @@ export default function CTA1() {
                     place-items-center
                     rounded-full
                     bg-[#0077FF]
-                    text-[18px]
+                    text-[13px]
                     font-semibold
                     text-white
                     transition-transform
@@ -197,7 +197,7 @@ export default function CTA1() {
                   </svg>
                 </span>
 
-                <span className="text-[18px] font-semibold text-[#c73f40] whitespace-nowrap">
+                <span className="text-[13px] font-semibold text-[#c73f40] whitespace-nowrap">
                   Заказать звонок
                 </span>
               </a>
