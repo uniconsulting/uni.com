@@ -301,7 +301,7 @@ export default function Header() {
                   <img
                     src="brand/logo.svg"
                     alt="ЮНИ.ai"
-                    className="h-6 w-6 object-contain"
+                    className="h-full w-full object-cover"
                     draggable={false}
                   />
                 </div>
