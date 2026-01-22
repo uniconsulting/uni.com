@@ -1,4 +1,5 @@
 // src/components/sections/CTA1.tsx
+import { PhoneIcon } from "@/components/icons";
 
 export default function CTA1() {
   return (
