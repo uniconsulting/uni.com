@@ -205,156 +205,44 @@ body {
   mask-composite: exclude;
 }
 
-@layer utilities {
-
-/* =========================
-   Premium title (hero)
-   ========================= */
-
-:root{
-  --uni-red: #c73f40;
-  --uni-blue: #1e7cff; /* насыщённый голубой */
-}
-
-/* Появление всего заголовка: мягкая резкость + лёгкий сдвиг */
-.premium-title{
-  position: relative;
-  isolation: isolate;
-}
-
-.premium-title .premium-line{
-  display: block;
+/* Premium headline entrance */
+.hero-title--in [data-line]{
   opacity: 0;
-  transform: translateY(14px) scale(1.01);
-  filter: blur(14px);
-  animation: premiumTitleIn 1400ms cubic-bezier(.16,.84,.25,1) forwards;
-  will-change: transform, opacity, filter;
+  transform: translate3d(0,14px,0) scale(0.995);
+  filter: blur(10px);
+  animation: heroTitleLineIn 1200ms cubic-bezier(.16,1,.3,1) both;
 }
 
-.premium-title .premium-line:nth-child(1){ animation-delay: 60ms; }
-.premium-title .premium-line:nth-child(2){ animation-delay: 180ms; }
+.hero-title--in [data-line]:nth-child(1){ animation-delay: 80ms; }
+.hero-title--in [data-line]:nth-child(2){ animation-delay: 180ms; }
 
-/* Один тонкий "sheen" по заголовку (1 раз) */
-.premium-title::after{
-  content: "";
-  position: absolute;
-  left: -25%;
-  top: -20%;
-  width: 150%;
-  height: 160%;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,.10) 35%,
-    rgba(255,255,255,.55) 50%,
-    rgba(255,255,255,.10) 65%,
-    transparent 100%
-  );
-  transform: translateX(-55%) skewX(-12deg);
-  mix-blend-mode: overlay;
-  opacity: 0;
-  animation: premiumSheen 1900ms cubic-bezier(.2,.8,.2,1) 520ms forwards;
-}
-
-@keyframes premiumTitleIn{
-  0%{
-    opacity: 0;
-    transform: translateY(14px) scale(1.01);
-    filter: blur(14px);
-  }
-  60%{
-    opacity: .95;
-  }
-  100%{
+@keyframes heroTitleLineIn{
+  to{
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0,0,0) scale(1);
     filter: blur(0);
   }
 }
 
-@keyframes premiumSheen{
-  0%{
-    opacity: 0;
-    transform: translateX(-55%) skewX(-12deg);
-  }
-  18%{ opacity: 1; }
-  100%{
-    opacity: 0;
-    transform: translateX(55%) skewX(-12deg);
-  }
-}
-
-/* =========================
-   Outline gradient runner for the word
-   ========================= */
-
-.premium-word{
-  position: relative;
-  display: inline-grid;
+/* "команды" ultra-slow outline sweep */
+.komandy-svg{
+  display: inline-block;
   vertical-align: baseline;
-  isolation: isolate;
+  line-height: 1;
 }
 
-.premium-word > *{
-  grid-area: 1 / 1;
+.komandy-svg svg{
+  height: 1em;
+  width: auto;
+  overflow: visible;
+  display: block;
 }
 
-/* Базовый белый текст остаётся обычным (читабельность) */
-.premium-word .word-fill{
-  position: relative;
-  z-index: 1;
+.komandy-sweep{
+  stroke-dasharray: 60 1200;
+  animation: komandySweep 14s linear infinite;
 }
 
-/* SVG-обводка поверх */
-.premium-word .word-svg{
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Лёгкая базовая обводка, почти незаметная */
-.premium-word .stroke-base{
-  fill: none;
-  stroke: rgba(255,255,255,.30);
-  stroke-width: 1.15;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-/* Бегущий сегмент: видно только часть контура (dash), внутри неё градиент */
-.premium-word .stroke-run{
-  fill: none;
-  stroke: url(#uniOutlineGrad);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-
-  /* Длина сегмента + пауза. Можно подстроить */
-  stroke-dasharray: 48 340;
-  animation: outlineDash 18s linear infinite;
-
-  /* Очень мягкое свечение, чтобы было "дороже", но без неона */
-  filter: drop-shadow(0 0 6px rgba(30,124,255,.16))
-          drop-shadow(0 0 6px rgba(199,63,64,.14));
-}
-
-@keyframes outlineDash{
-  0%{ stroke-dashoffset: 0; }
-  100%{ stroke-dashoffset: -388; }
-}
-
-/* Уважение к reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .premium-title .premium-line,
-  .premium-title::after,
-  .premium-word .stroke-run{
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-  }
+@keyframes komandySweep{
+  to{ stroke-dashoffset: -1260; }
 }
