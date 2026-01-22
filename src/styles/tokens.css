@@ -1,6 +1,42 @@
+/* src/styles/tokens.css */
 :root {
-  --uni-red: #c73f40;
-  --uni-blur: 24px;
-  --uni-radius: 24px;
-  --uni-shadow: 0 24px 60px rgba(0, 0, 0, 0.15);
+  /* Base background: #b1cfeb */
+  --bg-rgb: 177 207 235;
+  --fg-rgb: 255 255 255; /* белый текст на фоне */
+
+  /* Inside glass cards */
+  --card-rgb: 255 255 255;
+  --card-fg-rgb: 20 20 20; /* мягкий тёмно-серый/почти чёрный */
+
+  --muted-rgb: 255 255 255;
+  --muted-fg-rgb: 90 90 90;
+
+  /* Accent: #c73f40 */
+  --accent-rgb: 199 63 64;
+  --accent-fg-rgb: 255 255 255;
+
+  /* Glass + borders */
+  --border-rgb: 255 255 255;
+
+  /* Radii */
+  --radius-card: 28px;
+  --radius-glass: 32px;
+
+  /* Blur */
+  --blur-glass: 20px;
+
+  /* Shadows (2 слоя, мягкие) */
+  --shadow-glass: 0 18px 60px rgba(0, 0, 0, 0.18);
+  --shadow-glass-soft: 0 10px 40px rgba(0, 0, 0, 0.12);
+
+  /* Glass fill defaults */
+  --glass-bg: rgba(255, 255, 255, 0.18);
+  --glass-bg-strong: rgba(255, 255, 255, 0.24);
+  --glass-border: rgba(255, 255, 255, 0.28);
+
+  /* Animation timings */
+  --ease-premium: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 700ms;
 }
