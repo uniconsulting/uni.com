@@ -12,6 +12,7 @@ html, body {
 }
 
 body {
+  font-family: var(--font-garet), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: rgb(var(--fg-rgb));
   background: rgb(var(--bg-rgb));
 }
