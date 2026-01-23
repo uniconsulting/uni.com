@@ -128,4 +128,3 @@ function KomandyWord({ className = "" }: { className?: string }) {
     </span>
   );
 }
-
