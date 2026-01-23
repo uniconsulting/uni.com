@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section id="top" className="relative pt-16 pb-10 md:pt-24 md:pb-16">
       <div className="mx-auto max-w-[1240px] px-4">
-        <h1 className="mx-auto max-w-[980px] text-center text-white leading-[0.94] tracking-[-0.02em]">
+        <h1 className="mx-auto max-w-[1240px] text-center text-white leading-[0.94] tracking-[-0.02em]">
           <span
             className="
               uni-hero-line uni-hero-line--1
