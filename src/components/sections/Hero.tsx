@@ -21,7 +21,7 @@ export default function Hero() {
           <span
             className="
               uni-hero-line uni-hero-line--1
-              block text-[40px] sm:text-[60px] md:text-[74px] font-[600]
+              block text-[36px] sm:text-[54px] md:text-[70px] font-[600]
             "
           >
             Кабинет твоей команды
