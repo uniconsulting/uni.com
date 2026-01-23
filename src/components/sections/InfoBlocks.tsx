@@ -35,7 +35,7 @@ export default function InfoBlocks() {
         <div
           className="
             relative mx-auto max-w-[1240px]
-            rounded-[34px]
+            rounded-[26px]
             border border-white/18
             bg-white/10
             p-[10px] md:p-[14px]
