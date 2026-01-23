@@ -33,7 +33,7 @@ export default function Hero() {
         <div className="mt-8 md:mt-12">
           <div
             className="
-              relative mx-auto max-w-[980px]
+              relative mx-auto max-w-[1240px]
               rounded-[34px]
               border border-white/18
               bg-white/10
