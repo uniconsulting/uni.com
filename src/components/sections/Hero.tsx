@@ -12,14 +12,10 @@ export default function Hero() {
           </span>
 
           <span data-line className="block text-[44px] sm:text-[60px] md:text-[74px] font-[600]">
-            <KomandyWord />{" "}
+            <KomandyWord className="mx-[0.12em]" />
             <span className="whitespace-nowrap">ИИ-агентов</span>
           </span>
         </h1>
-      </div>
-    </section>
-  );
-}
 
         {/* Плейсхолдер видео/скрина */}
         <div className="mt-8 md:mt-12">
@@ -34,7 +30,7 @@ export default function Hero() {
               backdrop-blur-[26px]
             "
           >
-            {/* Лёгкий внутренний хайлайт для “дороговизны” */}
+            {/* Лёгкий внутренний хайлайт */}
             <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
 
             {/* Белая вставка 16:9 */}
@@ -59,10 +55,12 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Очень тонкая “подложка-пластика” внутри контейнера */}
+            {/* Тонкая подложка */}
             <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.05),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.05),transparent_65%)] opacity-80" />
+          </div>
         </div>
       </div>
+    </section>
   );
 }
 
@@ -78,7 +76,14 @@ function KomandyWord({ className = "" }: { className?: string }) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="komandyStrokeGrad" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="komandyStrokeGrad"
+            x1="0"
+            y1="0"
+            x2="100"
+            y2="0"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0" stopColor="#c73f40" />
             <stop offset="0.52" stopColor="#2f9bff" />
             <stop offset="1" stopColor="#c73f40" />
@@ -89,11 +94,7 @@ function KomandyWord({ className = "" }: { className?: string }) {
             <feColorMatrix
               in="blur"
               type="matrix"
-              values="
-                1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                0 0 0 0.55 0"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.55 0"
               result="glow"
             />
             <feMerge>
@@ -103,25 +104,11 @@ function KomandyWord({ className = "" }: { className?: string }) {
           </filter>
         </defs>
 
-        {/* базовая тонкая обводка */}
-        <text
-          className="komandy__outline"
-          x="0"
-          y="15.4"
-          textLength="100"
-          lengthAdjust="spacingAndGlyphs"
-        >
+        <text className="komandy__outline" x="0" y="15.4" textLength="100" lengthAdjust="spacingAndGlyphs">
           команды
         </text>
 
-        {/* движущийся “световой” сегмент по контуру */}
-        <text
-          className="komandy__sweep"
-          x="0"
-          y="15.4"
-          textLength="100"
-          lengthAdjust="spacingAndGlyphs"
-        >
+        <text className="komandy__sweep" x="0" y="15.4" textLength="100" lengthAdjust="spacingAndGlyphs">
           команды
         </text>
       </svg>
