@@ -7,7 +7,7 @@ const ROTATE_PHRASES = [
   "отдела продаж",
   "тех-поддержки",
   "администраторов",
-  "мечты",
+  "- команды мечты",
 ];
 
 // 2.5s на фразу, по ТЗ
@@ -84,13 +84,13 @@ function RotatingPhrase() {
           // весь цикл (например 5 * 2.5 = 12.5s)
           ["--uni-rotate-total" as any]: `${totalSeconds}s`,
           // когда стартовать после появления второй строки (можешь подвинуть: 0.8s / 1.2s)
-          ["--uni-rotate-start" as any]: `2.0s`,
+          ["--uni-rotate-start" as any]: `2.5s`,
         } as React.CSSProperties
       }
     >
       {/* ширина под самую длинную фразу, чтобы ничего не скакало */}
       <span className="uni-rotate__sizer" aria-hidden="true">
-        тех-поддержки
+        администраторов
       </span>
 
       {ROTATE_PHRASES.map((text, i) => (
