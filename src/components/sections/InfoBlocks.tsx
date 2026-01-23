@@ -114,7 +114,7 @@ function InfoCard({
             {title}
           </h3>
 
-          <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.6] text-[#667085]">
+          <p className="mt-3 text-[14px] sm:text-[15px] leading-[0.8] text-[#667085]">
             {text}
           </p>
         </div>
