@@ -10,7 +10,7 @@ const ROTATE_PHRASES = [
   "- команды мечты",
 ];
 
-// 2.5s на фразу, по ТЗ
+// 3.5s на фразу
 const SLOT_SECONDS = 3.5;
 
 export default function Hero() {
@@ -21,7 +21,7 @@ export default function Hero() {
           <span
             className="
               uni-hero-line uni-hero-line--1
-              block text-[44px] sm:text-[60px] md:text-[74px] font-[600]
+              block text-[40px] sm:text-[60px] md:text-[74px] font-[600]
             "
           >
             Кабинет твоей команды
@@ -81,7 +81,7 @@ function RotatingPhrase() {
       className="uni-rotate whitespace-nowrap"
       style={
         {
-          // весь цикл (например 5 * 2.5 = 12.5s)
+          // весь цикл 
           ["--uni-rotate-total" as any]: `${totalSeconds}s`,
           // когда стартовать после появления второй строки (можешь подвинуть: 0.8s / 1.2s)
           ["--uni-rotate-start" as any]: `2.5s`,
