@@ -35,7 +35,7 @@ export default function InfoBlocks() {
         <div
           className="
             relative mx-auto max-w-[1240px]
-            rounded-[26px]
+            rounded-[34px]
             border border-white/18
             bg-white/10
             p-[10px] md:p-[14px]
@@ -44,7 +44,7 @@ export default function InfoBlocks() {
           "
         >
           {/* Лёгкий внутренний хайлайт */}
-          <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-white/10" />
 
           <div className="relative space-y-4 md:space-y-6">
             {BLOCKS.map((b, idx) => (
