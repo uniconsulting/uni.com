@@ -2,79 +2,6 @@
 
 import React from "react";
 
-function KomandyWord() {
-  return (
-    <span className="komandy-svg" aria-label="команды">
-      <svg viewBox="0 0 520 90" role="img" aria-hidden="true" preserveAspectRatio="xMinYMid meet">
-        <defs>
-          <linearGradient id="komandyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#c73f40" />
-            <stop offset="55%" stopColor="#1e80ff" />
-            <stop offset="100%" stopColor="#c73f40" />
-          </linearGradient>
-
-          <filter id="komandyGlow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="0.6" result="b" />
-            <feMerge>
-              <feMergeNode in="b" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        {/* fill (белый текст) */}
-        <text
-          x="0"
-          y="68"
-          fill="#ffffff"
-          fontSize="72"
-          fontWeight="600"
-          letterSpacing="-0.02em"
-          fontFamily="inherit"
-        >
-          команды
-        </text>
-
-        {/* базовая тонкая обводка, еле заметная */}
-        <text
-          x="0"
-          y="68"
-          fill="transparent"
-          stroke="rgba(255,255,255,0.20)"
-          strokeWidth="2"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-          fontSize="72"
-          fontWeight="600"
-          letterSpacing="-0.02em"
-          fontFamily="inherit"
-        >
-          команды
-        </text>
-
-        {/* бегущий градиентный блик по контуру */}
-        <text
-          className="komandy-sweep"
-          x="0"
-          y="68"
-          fill="transparent"
-          stroke="url(#komandyGrad)"
-          strokeWidth="3"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-          filter="url(#komandyGlow)"
-          fontSize="72"
-          fontWeight="600"
-          letterSpacing="-0.02em"
-          fontFamily="inherit"
-        >
-          команды
-        </text>
-      </svg>
-    </span>
-  );
-}
-
 export default function Hero() {
   return (
     <section id="top" className="relative pt-16 pb-10 md:pt-24 md:pb-16">
@@ -138,3 +65,67 @@ export default function Hero() {
       </div>
   );
 }
+
+function KomandyWord({ className = "" }: { className?: string }) {
+  return (
+    <span className={`komandy ${className}`}>
+      <span className="komandy__base">команды</span>
+
+      <svg
+        className="komandy__svg"
+        viewBox="0 0 100 20"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="komandyStrokeGrad" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#c73f40" />
+            <stop offset="0.52" stopColor="#2f9bff" />
+            <stop offset="1" stopColor="#c73f40" />
+          </linearGradient>
+
+          <filter id="komandyGlow" x="-30%" y="-60%" width="160%" height="220%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0.35" result="blur" />
+            <feColorMatrix
+              in="blur"
+              type="matrix"
+              values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.55 0"
+              result="glow"
+            />
+            <feMerge>
+              <feMergeNode in="glow" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* базовая тонкая обводка */}
+        <text
+          className="komandy__outline"
+          x="0"
+          y="15.4"
+          textLength="100"
+          lengthAdjust="spacingAndGlyphs"
+        >
+          команды
+        </text>
+
+        {/* движущийся “световой” сегмент по контуру */}
+        <text
+          className="komandy__sweep"
+          x="0"
+          y="15.4"
+          textLength="100"
+          lengthAdjust="spacingAndGlyphs"
+        >
+          команды
+        </text>
+      </svg>
+    </span>
+  );
+}
+
