@@ -110,11 +110,11 @@ function InfoCard({
             ${flip ? "md:col-span-6 md:order-2" : "md:col-span-6 md:order-1"}
           `}
         >
-          <h3 className="text-[20px] sm:text-[22px] md:text-[28px] font-[650] tracking-[-0.02em] text-[#121212]">
+          <h3 className="text-[20px] sm:text-[22px] md:text-[28px] font-[650] tracking-[-0.02em] leading-[1.0] text-[#121212]">
             {title}
           </h3>
 
-          <p className="mt-3 text-[14px] sm:text-[15px] leading-[0.8] text-[#667085]">
+          <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.5] text-[#667085]">
             {text}
           </p>
         </div>
