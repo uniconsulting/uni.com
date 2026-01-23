@@ -30,7 +30,7 @@ export default function Hero() {
           <span
             className="
               uni-hero-line uni-hero-line--2
-              block text-[40px] sm:text-[60px] md:text-[74px] font-[600]
+              block text-[36px] sm:text-[60px] md:text-[74px] font-[600]
             "
           >
             команды
