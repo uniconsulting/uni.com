@@ -38,13 +38,13 @@ export default function InfoBlocks() {
             rounded-[34px]
             border border-white/18
             bg-white/10
-            p-[10px] md:p-[14px]
+            p-[10px] 
             shadow-[0_22px_70px_rgba(0,0,0,0.05)]
             backdrop-blur-[26px] backdrop-saturate-150
           "
         >
           {/* Лёгкий внутренний хайлайт */}
-          <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-[36px] ring-1 ring-white/10" />
 
           <div className="relative space-y-4 md:space-y-6">
             {BLOCKS.map((b, idx) => (
@@ -78,7 +78,7 @@ function InfoCard({
     <article
       className="
         relative overflow-hidden
-        rounded-[30px]
+        rounded-[26px]
         border border-white/22
         bg-white/65
         shadow-[0_18px_55px_rgba(0,0,0,0.06)]
