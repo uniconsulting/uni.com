@@ -11,7 +11,7 @@ const ROTATE_PHRASES = [
 ];
 
 // 2.5s на фразу, по ТЗ
-const SLOT_SECONDS = 2.5;
+const SLOT_SECONDS = 3.5;
 
 export default function Hero() {
   return (
@@ -24,16 +24,7 @@ export default function Hero() {
               block text-[44px] sm:text-[60px] md:text-[74px] font-[600]
             "
           >
-            Кабинет твоей
-          </span>
-
-          <span
-            className="
-              uni-hero-line uni-hero-line--2
-              block text-[36px] sm:text-[60px] md:text-[74px] font-[600]
-            "
-          >
-            команды
+            Кабинет твоей команды
             <RotatingPhrase />
           </span>
         </h1>
@@ -93,7 +84,7 @@ function RotatingPhrase() {
           // весь цикл (например 5 * 2.5 = 12.5s)
           ["--uni-rotate-total" as any]: `${totalSeconds}s`,
           // когда стартовать после появления второй строки (можешь подвинуть: 0.8s / 1.2s)
-          ["--uni-rotate-start" as any]: `1.0s`,
+          ["--uni-rotate-start" as any]: `2.0s`,
         } as React.CSSProperties
       }
     >
