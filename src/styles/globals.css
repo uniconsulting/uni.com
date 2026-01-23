@@ -206,96 +206,135 @@ body {
 }
 
 @layer utilities {
-  /* Премиальное появление заголовка */
-  .title-reveal {
-    animation: titleReveal 1.35s cubic-bezier(.16, 1, .3, 1) both;
+  /* 1-2) Премиальное появление строк */
+  .uni-hero-line {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.995);
+    filter: blur(10px);
+    will-change: transform, opacity, filter;
   }
-  @keyframes titleReveal {
+
+  .uni-hero-line--1 {
+    animation: uni-hero-in 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .uni-hero-line--2 {
+    animation: uni-hero-in 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 220ms;
+  }
+
+  @keyframes uni-hero-in {
     0% {
       opacity: 0;
-      transform: translateY(14px) scale(0.985);
+      transform: translate3d(0, 10px, 0) scale(0.995);
       filter: blur(12px);
     }
     65% {
       opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
       filter: blur(0);
     }
     100% {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
       filter: blur(0);
     }
   }
 
-  /* Слово "команды": белый текст + поверх обводка с бегущим градиентом */
-  .komandy {
+  /* 3-6) Цикличная смена фразы: “стирается -> появляется” */
+  .uni-rotate {
     position: relative;
     display: inline-block;
-    line-height: 1;
     vertical-align: baseline;
+    margin-left: 0.22em;
   }
 
-  .komandy__base {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-  }
-
-  .komandy__svg {
-    position: absolute;
-    left: -0.22em;
-    top: -0.18em;
-    width: calc(100% + 0.44em);
-    height: calc(1em + 0.36em);
-    z-index: 3;
+  /* Резервирует ширину под самую длинную фразу, чтобы заголовок не прыгал */
+  .uni-rotate__sizer {
+    opacity: 0;
     pointer-events: none;
-    overflow: visible;
+    white-space: nowrap;
   }
 
-  .komandy__svg text {
-    font-family: inherit;
-    font-weight: 600;
-    /* важный момент: в координатах viewBox это “попадает” в высоту 20 */
-    font-size: 16px;
-    letter-spacing: inherit;
+  .uni-rotate__item {
+    position: absolute;
+    inset: 0;
+    white-space: nowrap;
+
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    filter: blur(10px);
+    transform: translate3d(0, 6px, 0);
+
+    will-change: clip-path, opacity, transform, filter;
+
+    animation-name: uni-rotate-slot;
+    animation-duration: var(--uni-rotate-total, 12.5s);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-iteration-count: infinite;
+    animation-delay: calc(var(--uni-rotate-start, 1.0s) + var(--uni-rotate-delay, 0s));
   }
 
-  .komandy__outline {
-    fill: transparent;
-    stroke: rgba(255, 255, 255, 0.16);
-    stroke-width: 0.85;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+  /* Важное: “окно” видимости — первые 20% (это 2.5 сек при total=12.5s) */
+  @keyframes uni-rotate-slot {
+    0% {
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+      filter: blur(10px);
+      transform: translate3d(0, 6px, 0);
+    }
 
-  .komandy__sweep {
-    fill: transparent;
-    stroke: url(#komandyStrokeGrad);
-    stroke-width: 0.95;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    /* мягкое появление (≈0.75s) */
+    6% {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
+    }
 
-    /* “световой сегмент” едет по контуру очень медленно */
-    stroke-dasharray: 14 160;
-    animation: komandyDash 18s linear infinite;
-    filter: url(#komandyGlow);
-  }
+    /* удержание */
+    14% {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
+    }
 
-  @keyframes komandyDash {
-    to {
-      stroke-dashoffset: -174;
+    /* мягкое “стирание” (≈0.75s) */
+    20% {
+      opacity: 0;
+      clip-path: inset(0 0 0 100%);
+      filter: blur(10px);
+      transform: translate3d(0, -6px, 0);
+    }
+
+    /* скрыто до конца цикла */
+    100% {
+      opacity: 0;
+      clip-path: inset(0 0 0 100%);
+      filter: blur(10px);
+      transform: translate3d(0, -6px, 0);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .title-reveal,
-    .komandy__sweep {
+    .uni-hero-line,
+    .uni-hero-line--1,
+    .uni-hero-line--2,
+    .uni-rotate__item {
       animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      clip-path: none !important;
+    }
+
+    .uni-rotate__item {
+      position: static !important;
+    }
+
+    .uni-rotate__sizer {
+      display: none !important;
     }
   }
-}
-
-
-@keyframes komandySweep{
-  to{ stroke-dashoffset: -1260; }
 }
