@@ -215,12 +215,12 @@ body {
   }
 
   .uni-hero-line--1 {
-    animation: uni-hero-in 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: uni-hero-in 2100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .uni-hero-line--2 {
-    animation: uni-hero-in 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 220ms;
+    animation: uni-hero-in 2100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 620ms;
   }
 
   @keyframes uni-hero-in {
