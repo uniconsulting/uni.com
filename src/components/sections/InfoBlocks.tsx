@@ -128,11 +128,11 @@ function MediaPlaceholder() {
     <div
       className="
         relative
-        rounded-[26px]
+        rounded-[18px]
         border border-white/22
         bg-white/10
         p-[10px]
-        shadow-[0_20px_60px_rgba(0,0,0,0.06)]
+        shadow-[0_20px_60px_rgba(0,0,0,0.05)]
         backdrop-blur-[22px] backdrop-saturate-150
       "
     >
@@ -142,7 +142,7 @@ function MediaPlaceholder() {
       <div
         className="
           relative overflow-hidden
-          rounded-[18px]
+          rounded-[12px]
           border border-white/22
           bg-white/75
           aspect-video
