@@ -205,43 +205,96 @@ body {
   mask-composite: exclude;
 }
 
-/* Premium headline entrance */
-.hero-title--in [data-line]{
-  opacity: 0;
-  transform: translate3d(0,14px,0) scale(0.995);
-  filter: blur(10px);
-  animation: heroTitleLineIn 1200ms cubic-bezier(.16,1,.3,1) both;
-}
+@layer utilities {
+  /* Премиальное появление заголовка */
+  .title-reveal {
+    animation: titleReveal 1.35s cubic-bezier(.16, 1, .3, 1) both;
+  }
+  @keyframes titleReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+      filter: blur(12px);
+    }
+    65% {
+      opacity: 1;
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
 
-.hero-title--in [data-line]:nth-child(1){ animation-delay: 80ms; }
-.hero-title--in [data-line]:nth-child(2){ animation-delay: 180ms; }
+  /* Слово "команды": белый текст + поверх обводка с бегущим градиентом */
+  .komandy {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: baseline;
+  }
 
-@keyframes heroTitleLineIn{
-  to{
-    opacity: 1;
-    transform: translate3d(0,0,0) scale(1);
-    filter: blur(0);
+  .komandy__base {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+  }
+
+  .komandy__svg {
+    position: absolute;
+    left: -0.22em;
+    top: -0.18em;
+    width: calc(100% + 0.44em);
+    height: calc(1em + 0.36em);
+    z-index: 3;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .komandy__svg text {
+    font-family: inherit;
+    font-weight: 600;
+    /* важный момент: в координатах viewBox это “попадает” в высоту 20 */
+    font-size: 16px;
+    letter-spacing: inherit;
+  }
+
+  .komandy__outline {
+    fill: transparent;
+    stroke: rgba(255, 255, 255, 0.16);
+    stroke-width: 0.85;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .komandy__sweep {
+    fill: transparent;
+    stroke: url(#komandyStrokeGrad);
+    stroke-width: 0.95;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    /* “световой сегмент” едет по контуру очень медленно */
+    stroke-dasharray: 14 160;
+    animation: komandyDash 18s linear infinite;
+    filter: url(#komandyGlow);
+  }
+
+  @keyframes komandyDash {
+    to {
+      stroke-dashoffset: -174;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .title-reveal,
+    .komandy__sweep {
+      animation: none !important;
+    }
   }
 }
 
-/* "команды" ultra-slow outline sweep */
-.komandy-svg{
-  display: inline-block;
-  vertical-align: baseline;
-  line-height: 1;
-}
-
-.komandy-svg svg{
-  height: 1em;
-  width: auto;
-  overflow: visible;
-  display: block;
-}
-
-.komandy-sweep{
-  stroke-dasharray: 60 1200;
-  animation: komandySweep 14s linear infinite;
-}
 
 @keyframes komandySweep{
   to{ stroke-dashoffset: -1260; }
