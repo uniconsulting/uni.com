@@ -34,7 +34,7 @@ export default function InfoBlocks() {
         {/* Общая LiquidGlass-рамка под все 3 карточки (как у плейсхолдера в Hero) */}
         <div
           className="
-            relative mx-auto max-w-[1140px]
+            relative mx-auto max-w-[1240px]
             rounded-[34px]
             border border-white/18
             bg-white/10
