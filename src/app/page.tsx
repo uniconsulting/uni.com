@@ -2,7 +2,7 @@ import Header from "../components/sections/Header";
 import Hero from "../components/sections/Hero";
 import CTA1 from "../components/sections/CTA1";
 import InfoBlocks from "../components/sections/InfoBlocks";
-import InfoBlocks from "../components/sections/Niches";
+import Niches from "../components/sections/Niches";
 
 export default function Page() {
   return (
