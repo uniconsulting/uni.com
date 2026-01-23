@@ -1,66 +1,51 @@
 import React from "react";
 
-type Niche = {
-  label: string;
-  accent?: boolean;
-};
-
-const NICHES: Niche[] = [
-  { label: "Ремонт коммерческих помещений" },
-  { label: "Автосервис" },
-  { label: "Обслуживание мобильных устройств" },
-  { label: "Аренда квартир" },
-  { label: "Стоматологическая клиника", accent: true },
-  { label: "Груминг" },
-  { label: "Производство (b2b)" },
-  { label: "Онлайн-школа" },
-  { label: "Детейлинг-студия" },
-  { label: "Магазин одежды" },
+const NICHES: string[] = [
+  "Ремонт коммерческих помещений",
+  "Автосервис",
+  "Обслуживание мобильных устройств",
+  "Аренда квартир",
+  "Стоматологическая клиника",
+  "Груминг",
+  "Производство (b2b)",
+  "Онлайн-школа",
+  "Детейлинг-студия",
+  "Магазин одежды",
+  "И ещё десятки ниш",
 ];
 
 export default function NichesBlock() {
   return (
-    <section id="niches" className="relative py-16 md:py-24">
+    <section id="niches" className="relative py-14 md:py-20">
       <div className="mx-auto max-w-[1240px] px-4">
+        {/* Заголовок (весь белый) */}
         <div className="mx-auto max-w-[980px] text-center">
-          <h2 className="text-white leading-[0.96] tracking-[-0.02em]">
-            <span className="block text-[34px] sm:text-[44px] md:text-[56px] font-[700]">
+          <h2 className="text-white leading-[0.95] tracking-[-0.02em]">
+            <span className="block text-[42px] sm:text-[58px] md:text-[72px] font-[700]">
               Готовые настройки
             </span>
-            <span className="mt-2 block text-[28px] sm:text-[38px] md:text-[48px] font-[700]">
+            <span className="mt-2 block text-[34px] sm:text-[48px] md:text-[60px] font-[700]">
               для самых разных направлений
             </span>
           </h2>
         </div>
 
-        {/* мягкая “тень-подушка” под группой пилюль, как в референсе */}
-        <div className="relative mt-10 md:mt-14">
-          <div className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-44 max-w-[980px] rounded-[999px] bg-black/10 blur-[80px] opacity-40" />
+        <div className="relative mt-10 md:mt-12">
+          {/* Мягкая “тень-подложка” под облако пилюль (как в референсе) */}
+          <div
+            className="
+              pointer-events-none absolute left-1/2 top-1/2
+              h-[260px] w-[980px] -translate-x-1/2 -translate-y-1/2
+              rounded-[999px]
+              bg-black/10 blur-[70px] opacity-40
+            "
+          />
 
-          <div className="relative mx-auto flex max-w-[980px] flex-wrap justify-center gap-4 md:gap-5">
-            {NICHES.map((n) => (
-              <Pill key={n.label} accent={!!n.accent}>
-                {n.label}
-              </Pill>
+          {/* Пилюли */}
+          <div className="relative mx-auto flex max-w-[980px] flex-wrap justify-center gap-x-4 gap-y-4">
+            {NICHES.map((label) => (
+              <Pill key={label}>{label}</Pill>
             ))}
-
-            {/* “и ещё…” пилюля-плейсхолдер (как последняя в референсе) */}
-            <div
-              className="
-                lg-border
-                inline-flex items-center justify-center
-                h-12 sm:h-13
-                rounded-[999px]
-                px-7
-                bg-white/10
-                border border-white/22
-                backdrop-blur-[22px] backdrop-saturate-150
-                shadow-[0_18px_55px_rgba(0,0,0,0.06)]
-              "
-              aria-hidden="true"
-            >
-              <span className="h-[8px] w-[140px] rounded-full bg-gradient-to-r from-white/25 via-white/70 to-white/25 opacity-80 animate-pulse" />
-            </div>
           </div>
         </div>
       </div>
@@ -68,31 +53,38 @@ export default function NichesBlock() {
   );
 }
 
-function Pill({
-  children,
-  accent,
-}: {
-  children: React.ReactNode;
-  accent?: boolean;
-}) {
+function Pill({ children }: { children: React.ReactNode }) {
+  const isMore = typeof children === "string" && children.includes("десятки");
+
   return (
     <span
-      className={[
-        "lg-border",
-        "inline-flex items-center justify-center",
-        "h-12 sm:h-13",
-        "rounded-[999px]",
-        "px-6 sm:px-7",
-        "bg-white/10",
-        "border border-white/22",
-        "backdrop-blur-[22px] backdrop-saturate-150",
-        "shadow-[0_18px_55px_rgba(0,0,0,0.06)]",
-        "transition-transform duration-[900ms] ease-out hover:scale-[1.03] active:scale-[0.99]",
-        "whitespace-nowrap",
-        accent ? "text-[#c73f40] font-[700]" : "text-[#121212] font-[650]",
-      ].join(" ")}
+      className={`
+        ${isMore ? "px-8" : "px-7"}
+        inline-flex select-none items-center justify-center
+        rounded-full py-3
+        text-[14px] sm:text-[15px] font-[650]
+        whitespace-nowrap
+        ${isMore ? "text-[#0f172a]/70" : "text-[#0f172a]/85"}
+        border border-white/22 bg-white/10
+        backdrop-blur-[22px] backdrop-saturate-150
+        shadow-[0_18px_55px_rgba(0,0,0,0.06)]
+        transition-transform duration-[900ms] ease-out
+        hover:scale-[1.03] active:scale-[0.99]
+        lg-border
+        relative
+      `}
     >
-      <span className="text-[13px] sm:text-[14px] leading-none">{children}</span>
+      {isMore ? (
+        <>
+          {/* маленький “дорогой” акцент внутри пилюли */}
+          <span className="relative z-10">{children}</span>
+          <span className="pointer-events-none absolute inset-0 rounded-full">
+            <span className="absolute left-1/2 top-1/2 h-[6px] w-[140px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,rgba(199,63,64,0.25),rgba(177,207,235,0.55),rgba(199,63,64,0.25))] blur-[0.2px]" />
+          </span>
+        </>
+      ) : (
+        children
+      )}
     </span>
   );
 }
