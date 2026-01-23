@@ -44,7 +44,7 @@ export default function InfoBlocks() {
           "
         >
           {/* Лёгкий внутренний хайлайт */}
-          <div className="pointer-events-none absolute inset-0 rounded-[36px] ring-1 ring-white/10" />
+          <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
 
           <div className="relative space-y-4 md:space-y-6">
             {BLOCKS.map((b, idx) => (
@@ -81,7 +81,7 @@ function InfoCard({
         rounded-[26px]
         border border-white/22
         bg-white/65
-        shadow-[0_18px_55px_rgba(0,0,0,0.06)]
+        shadow-[0_18px_55px_rgba(0,0,0,0.05)]
         backdrop-blur-[20px] backdrop-saturate-150
       "
     >
@@ -136,7 +136,7 @@ function MediaPlaceholder() {
         backdrop-blur-[22px] backdrop-saturate-150
       "
     >
-      <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-white/10" />
+      <div className="pointer-events-none absolute inset-0 rounded-[18px] ring-1 ring-white/10" />
 
       {/* Белая вставка 16:9 */}
       <div
