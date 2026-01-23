@@ -128,7 +128,7 @@ function MediaPlaceholder() {
         border border-white/22
         bg-white/10
         p-[10px]
-        shadow-[0_20px_60px_rgba(0,0,0,0.05)]
+        shadow-[0_20px_60px_rgba(0,0,0,0.03)]
         backdrop-blur-[22px] backdrop-saturate-150
       "
     >
@@ -157,7 +157,7 @@ function MediaPlaceholder() {
       </div>
 
       {/* Тонкая внутренняя пластика */}
-      <div className="pointer-events-none absolute inset-0 rounded-[12px] bg-[radial-gradient(700px_220px_at_30%_0%,rgba(255,255,255,0.06),transparent_60%),radial-gradient(700px_260px_at_80%_100%,rgba(199,63,64,0.05),transparent_65%)] opacity-80" />
+      <div className="pointer-events-none absolute inset-0 rounded-[12px] bg-[radial-gradient(700px_220px_at_30%_0%,rgba(255,255,255,0.03),transparent_60%),radial-gradient(700px_260px_at_80%_100%,rgba(199,63,64,0.03),transparent_65%)] opacity-80" />
     </div>
   );
 }
