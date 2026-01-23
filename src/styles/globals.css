@@ -215,12 +215,12 @@ body {
   }
 
   .uni-hero-line--1 {
-    animation: uni-hero-in 2100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: uni-hero-in 2800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .uni-hero-line--2 {
-    animation: uni-hero-in 2100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 620ms;
+    animation: uni-hero-in 2800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 1520ms;
   }
 
   @keyframes uni-hero-in {
@@ -272,7 +272,7 @@ body {
     animation-duration: var(--uni-rotate-total, 12.5s);
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     animation-iteration-count: infinite;
-    animation-delay: calc(var(--uni-rotate-start, 1.0s) + var(--uni-rotate-delay, 0s));
+    animation-delay: calc(var(--uni-rotate-start, 2.0s) + var(--uni-rotate-delay, 0s));
   }
 
   /* Важное: “окно” видимости — первые 20% (это 2.5 сек при total=12.5s) */
