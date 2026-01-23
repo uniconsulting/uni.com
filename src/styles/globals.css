@@ -285,7 +285,7 @@ body {
     }
 
     /* мягкое появление (≈0.75s) */
-    6% {
+    10% {
       opacity: 1;
       clip-path: inset(0 0 0 0);
       filter: blur(0);
