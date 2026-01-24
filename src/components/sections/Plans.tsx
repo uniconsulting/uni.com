@@ -217,7 +217,7 @@ export default function PricingPlansSection() {
         </div>
 
         {/* Общий контейнер карточек (как в макете: большая рамка вокруг всех) */}
-        <div className="relative mx-auto mt-10 max-w-[1120px]">
+        <div className="relative mx-auto mt-10 max-w-[1240px]">
           <div
             className="
               lg-border
