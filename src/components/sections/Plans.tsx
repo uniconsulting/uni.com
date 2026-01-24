@@ -422,10 +422,6 @@ export default function PricingPlansSection() {
             Прозрачные условия, никаких скрытых платежей.
           </div>
 
-<div className="mt-3 flex justify-center">
-  <span className="uniGlassSweep relative inline-block overflow-hidden rounded-[999px] px-2 py-[2px] text-[#41e18b] font-semibold tracking-[-0.01em] text-[13px] sm:text-[24px]">
-    + инвестиционная окупаемость
-
     {/* стеклянный блик */}
     <span
       aria-hidden="true"
