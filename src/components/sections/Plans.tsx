@@ -483,10 +483,12 @@ export default function PricingPlansSection() {
 >
   <span
     className={[
-      "inline-flex h-10 items-center rounded-full px-4 text-[12px] font-semibold border transition-[background-color,color,box-shadow,transform] duration-[900ms] ease-out",
-      billing === "yearly"
-        ? "bg-white/85 text-[#0f172a] border-white/10 shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
-        : "bg-[#c73f40]/12 text-[#c73f40] border-[#c73f40]/18",
+      // фон всегда белый, как у "Ежемесячно"
+      "inline-flex h-10 items-center rounded-[999px] px-4",
+      "bg-white/85 border border-white/10 shadow-[0_16px_45px_rgba(0,0,0,0.08)]",
+      "text-[12px] font-semibold transition-colors duration-[600ms]",
+      // цвет текста меняется только при выборе yearly
+      billing === "yearly" ? "text-[#c73f40]" : "text-[#0f172a]",
     ].join(" ")}
   >
     -20%
