@@ -486,68 +486,70 @@ export default function PricingPlansSection() {
             + инвестиционная окупаемость
           </div>
 
-          {/* Переключатель billing */}
-          <div className="mt-7 flex justify-center">
-            <div
-              className="
-                lg-border
-                inline-flex items-center gap-2
-                rounded-[999px]
-                border border-white/22
-                bg-white/10
-                p-1
-                backdrop-blur-[22px] backdrop-saturate-150
-                shadow-[0_22px_70px_rgba(0,0,0,0.05)]
-              "
-              role="tablist"
-              aria-label="Вариант оплаты"
-            >
-              <button
-                type="button"
-                onClick={() => setBilling("monthly")}
-                aria-pressed={billing === "monthly"}
-                className={[
-                  "h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
-                  "active:scale-[0.99]",
-                  billing === "monthly"
-                    ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
-                    : "text-white/75 hover:text-white hover:scale-[1.02]",
-                ].join(" ")}
-              >
-                Ежемесячно
-              </button>
+{/* Переключатель billing */}
+<div className="mt-7 flex justify-center">
+  <div
+    className="
+      lg-border
+      w-[min(560px,100%)]   /* <-- тут уменьшаешь/увеличиваешь ширину панели */
+      rounded-[999px]
+      border border-white/22
+      bg-white/10
+      p-2                  /* <-- одинаковый отступ слева/справа */
+      backdrop-blur-[22px] backdrop-saturate-150
+      shadow-[0_22px_70px_rgba(0,0,0,0.05)]
+    "
+    role="tablist"
+    aria-label="Вариант оплаты"
+  >
+    <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
+      <button
+        type="button"
+        onClick={() => setBilling("monthly")}
+        aria-pressed={billing === "monthly"}
+        className={[
+          "h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+          "active:scale-[0.99]",
+          billing === "monthly"
+            ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+            : "text-white/75 hover:text-white hover:scale-[1.02]",
+        ].join(" ")}
+      >
+        Ежемесячно
+      </button>
 
-              <button
-                type="button"
-                onClick={() => setBilling("yearly")}
-                aria-pressed={billing === "yearly"}
-                className={[
-                  "h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
-                  "active:scale-[0.99] inline-flex items-center gap-2",
-                  billing === "yearly"
-                    ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
-                    : "text-white/75 hover:text-white hover:scale-[1.02]",
-                ].join(" ")}
-              >
-                Годовой
-                <span
-                  className="
-                    ml-1
-                    rounded-full
-                    bg-[#c73f40]/12
-                    px-2 py-1
-                    text-[12px]
-                    font-semibold
-                    text-[#c73f40]
-                    border border-[#c73f40]/18
-                  "
-                >
-                  -20%
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
+      <button
+        type="button"
+        onClick={() => setBilling("yearly")}
+        aria-pressed={billing === "yearly"}
+        className={[
+          "h-10 justify-self-center rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+          "active:scale-[0.99]",
+          billing === "yearly"
+            ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+            : "text-white/75 hover:text-white hover:scale-[1.02]",
+        ].join(" ")}
+      >
+        Годовой
+      </button>
+
+      <button
+        type="button"
+        onClick={() => setBilling("yearly")}
+        aria-pressed={billing === "yearly"}
+        className={[
+          "h-10 justify-self-center rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+          "active:scale-[0.99]",
+          billing === "yearly"
+            ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+            : "text-white/75 hover:text-white hover:scale-[1.02]",
+        ].join(" ")}
+      >
+        -20%
+      </button>
+    </div>
+  </div>
+</div>
 
         {/* Общий контейнер карточек (упаковку НЕ меняем) */}
         <div className="relative mx-auto mt-10 max-w-[1240px]">
