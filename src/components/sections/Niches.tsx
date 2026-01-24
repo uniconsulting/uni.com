@@ -116,9 +116,9 @@ function NichePill({
         backdrop-blur-[22px] backdrop-saturate-150
         shadow-[0_22px_70px_rgba(0,0,0,0.05)]
         lg-border
-        transition-[transform] duration-[2600ms]
-        ease-[cubic-bezier(0.16,1,0.3,1)]
-        hover:scale-[1.035] active:scale-[0.995]
+        transition-[transform] duration-[900ms]
+        ease-out
+        hover:scale-[1.08] active:scale-[0.98]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
         ${active ? "ring-1 ring-[#c73f40]/20" : ""}
       `}
