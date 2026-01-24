@@ -3,9 +3,7 @@
 import React from "react";
 
 type Props = {
-  /** Если хочешь связать с демо-чатом напрямую, можешь передать колбек */
   onSelectNiche?: (niche: string) => void;
-  /** Опционально: подсветка выбранной ниши извне */
   value?: string;
 };
 
@@ -24,8 +22,6 @@ const PILL_ITEMS: PillItem[] = [
   { label: "Онлайн-школа" },
   { label: "Детейлинг-студия" },
   { label: "Магазин одежды" },
-
-  // последняя “пилюля-загрузка”
   { kind: "loading" },
 ];
 
@@ -36,19 +32,17 @@ export default function NichesBlock({ onSelectNiche, value }: Props) {
   const selectNiche = (niche: string) => {
     setInternalValue(niche);
     onSelectNiche?.(niche);
-
-    // Для секции "6. Демо-чат": можно слушать window.addEventListener("uni:niche-select", ...)
     window.dispatchEvent(new CustomEvent("uni:niche-select", { detail: { niche } }));
   };
 
   return (
     <section id="niches" className="relative py-14 md:py-20">
-      {/* локальная анимация shimmer, чтобы не лезть в globals.css */}
+      {/* локальные keyframes (чтобы не ломать globals.css) */}
       <style>{`
-        @keyframes uniShimmer {
-          0% { transform: translateX(-60%); opacity: .65; }
-          50% { opacity: 1; }
-          100% { transform: translateX(60%); opacity: .65; }
+        @keyframes uniLoaderFlow {
+          0%   { background-position: 0% 50%; opacity: .70; }
+          50%  { opacity: 1; }
+          100% { background-position: 100% 50%; opacity: .70; }
         }
       `}</style>
 
@@ -64,17 +58,17 @@ export default function NichesBlock({ onSelectNiche, value }: Props) {
         </div>
 
         <div className="relative mt-10 md:mt-12">
-          {/* мягкая “подложка-облако” под пилюли */}
+          {/* мягкая “подложка-облако” */}
           <div
             className="
               pointer-events-none absolute left-1/2 top-1/2
-              h-[260px] w-[980px] -translate-x-1/2 -translate-y-1/2
+              h-[280px] w-[980px] -translate-x-1/2 -translate-y-1/2
               rounded-[999px]
-              bg-black/10 blur-[70px] opacity-35
+              bg-black/10 blur-[80px] opacity-30
             "
           />
 
-          <div className="relative mx-auto flex max-w-[980px] flex-wrap justify-center gap-x-4 gap-y-4">
+          <div className="relative mx-auto flex max-w-[980px] flex-wrap justify-center gap-x-6 gap-y-6">
             {PILL_ITEMS.map((item, idx) => {
               if (item.kind === "loading") {
                 return <LoadingPill key={`loading-${idx}`} />;
@@ -112,44 +106,47 @@ function NichePill({
     <button
       type="button"
       onClick={onClick}
-      className={`
-        relative inline-flex select-none items-center justify-center
-        rounded-full px-7 py-3
-        whitespace-nowrap
-        text-[14px] sm:text-[15px]
-        font-[400]
-        transition-[transform,color,background-color,border-color,box-shadow] duration-[900ms] ease-out
-        hover:scale-[1.06] active:scale-[0.98]
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
-        ${active ? "scale-[1.02]" : ""}
-      `}
       aria-pressed={active}
+      className={`
+        relative inline-flex items-center justify-center
+        rounded-[999px]
+        p-[10px]
+        border border-white/22
+        bg-white/10
+        backdrop-blur-[22px] backdrop-saturate-150
+        shadow-[0_22px_70px_rgba(0,0,0,0.05)]
+        lg-border
+        transition-[transform] duration-[1600ms]
+        ease-[cubic-bezier(0.16,1,0.3,1)]
+        hover:scale-[1.045] active:scale-[0.995]
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+        ${active ? "ring-1 ring-[#c73f40]/20" : ""}
+      `}
     >
-      {/* “тело” пилюли */}
+      {/* тонкий внутренний хайлайт как “дорогая пластика” */}
+      <span className="pointer-events-none absolute inset-0 rounded-[999px] ring-1 ring-white/12" />
+      <span className="pointer-events-none absolute inset-0 rounded-[999px] opacity-70 bg-[radial-gradient(900px_220px_at_25%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_220px_at_80%_100%,rgba(199,63,64,0.06),transparent_65%)]" />
+
+      {/* белая “пилюля” внутри */}
       <span
         className={`
           relative z-10 inline-flex items-center justify-center
-          rounded-full px-7 py-3
+          rounded-full
+          px-8 py-3
+          bg-white/82
+          border
+          ${active ? "border-[#c73f40]/18" : "border-black/10"}
+          shadow-[0_16px_45px_rgba(0,0,0,0.06)]
+          text-[14px] sm:text-[15px]
+          font-[400]
+          whitespace-nowrap
+          transition-colors duration-[900ms] ease-out
           ${active ? "text-[#c73f40]" : "text-[#0f172a]"}
           hover:text-[#c73f40]
-          bg-white/70
-          backdrop-blur-[18px] backdrop-saturate-150
-          shadow-[0_18px_55px_rgba(0,0,0,0.06)]
-          border
-          ${active ? "border-[#c73f40]/25" : "border-black/10"}
-          lg-border
         `}
       >
         {children}
       </span>
-
-      {/* очень тонкий внутренний хайлайт (дороговизна) */}
-      <span
-        className={`
-          pointer-events-none absolute inset-0 rounded-full
-          ring-1 ring-white/35
-        `}
-      />
     </button>
   );
 }
@@ -158,31 +155,46 @@ function LoadingPill() {
   return (
     <div
       className="
-        relative inline-flex select-none items-center justify-center
-        rounded-full px-7 py-3
-        bg-white/70
-        backdrop-blur-[18px] backdrop-saturate-150
-        shadow-[0_18px_55px_rgba(0,0,0,0.06)]
-        border border-black/10
+        relative inline-flex items-center justify-center
+        rounded-[999px]
+        p-[10px]
+        border border-white/22
+        bg-white/10
+        backdrop-blur-[22px] backdrop-saturate-150
+        shadow-[0_22px_70px_rgba(0,0,0,0.05)]
         lg-border
-        overflow-hidden
-        min-w-[190px]
       "
       aria-hidden="true"
     >
-      {/* “текст” пустой, вместо него линия загрузки */}
-      <div className="relative h-[10px] w-[140px] rounded-full bg-black/10 overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(199,63,64,0.00), rgba(199,63,64,0.35), rgba(177,207,235,0.75), rgba(199,63,64,0.35), rgba(199,63,64,0.00))",
-            animation: "uniShimmer 1.9s ease-in-out infinite",
-          }}
-        />
-      </div>
+      <span className="pointer-events-none absolute inset-0 rounded-[999px] ring-1 ring-white/12" />
+      <span className="pointer-events-none absolute inset-0 rounded-[999px] opacity-70 bg-[radial-gradient(900px_220px_at_25%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_220px_at_80%_100%,rgba(177,207,235,0.10),transparent_65%)]" />
 
-      <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/35" />
+      {/* внутренняя белая пилюля (как у остальных) */}
+      <div
+        className="
+          relative z-10 inline-flex items-center justify-center
+          rounded-full
+          px-8 py-3
+          bg-white/82
+          border border-black/10
+          shadow-[0_16px_45px_rgba(0,0,0,0.06)]
+          min-w-[220px]
+        "
+      >
+        {/* “дорогая” загрузка: мягкий перелив внутри полоски */}
+        <div className="relative h-[10px] w-[170px] overflow-hidden rounded-full bg-black/10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, rgba(199,63,64,0.00), rgba(199,63,64,0.18), rgba(177,207,235,0.85), rgba(199,63,64,0.18), rgba(199,63,64,0.00))",
+              backgroundSize: "220% 100%",
+              filter: "blur(0.2px)",
+              animation: "uniLoaderFlow 2.8s cubic-bezier(0.16,1,0.3,1) infinite",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
