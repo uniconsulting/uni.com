@@ -107,21 +107,21 @@ function NichePill({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`
-        relative inline-flex items-center justify-center
-        rounded-[999px]
-        p-[10px]
-        border border-white/22
-        bg-white/10
-        backdrop-blur-[22px] backdrop-saturate-150
-        shadow-[0_22px_70px_rgba(0,0,0,0.05)]
-        lg-border
-        transition-[transform] duration-[4900ms]
-        ease-out
-        hover:scale-[1.08] active:scale-[0.98]
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
-        ${active ? "ring-1 ring-[#c73f40]/20" : ""}
-      `}
+className={`
+  relative inline-flex items-center justify-center
+  rounded-[999px]
+  p-[10px]
+  border border-white/22
+  bg-white/10
+  backdrop-blur-[22px] backdrop-saturate-150
+  shadow-[0_22px_70px_rgba(0,0,0,0.05)]
+  lg-border
+
+  transform-gpu will-change-transform
+  transition-transform duration-[900ms]
+  ease-[cubic-bezier(0.16,1,0.3,1)]
+  hover:scale-[1.08] active:scale-[0.98]
+`}
     >
       {/* тонкий внутренний хайлайт как “дорогая пластика” */}
       <span className="pointer-events-none absolute inset-0 rounded-[999px] ring-1 ring-white/12" />
