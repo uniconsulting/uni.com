@@ -482,7 +482,7 @@ export default function PricingPlansSection() {
             Прозрачные условия, никаких скрытых платежей.
           </div>
 
-          <div className="mt-3 text-white/55 font-semibold tracking-[-0.01em] text-[13px] sm:text-[14px]">
+          <div className="mt-3 text-white/55 font-semibold tracking-[-0.01em] text-[13px] sm:text-[24px]">
             + инвестиционная окупаемость
           </div>
 
