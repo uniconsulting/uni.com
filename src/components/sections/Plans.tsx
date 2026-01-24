@@ -348,7 +348,7 @@ export default function PricingPlansSection() {
         </div>
 
         {/* Доп-услуги */}
-        <div className="mx-auto mt-10 max-w-[1120px]">
+        <div className="mx-auto mt-10 max-w-[1240px]">
           <div
             className="
               lg-border
