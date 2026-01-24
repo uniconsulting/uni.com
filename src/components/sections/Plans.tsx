@@ -210,32 +210,39 @@ const PLANS: Plan[] = [
   },
 ];
 
-type Addon = {
+type ServiceCard = {
   title: string;
-  desc: string;
-  price: string;
+  subtitle: string;
+  bullets: string[];
+  chips: string[];
 };
 
-const ADDONS: Addon[] = [
+const SERVICES: ServiceCard[] = [
   {
-    title: "Интеграции под ключ",
-    desc: "AmoCRM, телефония, Telegram, аналитика. Сценарии, права, маршрутизация.",
-    price: "от 179 900₽",
+    title: "Обучение команд / Консалтинг",
+    subtitle:
+      "Обучаем руководителей и команды тому, как применять нейросети в ежедневной работе и получать измеримый эффект.",
+    chips: ["Руководители", "Команды", "Практика", "Результат"],
+    bullets: [
+      "Документация, регламенты, база знаний",
+      "Отчёты, аналитика, KPI, управленческие сводки",
+      "Таблицы, расчёты, финмодели, Excel-рутины",
+      "Договоры, письма, коммерческие предложения",
+      "Сценарии, промпты, стандарты качества ответов",
+    ],
   },
   {
-    title: "Настройка базы знаний",
-    desc: "Регламенты, FAQ, документы, инструкции. Удобный справочник для сотрудников.",
-    price: "от 49 990₽",
-  },
-  {
-    title: "Контроль качества",
-    desc: "Скрипты, оценка диалогов, отчёты, алерты. Поддержка и улучшения.",
-    price: "от 49 990₽",
-  },
-  {
-    title: "Обучение команды",
-    desc: "Роли, промпты, сценарии. Внедрение привычек использования в повседневной работе.",
-    price: "от 29 990₽",
+    title: "Индивидуальная разработка",
+    subtitle:
+      "Проектная разработка решений под вашу задачу: от идеи и ТЗ до готового внедрения и сопровождения.",
+    chips: ["Проектно", "Под ключ", "Интеграции", "Сопровождение"],
+    bullets: [
+      "Сбор требований и формализация задачи",
+      "Проектирование логики, ролей, сценариев",
+      "Разработка MVP и доведение до итоговой версии",
+      "Интеграции с сервисами, CRM/ERP, площадками",
+      "Запуск, контроль качества, улучшения по данным",
+    ],
   },
 ];
 
@@ -310,6 +317,176 @@ function MegaMenu({ openKey, onClose }: { openKey: Plan["key"] | null; onClose: 
   }, [openKey, onClose]);
 
   if (!mounted || !plan) return null;
+
+  function IntegrationMegaMenu({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const [mounted, setMounted] = React.useState(false);
+  const [entered, setEntered] = React.useState(false);
+
+  React.useEffect(() => setMounted(true), []);
+
+  React.useEffect(() => {
+    if (!open) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const t = window.setTimeout(() => setEntered(true), 10);
+
+    return () => {
+      window.clearTimeout(t);
+      setEntered(false);
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, onClose]);
+
+  if (!mounted || !open) return null;
+
+  const blocks = [
+    {
+      title: "Диагностика и проектирование",
+      items: ["Аудит", "Разработка ТЗ"],
+    },
+    {
+      title: "Знания и подготовка контента",
+      items: [
+        "Адаптация документов и информации для базы знаний",
+        "Упаковка базы знаний",
+        "Написание промптов",
+      ],
+    },
+    {
+      title: "Сборка и запуск",
+      items: [
+        "Разработка MVP-версии",
+        "Тестирование",
+        "Внесение правок",
+        "Доработка до итоговой версии",
+      ],
+    },
+    {
+      title: "Интеграции и сопровождение",
+      items: [
+        "Интеграции с сервисами/площадками/платформами, CRM, ERP",
+        "Последующее сопровождение",
+      ],
+    },
+  ];
+
+  return createPortal(
+    <div className="fixed inset-0 z-[9999]">
+      <div
+        className={[
+          "absolute inset-0 bg-black/35 backdrop-blur-[10px] transition-opacity duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+          entered ? "opacity-100" : "opacity-0",
+        ].join(" ")}
+        onMouseDown={onClose}
+      />
+
+      {/* Под-секция вместо “Доп-услуги” */}
+<div className="mx-auto mt-10 max-w-[1240px]">
+  <div
+    className="
+      lg-border
+      rounded-[34px]
+      border border-white/18
+      bg-white/10
+      p-[10px]
+      shadow-[0_22px_70px_rgba(0,0,0,0.05)]
+      backdrop-blur-[26px] backdrop-saturate-150
+    "
+  >
+    <div className="rounded-[26px] bg-white/82 border border-black/10 lg-border p-6">
+      <div className="grid gap-3 md:grid-cols-2">
+        {SERVICES.map((s) => (
+          <div
+            key={s.title}
+            className="
+              lg-border
+              rounded-[18px]
+              border border-black/10
+              bg-white/70
+              p-5
+              shadow-[0_16px_45px_rgba(0,0,0,0.05)]
+              h-full
+            "
+          >
+            <div className="text-[16px] font-semibold text-[#0f172a] tracking-[-0.01em]">
+              {s.title}
+            </div>
+
+            <div className="mt-2 text-[13px] leading-[1.4] text-[#475467]">
+              {s.subtitle}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {s.chips.map((t) => (
+                <span
+                  key={t}
+                  className="
+                    rounded-full
+                    border border-black/10
+                    bg-white
+                    px-3 py-1
+                    text-[12px]
+                    font-semibold
+                    text-[#0f172a]
+                    shadow-[0_10px_26px_rgba(0,0,0,0.04)]
+                  "
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-4 space-y-2">
+              {s.bullets.map((it) => (
+                <div
+                  key={it}
+                  className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]"
+                >
+                  <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70" />
+                  <span className="min-w-0">{it}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-[12px] text-[#98A2B3]">
+          * Стоимость интеграций зависит от состава систем и глубины сценариев.
+        </div>
+
+        <button
+          type="button"
+          onClick={openIntegration}
+          className="
+            inline-flex items-center gap-2
+            text-[12px] font-semibold
+            text-[#0f172a]
+            hover:text-[#c73f40]
+            transition-colors duration-[600ms]
+          "
+        >
+          Подробнее <EyeIcon />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
   return createPortal(
     <div className="fixed inset-0 z-[9999]">
@@ -406,6 +583,9 @@ function MegaMenu({ openKey, onClose }: { openKey: Plan["key"] | null; onClose: 
 export default function PricingPlansSection() {
   const [billing, setBilling] = React.useState<Billing>("monthly");
   const [openKey, setOpenKey] = React.useState<Plan["key"] | null>(null);
+  const [integrationOpen, setIntegrationOpen] = React.useState(false);
+const openIntegration = React.useCallback(() => setIntegrationOpen(true), []);
+const closeIntegration = React.useCallback(() => setIntegrationOpen(false), []);
 
   const openMega = React.useCallback((key: Plan["key"]) => setOpenKey(key), []);
   const closeMega = React.useCallback(() => setOpenKey(null), []);
@@ -692,6 +872,7 @@ export default function PricingPlansSection() {
       </div>
 
       <MegaMenu openKey={openKey} onClose={closeMega} />
+      <IntegrationMegaMenu open={integrationOpen} onClose={closeIntegration} />
     </section>
   );
 }
