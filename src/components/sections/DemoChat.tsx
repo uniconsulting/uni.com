@@ -2,20 +2,12 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-type RoleKey = "sales" | "support" | "handbook";
+type RoleKey = "sales" | "support" | "kb";
 
-type Message = {
+type Msg = {
   id: string;
-  role: "user" | "assistant";
+  from: "user" | "ai";
   text: string;
-};
-
-const ACCENT = "#c73f40";
-
-const ROLE_LABEL: Record<RoleKey, string> = {
-  sales: "Отдел продаж",
-  support: "Тех-поддержка",
-  handbook: "Справочник",
 };
 
 const NICHES = [
@@ -31,691 +23,711 @@ const NICHES = [
   "Магазин одежды",
 ] as const;
 
-type Niche = (typeof NICHES)[number];
+const ROLES: { key: RoleKey; label: string }[] = [
+  { key: "sales", label: "Отдел продаж" },
+  { key: "support", label: "Тех-поддержка" },
+  { key: "kb", label: "Справочник" },
+];
 
-const FAQ: Record<Niche, Record<RoleKey, string[]>> = {
-  "Ремонт коммерческих помещений": {
-    sales: [
-      "Здравствуйте, сколько стоит ремонт офиса 120 м² под ключ?",
-      "Сколько занимает ремонт помещения в среднем?",
-      "Можете посчитать смету по плану и ТЗ?",
-    ],
-    support: [
-      "Как узнать статус работ по объекту?",
-      "Как согласовать допработы, если появились в процессе?",
-      "Куда отправить фото/видео для оценки?",
-    ],
-    handbook: [
-      "Где у нас шаблон сметы и акта выполненных работ?",
-      "Как оформить согласование допработ?",
-      "Какой регламент по сдаче этапов?",
-    ],
-  },
-  Автосервис: {
+const FAQ: Record<
+  (typeof NICHES)[number],
+  Record<RoleKey, string[]>
+> = {
+  "Автосервис": {
     sales: [
       "Здравствуйте, сколько стоит замена масла и фильтров?",
       "Есть свободное окно на сегодня после 17:00?",
-      "Даете гарантию на работы и запчасти?",
+      "Даёте гарантию на работы и запчасти?",
     ],
     support: [
-      "Как узнать статус заказа-наряда?",
-      "После ремонта загорелся чек, что делать?",
-      "Можно ли привезти свои запчасти?",
+      "Не открывается карточка клиента, что делать?",
+      "Как перенести запись на другое время?",
+      "Куда прикрепить фото дефекта по авто?",
     ],
-    handbook: [
-      "Как у нас добавить комментарий к заказ-наряду в amoCRM?",
-      "Где шаблон акта/заказ-наряда?",
-      "Как оформить возврат/рекламацию?",
-    ],
-  },
-  "Обслуживание мобильных устройств": {
-    sales: [
-      "Сколько стоит замена экрана на iPhone 13?",
-      "Сколько времени занимает диагностика?",
-      "Какая гарантия на ремонт?",
-    ],
-    support: [
-      "Телефон греется после ремонта, это нормально?",
-      "Как проверить статус ремонта?",
-      "Что делать, если не работает Face ID?",
-    ],
-    handbook: [
-      "Как оформить приём устройства и согласие клиента?",
-      "Где чек-лист диагностики?",
-      "Как фиксировать заменённые детали в системе?",
+    kb: [
+      "Как у нас добавить комментарий к заказ-наряду в AmoCRM?",
+      "Где лежит регламент по приёмке автомобиля?",
+      "Как оформить возврат по запчасти?",
     ],
   },
-  "Аренда квартир": {
-    sales: [
-      "Здравствуйте, есть ли 1-комнатная в центре на месяц?",
-      "Какие условия по залогу и комиссии?",
-      "Можно ли с животными?",
-    ],
-    support: [
-      "Как записаться на просмотр?",
-      "Какие документы нужны для заселения?",
-      "Как продлить аренду на следующий месяц?",
-    ],
-    handbook: [
-      "Где шаблон договора аренды и акта передачи?",
-      "Как проверяем арендатора по регламенту?",
-      "Какие правила по возврату залога?",
-    ],
-  },
+
   "Стоматологическая клиника": {
     sales: [
       "Здравствуйте, сколько стоит удаление зуба мудрости?",
-      "Можно записаться на завтра после 18:00?",
-      "Какая гарантия на имплантацию?",
+      "Есть ли свободное окно на консультацию в ближайшие дни?",
+      "Можно ли оплатить в рассрочку?",
     ],
     support: [
-      "Как подготовиться к удалению зуба?",
-      "Что делать, если болит после пломбы?",
-      "Как отменить или перенести запись?",
+      "Как перенести запись пациента без потери слота?",
+      "Куда загрузить снимок/КТ пациента?",
+      "Как оформить возврат/отмену визита?",
     ],
-    handbook: [
-      "Где в CRM смотреть историю пациента?",
-      "Как оформить возврат предоплаты?",
-      "Как создать задачу врачу/администратору?",
+    kb: [
+      "Как у нас оформить повторный визит в CRM?",
+      "Где регламент по стерилизации инструментов?",
+      "Как правильно закрывать смену администратора?",
     ],
   },
-  Груминг: {
+
+  "Ремонт коммерческих помещений": {
     sales: [
-      "Сколько стоит стрижка шпица?",
-      "Есть ли свободные окна на выходных?",
-      "Можно ли сделать экспресс-услугу за 1 час?",
+      "Сколько будет стоить ремонт помещения 120 м² под ключ?",
+      "Какие сроки по проекту и старту работ?",
+      "Можно ли сделать смету в 2 вариантах бюджета?",
     ],
     support: [
-      "Как подготовить питомца к грумингу?",
-      "Что делать, если питомец агрессивный?",
-      "Можно ли присутствовать на процедуре?",
+      "Как согласовать изменения в смете после старта?",
+      "Куда загружать фотоотчёты со стройки?",
+      "Как оформить акт выполненных работ?",
     ],
-    handbook: [
-      "Как фиксируем особенности питомца в карточке клиента?",
-      "Где прайс и регламент по породам?",
-      "Как оформить предоплату и перенос записи?",
+    kb: [
+      "Где наш шаблон договора под ремонтные работы?",
+      "Какой порядок согласования материалов с заказчиком?",
+      "Какие этапы контроля качества обязательны?",
     ],
   },
+
+  "Обслуживание мобильных устройств": {
+    sales: [
+      "Сколько стоит замена экрана на iPhone 13?",
+      "Сколько по времени занимает диагностика?",
+      "Есть ли гарантия на замену дисплея?",
+    ],
+    support: [
+      "Телефон не включается после падения, что проверить первым?",
+      "Как оформить приёмку устройства в системе?",
+      "Куда сохраняем фото состояния устройства до ремонта?",
+    ],
+    kb: [
+      "Какие у нас правила по оригинальным и аналоговым запчастям?",
+      "Где чек-лист при выдаче устройства клиенту?",
+      "Как оформляется возврат по гарантии?",
+    ],
+  },
+
+  "Аренда квартир": {
+    sales: [
+      "Здравствуйте, квартира свободна на ближайшие даты?",
+      "Какие условия заселения и залога?",
+      "Можно ли с животными?",
+    ],
+    support: [
+      "Как продлить проживание, если гость уже заселён?",
+      "Что делать, если гость не может попасть в квартиру?",
+      "Куда фиксируем инциденты и ущерб?",
+    ],
+    kb: [
+      "Где у нас инструкция по чек-ин/чек-ауту?",
+      "Как оформлять возврат залога и в какие сроки?",
+      "Какие правила уборки и приёмки после выезда?",
+    ],
+  },
+
+  "Груминг": {
+    sales: [
+      "Сколько стоит комплекс для шпицa?",
+      "Есть ли запись на выходные?",
+      "Как подготовить питомца к грумингу?",
+    ],
+    support: [
+      "Что делать, если клиент опаздывает на 30 минут?",
+      "Куда заносим пожелания по стрижке?",
+      "Как оформлять повторную запись?",
+    ],
+    kb: [
+      "Какие у нас стандарты по инструментам и обработке?",
+      "Где чек-лист мастера по породам?",
+      "Как считаем доплаты за колтуны/сложность?",
+    ],
+  },
+
   "Производство (b2b)": {
     sales: [
-      "Здравствуйте, какие сроки производства партии 1000 шт?",
-      "Можно получить КП и спецификацию?",
-      "Какие условия оплаты и доставки?",
+      "Сможете сделать КП на партию 1000 единиц?",
+      "Какие сроки производства и поставки?",
+      "Есть ли отсрочка платежа для юрлиц?",
     ],
     support: [
-      "Как отследить статус заказа и отгрузки?",
-      "Как оформить рекламацию по партии?",
-      "Куда отправлять техтребования/чертежи?",
+      "Как отследить статус заказа по клиенту?",
+      "Куда прикреплять спецификацию и чертежи?",
+      "Как оформить рекламацию по качеству?",
     ],
-    handbook: [
-      "Где шаблон КП, договора и спецификации?",
-      "Какой регламент согласования ТЗ клиента?",
-      "Как ведём учёт изменений по версии спецификации?",
+    kb: [
+      "Где регламент согласования ТЗ с производством?",
+      "Какой порядок контроля качества на партии?",
+      "Как оформляем закрывающие документы?",
     ],
   },
+
   "Онлайн-школа": {
     sales: [
-      "Здравствуйте, чем ваш курс отличается от других?",
-      "Сколько длится обучение и есть ли рассрочка?",
-      "Какие результаты у студентов?",
+      "Сколько стоит курс и что входит?",
+      "Есть ли пробный урок/демо-доступ?",
+      "Можно ли оплатить частями?",
     ],
     support: [
-      "Не получается войти в личный кабинет, что делать?",
-      "Где найти домашние задания и записи уроков?",
-      "Как получить сертификат?",
+      "Не приходит письмо с доступом, что делать?",
+      "Как восстановить пароль ученику?",
+      "Куда писать по техническим проблемам урока?",
     ],
-    handbook: [
-      "Где шаблоны ответов поддержки и скрипты продаж?",
-      "Как оформить возврат и заморозку обучения?",
-      "Как добавить ученика в группу/поток?",
+    kb: [
+      "Где правила выдачи доступов и переносов уроков?",
+      "Как оформлять возврат и в какие сроки?",
+      "Где скрипт для менеджера по продажам?",
     ],
   },
+
   "Детейлинг-студия": {
     sales: [
-      "Сколько стоит полировка кузова и керамика?",
-      "Сколько времени занимает комплексная мойка?",
+      "Сколько стоит полировка и керамика на седан?",
+      "Сколько по времени занимает услуга?",
       "Есть ли гарантия на покрытие?",
     ],
     support: [
-      "Как подготовить авто перед приездом?",
-      "Можно ли оставить авто на ночь?",
-      "Что делать, если пошли разводы после мойки?",
+      "Как перенести запись без потери предоплаты?",
+      "Куда прикреплять фото до/после?",
+      "Как оформить допработы по согласованию с клиентом?",
     ],
-    handbook: [
-      "Где прайс и чек-лист работ по пакетам?",
-      "Как фиксировать состояние авто до/после?",
-      "Как оформить претензию клиента по регламенту?",
+    kb: [
+      "Где регламент по подготовке кузова под керамику?",
+      "Какие материалы используем по стандарту?",
+      "Как считаем доплату за сложные элементы?",
     ],
   },
+
   "Магазин одежды": {
     sales: [
-      "Есть ли размер M в этой модели?",
-      "Какие условия доставки и примерки?",
-      "Есть ли скидки при покупке 2+ вещей?",
+      "Какие размеры есть в наличии и как садится модель?",
+      "Есть ли доставка и примерка?",
+      "Какие условия возврата?",
     ],
     support: [
-      "Как оформить возврат или обмен?",
-      "Сколько дней доставка по городу?",
-      "Где отследить заказ?",
+      "Как изменить адрес доставки после заказа?",
+      "Куда писать, если пришёл брак?",
+      "Как проверить статус отправки?",
     ],
-    handbook: [
-      "Где регламент возвратов и шаблоны ответов?",
-      "Как оформить списание/перемещение товара?",
-      "Как быстро проверить остатки по складам?",
+    kb: [
+      "Где у нас регламент по возвратам и обменам?",
+      "Как оформлять списание брака?",
+      "Какие правила упаковки и маркировки?",
     ],
   },
 };
 
 function uid() {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
   return Math.random().toString(16).slice(2) + Date.now().toString(16);
 }
 
-async function callAliceApi(args: {
-  message: string;
-  niche: Niche;
-  role: RoleKey;
-  history: Array<{ role: "user" | "assistant"; content: string }>;
-}): Promise<string> {
-  const baseUrl = process.env.NEXT_PUBLIC_ALICE_API_URL;
+function safeTrim(s: string) {
+  return s.replace(/\s+/g, " ").trim();
+}
 
-  // Если API URL не задан — работаем в демо-режиме (мок), чтобы UI всегда был “живым”.
-  if (!baseUrl) {
-    await new Promise((r) => setTimeout(r, 700 + Math.random() * 600));
-    const roleHint =
-      args.role === "sales"
-        ? "Как менеджер по продажам: "
-        : args.role === "support"
-        ? "Как техподдержка: "
-        : "Как внутренний справочник: ";
-    return (
-      roleHint +
-      `принял запрос по направлению “${args.niche}”. Если подключить Alice Ai по API, здесь будет реальный ответ модели.`
-    );
+async function getAliceAnswer(params: {
+  niche: string;
+  role: RoleKey;
+  question: string;
+}): Promise<string> {
+  const apiUrl = process.env.NEXT_PUBLIC_ALICE_API_URL;
+  const { niche, role, question } = params;
+
+  // Если API не подключён, работаем в мок-режиме (без дисклеймера в UI).
+  if (!apiUrl) {
+    const roleLabel = ROLES.find((r) => r.key === role)?.label ?? role;
+    return [
+      `Понял контекст: ниша "${niche}", роль "${roleLabel}".`,
+      `Ваш вопрос: "${question}"`,
+      "",
+      "Пример ответа (демо):",
+      "1) Уточню пару деталей, чтобы ответить точно.",
+      "2) Дам краткий ответ и следующий шаг.",
+      "",
+      "Если подключите Alice Ai по API, здесь будут реальные ответы модели.",
+    ].join("\n");
   }
 
-  // Ожидаемый контракт можно подстроить под вашу сторону. Сейчас максимально нейтрально.
-  const res = await fetch(`${baseUrl.replace(/\/$/, "")}/chat`, {
+  // ВАЖНО: эндпоинт/формат могут отличаться. Подстрой под свой шлюз.
+  // Здесь сделан безопасный базовый пример.
+  const res = await fetch(apiUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      provider: "Alice Ai",
-      niche: args.niche,
-      role: args.role,
-      message: args.message,
-      history: args.history,
-    }),
+    body: JSON.stringify({ niche, role, message: question }),
   });
 
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`Alice API error: ${res.status} ${text}`);
+    throw new Error(`Alice API error: ${res.status}`);
   }
 
-  const data = (await res.json().catch(() => ({}))) as any;
-
-  // Поддержим несколько вариантов ответа
-  return (
-    data.reply ||
-    data.answer ||
-    data.message ||
-    "Ответ получен, но формат не распознан. Проверь контракт API."
-  );
+  const data = (await res.json()) as { reply?: string; text?: string; answer?: string };
+  return data.reply ?? data.text ?? data.answer ?? "Ответ получен, но формат не распознан.";
 }
 
 export default function DemoChatSection() {
-  const [nicheOpen, setNicheOpen] = useState(false);
-  const [niche, setNiche] = useState<Niche>("Автосервис");
+  const [niche, setNiche] = useState<(typeof NICHES)[number]>("Автосервис");
   const [role, setRole] = useState<RoleKey>("sales");
 
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-  const [isSending, setIsSending] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [messages, setMessages] = useState<Msg[]>([]);
+  const [sending, setSending] = useState(false);
 
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const endRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const faq = useMemo(() => FAQ[niche][role].slice(0, 3), [niche, role]);
+  const faq = useMemo(() => {
+    const byNiche = FAQ[niche] ?? FAQ["Автосервис"];
+    return byNiche[role] ?? byNiche.sales;
+  }, [niche, role]);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages.length, isSending]);
-
-  useEffect(() => {
-    function onDocClick(e: MouseEvent) {
-      if (!nicheOpen) return;
-      const t = e.target as Node | null;
-      if (!t) return;
-      if (wrapRef.current && !wrapRef.current.contains(t)) setNicheOpen(false);
-    }
-    document.addEventListener("mousedown", onDocClick);
-    return () => document.removeEventListener("mousedown", onDocClick);
-  }, [nicheOpen]);
-
-  function resetConversation() {
+    // При смене ниши/роли начинаем “чистую” демо-сессию.
     setMessages([]);
-    setInput("");
-  }
+    setDraft("");
+  }, [niche, role]);
 
-  async function send(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed || isSending) return;
+  useEffect(() => {
+    // Автоскролл вниз
+    const el = listRef.current;
+    if (!el) return;
+    el.scrollTop = el.scrollHeight;
+  }, [messages.length, sending]);
 
-    const userMsg: Message = { id: uid(), role: "user", text: trimmed };
+  async function send(textRaw: string) {
+    const text = safeTrim(textRaw);
+    if (!text || sending) return;
+
+    const userMsg: Msg = { id: uid(), from: "user", text };
     setMessages((prev) => [...prev, userMsg]);
-    setInput("");
-    setIsSending(true);
+    setDraft("");
+    setSending(true);
 
     try {
-      const history = [...messages, userMsg].map((m) => ({
-        role: m.role,
-        content: m.text,
-      }));
-
-      const replyText = await callAliceApi({
-        message: trimmed,
-        niche,
-        role,
-        history,
-      });
-
-      const botMsg: Message = { id: uid(), role: "assistant", text: replyText };
-      setMessages((prev) => [...prev, botMsg]);
-    } catch (e: any) {
-      const botMsg: Message = {
+      const answer = await getAliceAnswer({ niche, role, question: text });
+      const aiMsg: Msg = { id: uid(), from: "ai", text: answer };
+      setMessages((prev) => [...prev, aiMsg]);
+    } catch (e) {
+      const aiMsg: Msg = {
         id: uid(),
-        role: "assistant",
+        from: "ai",
         text:
-          "Не удалось получить ответ от Alice Ai. Проверьте API URL/доступность и CORS. " +
-          (e?.message ? `(${e.message})` : ""),
+          "Не удалось получить ответ от Alice Ai. Проверьте API URL и доступность сервиса.",
       };
-      setMessages((prev) => [...prev, botMsg]);
+      setMessages((prev) => [...prev, aiMsg]);
     } finally {
-      setIsSending(false);
+      setSending(false);
+      requestAnimationFrame(() => inputRef.current?.focus());
     }
+  }
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    void send(draft);
   }
 
   return (
     <section id="demo-chat" className="relative py-14 md:py-20">
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1100px]">
-          {/* Внешний “деликатный двойной кант” */}
-          <div className="relative rounded-[48px] p-[2px] shadow-[0_30px_110px_rgba(0,0,0,0.10)]">
-            <div className="pointer-events-none absolute inset-0 rounded-[48px] opacity-70 blur-[0.2px] bg-[linear-gradient(90deg,rgba(90,190,255,0.65),rgba(255,255,255,0.00),rgba(199,63,64,0.65))] animate-pulse" />
-            <div className="pointer-events-none absolute inset-[1px] rounded-[47px] opacity-70 bg-[linear-gradient(90deg,rgba(90,190,255,0.35),rgba(255,255,255,0.00),rgba(199,63,64,0.35))]" />
+          {/* Внешняя LiquidGlass-панель (как в секции 3 инфо-блока) */}
+          <div
+            className="
+              relative
+              rounded-[34px]
+              border border-white/18
+              bg-white/10
+              p-[10px]
+              shadow-[0_22px_70px_rgba(0,0,0,0.05)]
+              backdrop-blur-[26px] backdrop-saturate-150
+            "
+          >
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
 
-            {/* Основной стеклянный контейнер */}
-            <div className="relative overflow-hidden rounded-[46px] border border-white/30 bg-white/55 backdrop-blur-[26px] backdrop-saturate-150">
-              {/* Header */}
-              <div className="px-5 pt-5 md:px-6 md:pt-6">
-                <div className="flex items-center justify-between gap-3">
-                  {/* Niche dropdown */}
-                  <div className="relative" ref={wrapRef}>
-                    <button
-                      type="button"
-                      onClick={() => setNicheOpen((v) => !v)}
-                      className="
-                        inline-flex items-center gap-2
-                        h-10 px-4
-                        rounded-full
-                        border border-black/10 bg-white/70
-                        shadow-[0_12px_40px_rgba(0,0,0,0.06)]
-                        backdrop-blur-[10px]
-                        text-[13px] font-semibold text-black/80
-                        transition-[transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                        hover:scale-[1.03] active:scale-[0.985]
-                      "
-                      aria-haspopup="listbox"
-                      aria-expanded={nicheOpen}
-                    >
-                      <span className="truncate max-w-[190px] md:max-w-[240px]">
-                        {niche ? niche : "Выбрать нишу"}
-                      </span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                        className="opacity-70"
-                      >
-                        <path
-                          d="M6 9l6 6 6-6"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
+            <div
+              className="
+                relative
+                rounded-[48px]
+                p-[2px]
+                shadow-[0_30px_110px_rgba(0,0,0,0.10)]
+                bg-[linear-gradient(90deg,rgba(177,207,235,0.85),rgba(199,63,64,0.55))]
+              "
+            >
+              {/* Сам чат */}
+              <div
+                className="
+                  relative overflow-hidden
+                  rounded-[46px]
+                  border border-black/5
+                  bg-white
+                "
+              >
+                <ChatHeader
+                  niche={niche}
+                  setNiche={setNiche}
+                  role={role}
+                  setRole={setRole}
+                />
 
-                    {nicheOpen && (
-                      <div
-                        className="
-                          absolute left-0 mt-2 w-[320px] max-w-[calc(100vw-32px)]
-                          rounded-[18px]
-                          border border-black/10 bg-white/85
-                          shadow-[0_18px_70px_rgba(0,0,0,0.12)]
-                          backdrop-blur-[18px]
-                          overflow-hidden
-                          z-20
-                        "
-                        role="listbox"
-                      >
-                        <div className="max-h-[280px] overflow-auto py-2">
-                          {NICHES.map((item) => {
-                            const active = item === niche;
-                            return (
-                              <button
-                                key={item}
-                                type="button"
-                                onClick={() => {
-                                  setNiche(item);
-                                  setNicheOpen(false);
-                                  resetConversation();
-                                }}
-                                className={[
-                                  "w-full text-left px-4 py-2.5 text-[13px] font-semibold",
-                                  "transition-colors",
-                                  active
-                                    ? "text-black bg-black/5"
-                                    : "text-black/80 hover:bg-black/5",
-                                ].join(" ")}
-                              >
-                                {item}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Center title */}
-                  <div className="text-center leading-tight">
-                    <div className="text-[14px] md:text-[15px] font-extrabold text-black/85">
-                      ЮНИ.ai
-                    </div>
-                    <div className="text-[11px] md:text-[12px] font-semibold text-black/45">
-                      в сети
-                    </div>
-                  </div>
-
-                  {/* Profile dot */}
-                  <div className="h-10 w-10 rounded-full border border-black/10 bg-white/70 grid place-items-center shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
-                    <div className="h-3.5 w-3.5 rounded-full bg-black/60" />
-                  </div>
-                </div>
-
-                {/* Role selector */}
-                <div className="mt-4 flex items-center justify-center md:justify-start">
-                  <div
-                    className="
-                      inline-flex items-center gap-1
-                      rounded-full p-1
-                      border border-black/10 bg-white/55
-                      backdrop-blur-[10px]
-                      shadow-[0_12px_40px_rgba(0,0,0,0.06)]
-                    "
-                    role="tablist"
-                    aria-label="Роль ИИ-сотрудника"
-                  >
-                    {(Object.keys(ROLE_LABEL) as RoleKey[]).map((k) => {
-                      const active = k === role;
-                      return (
-                        <button
-                          key={k}
-                          type="button"
-                          onClick={() => {
-                            setRole(k);
-                            resetConversation();
-                          }}
-                          className={[
-                            "h-9 px-3 md:px-4 rounded-full text-[12px] font-extrabold",
-                            "transition-[transform,background-color,color] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                            "hover:scale-[1.02] active:scale-[0.985]",
-                            active
-                              ? "text-white"
-                              : "text-black/70 hover:text-black/80",
-                          ].join(" ")}
-                          style={active ? { backgroundColor: ACCENT } : undefined}
-                          role="tab"
-                          aria-selected={active}
-                        >
-                          {ROLE_LABEL[k]}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="mt-5 h-px bg-black/5" />
-              </div>
-
-              {/* Chat body */}
-              <div className="px-5 md:px-6">
-                <div className="h-[520px] md:h-[620px] py-6 overflow-auto">
+                <div
+                  ref={listRef}
+                  className="
+                    relative
+                    h-[520px] md:h-[620px]
+                    overflow-auto
+                    bg-white
+                  "
+                >
                   {messages.length === 0 ? (
-                    <div className="h-full w-full flex items-center justify-center">
-                      <div className="max-w-[520px] text-center">
-                        <div className="text-[14px] md:text-[15px] font-extrabold text-black/70">
+                    <div className="absolute inset-0 grid place-items-center px-6 text-center">
+                      <div>
+                        <div className="text-[14px] sm:text-[15px] font-semibold text-[#101828]">
                           Выберите нишу и роль, затем задайте вопрос
                         </div>
-                        <div className="mt-2 text-[12px] md:text-[13px] font-semibold text-black/45">
+                        <div className="mt-1 text-[12px] sm:text-[13px] text-[#667085]">
                           Для быстрого старта используйте FAQ-кнопки над строкой ввода.
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="space-y-3">
-                      {messages.map((m) => {
-                        const isBot = m.role === "assistant";
-                        return (
-                          <div
-                            key={m.id}
-                            className={[
-                              "flex",
-                              isBot ? "justify-start" : "justify-end",
-                            ].join(" ")}
-                          >
-                            <div
-                              className={[
-                                "max-w-[82%] md:max-w-[70%]",
-                                "rounded-[18px] px-4 py-3",
-                                "text-[13px] md:text-[14px] font-semibold leading-relaxed",
-                                "shadow-[0_18px_60px_rgba(0,0,0,0.08)]",
-                                isBot
-                                  ? "text-white"
-                                  : "text-black/80 border border-black/10 bg-white/75",
-                              ].join(" ")}
-                              style={isBot ? { backgroundColor: ACCENT } : undefined}
-                            >
-                              {m.text}
-                            </div>
-                          </div>
-                        );
-                      })}
-                      {isSending && (
+                    <div className="px-5 py-6 md:px-7 md:py-7 space-y-3">
+                      {messages.map((m) => (
+                        <Bubble key={m.id} from={m.from} text={m.text} />
+                      ))}
+
+                      {sending ? (
                         <div className="flex justify-start">
                           <div
-                            className="rounded-[18px] px-4 py-3 text-[13px] md:text-[14px] font-semibold text-white shadow-[0_18px_60px_rgba(0,0,0,0.08)]"
-                            style={{ backgroundColor: ACCENT }}
+                            className="
+                              max-w-[78%]
+                              rounded-[18px]
+                              border border-black/10
+                              bg-[#f6f7f9]
+                              px-4 py-3
+                              text-[13px] text-[#667085]
+                            "
                           >
-                            Печатает…
+                            Печатает...
                           </div>
                         </div>
-                      )}
-                      <div ref={endRef} />
+                      ) : null}
                     </div>
                   )}
                 </div>
-              </div>
 
-              {/* Bottom / input */}
-              <div className="px-5 pb-5 md:px-6 md:pb-6">
-                {/* FAQ buttons */}
-                <div className="mb-3 flex flex-wrap gap-2">
-                  {faq.map((q) => (
-                    <button
-                      key={q}
-                      type="button"
-                      disabled={isSending}
-                      onClick={() => send(q)}
-                      className="
-                        inline-flex items-center
-                        h-9 md:h-10
-                        px-4 md:px-5
-                        rounded-full
-                        border border-black/10 bg-white/70
-                        text-[12px] md:text-[13px] font-extrabold text-black/70
-                        shadow-[0_12px_40px_rgba(0,0,0,0.06)]
-                        backdrop-blur-[10px]
-                        transition-[transform] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                        hover:scale-[1.03] active:scale-[0.985]
-                        disabled:opacity-60 disabled:hover:scale-100
-                      "
-                      title={q}
-                    >
-                      <span className="truncate max-w-[280px] md:max-w-[340px]">
-                        {q}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                {/* Композер */}
+                <div className="border-t border-black/5 bg-white px-4 pt-3 pb-4 md:px-6">
+                  {/* FAQ-кнопки: раскладка без “перевеса” */}
+                  <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {faq.slice(0, 3).map((q) => (
+                      <FaqButton key={q} text={q} onClick={() => void send(q)} />
+                    ))}
+                  </div>
 
-                {/* Input panel */}
-                <div
-                  className="
-                    flex items-center gap-3
-                    rounded-[22px]
-                    border border-black/10 bg-white/70
-                    shadow-[0_18px_70px_rgba(0,0,0,0.08)]
-                    backdrop-blur-[18px]
-                    px-3 py-2
-                  "
-                >
-                  <input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") send(input);
-                    }}
-                    placeholder="Сообщение"
+                  <form
+                    onSubmit={onSubmit}
                     className="
-                      w-full bg-transparent
+                      flex items-center gap-2
+                      rounded-[999px]
+                      border border-black/10
+                      bg-white
                       px-3 py-2
-                      text-[14px] font-semibold text-black/70
-                      placeholder:text-black/35
-                      outline-none
+                      shadow-[0_10px_30px_rgba(0,0,0,0.04)]
                     "
-                    disabled={isSending}
-                    aria-label="Сообщение"
-                  />
-
-                  {/* Send button (inside panel) */}
-                  <button
-                    type="button"
-                    onClick={() => send(input)}
-                    disabled={isSending || !input.trim()}
-                    className="
-                      h-10 w-10 rounded-full
-                      border border-black/10 bg-white/75
-                      grid place-items-center
-                      transition-[transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                      hover:scale-[1.05] active:scale-[0.98]
-                      disabled:opacity-50 disabled:hover:scale-100
-                    "
-                    aria-label="Отправить"
-                    title="Отправить"
                   >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                      className="text-black/60"
-                    >
-                      <path
-                        d="M22 2L11 13"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M22 2L15 22l-4-9-9-4 20-7z"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
+                    <input
+                      ref={inputRef}
+                      value={draft}
+                      onChange={(e) => setDraft(e.target.value)}
+                      placeholder="Сообщение"
+                      className="
+                        flex-1 bg-transparent px-2
+                        text-[14px] text-[#101828]
+                        placeholder:text-[#98A2B3]
+                        outline-none
+                      "
+                    />
 
-                  {/* Mic button */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      // Заглушка под голос (по ТЗ нужна кнопка)
-                      // Можно будет подключить WebSpeech/вашу запись позже
-                    }}
-                    className="
-                      h-10 w-10 rounded-full
-                      grid place-items-center
-                      transition-[transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                      hover:scale-[1.05] active:scale-[0.98]
-                    "
-                    style={{ backgroundColor: ACCENT }}
-                    aria-label="Микрофон"
-                    title="Микрофон"
-                  >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                      className="text-white"
+                    <RoundIconButton
+                      type="button"
+                      ariaLabel="Записать голосовое"
+                      variant="ghost"
+                      onClick={() => {
+                        // Здесь позже можно подключить реальную запись.
+                        // Пока оставляем как декоративную кнопку.
+                      }}
                     >
-                      <path
-                        d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3z"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M19 11a7 7 0 0 1-14 0"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M12 18v4"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                      <MicIcon />
+                    </RoundIconButton>
 
-                {/* мелкая подсказка под API */}
-                <div className="mt-3 text-center text-[11px] font-semibold text-black/35">
-                  {process.env.NEXT_PUBLIC_ALICE_API_URL
-                    ? "Подключение: Alice Ai (API)"
-                    : "Демо-режим: ответы сейчас моковые (задай NEXT_PUBLIC_ALICE_API_URL для реального API)."}
+                    <RoundIconButton
+                      type="submit"
+                      ariaLabel="Отправить"
+                      variant="primary"
+                      disabled={sending || safeTrim(draft).length === 0}
+                    >
+                      <SendIcon />
+                    </RoundIconButton>
+                  </form>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* small spacing under component */}
-          <div className="h-1" />
+            {/* Внутренняя “пластика” на внешней панели */}
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.05),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.06),transparent_65%)] opacity-80" />
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function ChatHeader(props: {
+  niche: string;
+  setNiche: (v: any) => void;
+  role: RoleKey;
+  setRole: (v: RoleKey) => void;
+}) {
+  const { niche, setNiche, role, setRole } = props;
+
+  return (
+    <div className="bg-[#f7f7f7] px-4 pt-4 pb-3 md:px-6">
+      <div className="flex items-start justify-between gap-3">
+        {/* Ниша */}
+        <div className="relative">
+          <select
+            value={niche}
+            onChange={(e) => setNiche(e.target.value as any)}
+            className="
+              h-10
+              appearance-none
+              rounded-full
+              border border-black/10
+              bg-white
+              pl-4 pr-10
+              text-[14px]
+              font-semibold
+              text-[#101828]
+              shadow-[0_8px_22px_rgba(0,0,0,0.04)]
+              outline-none
+            "
+          >
+            {NICHES.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+
+          <div className="pointer-events-none absolute inset-y-0 right-3 grid place-items-center text-[#667085]">
+            <ChevronDownIcon />
+          </div>
+        </div>
+
+        {/* Центр */}
+        <div className="pt-1 text-center leading-tight">
+          <div className="text-[14px] font-semibold tracking-[-0.01em] text-[#101828]">
+            ЮНИ.ai
+          </div>
+          <div className="text-[12px] text-[#667085]">в сети</div>
+        </div>
+
+        {/* Лого-рамка (как в хедере) */}
+        <div className="pt-[1px]">
+          <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
+            <img
+              src="brand/logo.svg"
+              alt="ЮНИ.ai"
+              className="h-full w-full object-cover"
+              draggable={false}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Роли */}
+      <div className="mt-3">
+        <div
+          className="
+            inline-flex flex-wrap items-center gap-1
+            rounded-full
+            border border-black/10
+            bg-white
+            p-1
+            shadow-[0_8px_22px_rgba(0,0,0,0.04)]
+          "
+        >
+          {ROLES.map((r) => (
+            <button
+              key={r.key}
+              type="button"
+              aria-pressed={role === r.key}
+              onClick={() => setRole(r.key)}
+              className={[
+                "rounded-full px-4 py-2 text-[13px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+                "active:scale-[0.99]",
+                role === r.key
+                  ? "bg-[#c73f40] text-white shadow-[0_10px_26px_rgba(199,63,64,0.18)]"
+                  : "bg-transparent text-[#101828] hover:text-[#c73f40] hover:scale-[1.02]",
+              ].join(" ")}
+            >
+              {r.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-3 border-b border-black/5" />
+    </div>
+  );
+}
+
+function Bubble({ from, text }: { from: Msg["from"]; text: string }) {
+  const isUser = from === "user";
+
+  return (
+    <div className={isUser ? "flex justify-end" : "flex justify-start"}>
+      <div
+        className={[
+          "max-w-[78%] rounded-[18px] px-4 py-3 text-[13px] leading-[1.5] whitespace-pre-wrap",
+          isUser
+            ? "bg-[#c73f40] text-white shadow-[0_18px_55px_rgba(199,63,64,0.18)]"
+            : "border border-black/10 bg-[#f6f7f9] text-[#101828]",
+        ].join(" ")}
+      >
+        {text}
+      </div>
+    </div>
+  );
+}
+
+function FaqButton({ text, onClick }: { text: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="
+        group
+        relative
+        inline-flex w-full items-center justify-start
+        rounded-full
+        border border-black/10
+        bg-white
+        px-4 py-3
+        text-left
+        text-[13px]
+        font-normal
+        text-[#101828]
+        shadow-[0_12px_34px_rgba(0,0,0,0.04)]
+        transition-[transform,color,box-shadow]
+        duration-[900ms]
+        ease-out
+        hover:scale-[1.02]
+        hover:text-[#c73f40]
+        active:scale-[0.99]
+      "
+      title={text}
+    >
+      <span className="truncate">{text}</span>
+
+      {/* лёгкая “пластика” */}
+      <span className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-[700ms] bg-[radial-gradient(500px_120px_at_30%_0%,rgba(255,255,255,0.75),transparent_60%)]" />
+    </button>
+  );
+}
+
+function RoundIconButton(props: {
+  type: "button" | "submit";
+  ariaLabel: string;
+  variant: "primary" | "ghost";
+  disabled?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  const { type, ariaLabel, variant, disabled, onClick, children } = props;
+
+  const base =
+    "grid h-10 w-10 place-items-center rounded-full transition-[transform,opacity,box-shadow] duration-[800ms] ease-out active:scale-[0.97]";
+  const ghost =
+    "border border-black/10 bg-[#f3f4f6] text-[#475467] hover:scale-[1.05] hover:shadow-[0_10px_26px_rgba(0,0,0,0.08)]";
+  const primary =
+    "bg-[#c73f40] text-white hover:scale-[1.05] hover:shadow-[0_18px_55px_rgba(199,63,64,0.22)]";
+
+  return (
+    <button
+      type={type}
+      aria-label={ariaLabel}
+      onClick={onClick}
+      disabled={disabled}
+      className={[
+        base,
+        variant === "primary" ? primary : ghost,
+        disabled ? "opacity-50 hover:scale-100 hover:shadow-none cursor-not-allowed" : "",
+      ].join(" ")}
+    >
+      {children}
+    </button>
+  );
+}
+
+/* Icons */
+
+function ChevronDownIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M7 10l5 5 5-5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function SendIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M22 2L11 13"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M22 2L15 22l-4-9-9-4L22 2z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function MicIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M19 11a7 7 0 0 1-14 0"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 18v3"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
