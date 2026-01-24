@@ -657,43 +657,6 @@ function NicheDropdown(props: {
   );
 }
 
-      {/* Роли */}
-      <div className="mt-3">
-        <div
-          className="
-            inline-flex flex-wrap items-center gap-1
-            rounded-full
-            border border-black/10
-            bg-white
-            p-1
-            shadow-[0_8px_22px_rgba(0,0,0,0.04)]
-          "
-        >
-          {ROLES.map((r) => (
-            <button
-              key={r.key}
-              type="button"
-              aria-pressed={role === r.key}
-              onClick={() => setRole(r.key)}
-              className={[
-                "rounded-full px-4 py-2 text-[13px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
-                "active:scale-[0.99]",
-                role === r.key
-                  ? "bg-[#c73f40] text-white shadow-[0_10px_26px_rgba(199,63,64,0.18)]"
-                  : "bg-transparent text-[#101828] hover:text-[#c73f40] hover:scale-[1.02]",
-              ].join(" ")}
-            >
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-3 border-b border-black/5" />
-    </div>
-  );
-}
-
 function Bubble({ from, text }: { from: Msg["from"]; text: string }) {
   const isUser = from === "user";
 
