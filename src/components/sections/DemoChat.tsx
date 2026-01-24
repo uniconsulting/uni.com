@@ -704,7 +704,7 @@ function NicheDropdown(props: {
                         "w-full whitespace-nowrap rounded-[12px] px-3 py-2 text-left text-[14px] transition-colors",
                         active
                           ? "bg-[#c73f40]/10 text-[#c73f40] font-semibold"
-                          : "hover:lg-border text-[#101828]",
+                          : "hover:bg-black/[0.04] text-[#101828]",
                       ].join(" ")}
                     >
                       {n}
