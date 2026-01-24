@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type RoleKey = "sales" | "support" | "kb";
 
@@ -566,20 +568,72 @@ function NicheDropdown(props: {
   onChange: (v: string) => void;
 }) {
   const { value, onChange } = props;
+
   const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  const wrapRef = useRef<HTMLDivElement | null>(null); // контейнер кнопки
+  const btnRef = useRef<HTMLButtonElement | null>(null); // сама кнопка
+  const menuRef = useRef<HTMLDivElement | null>(null); // выпадающее меню (в портале)
+
+  const [pos, setPos] = useState({ top: 0, left: 0, width: 0 });
+
+  const updatePos = React.useCallback(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+
+    const r = btn.getBoundingClientRect();
+    const menuWidth = Math.min(360, window.innerWidth - 32); // как раньше, но управляемо
+
+    // Позиция: под кнопкой, с отступом 8px
+    const top = Math.round(r.bottom + 8);
+
+    // Не даем уйти за правый край
+    const left = Math.round(
+      Math.min(r.left, window.innerWidth - 16 - menuWidth)
+    );
+
+    setPos({ top, left, width: menuWidth });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    updatePos();
+  }, [open, value, updatePos]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onScroll = () => updatePos();
+    const onResize = () => updatePos();
+
+    // capture=true чтобы ловить скроллы любых контейнеров
+    window.addEventListener("scroll", onScroll, true);
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open, updatePos]);
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
       const t = e.target as Node | null;
       if (!t) return;
-      if (!wrapRef.current?.contains(t)) setOpen(false);
+
+      const insideButton = !!wrapRef.current?.contains(t);
+      const insideMenu = !!menuRef.current?.contains(t);
+
+      if (!insideButton && !insideMenu) setOpen(false);
     }
+
     function onEsc(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
     }
+
     document.addEventListener("mousedown", onDoc);
     document.addEventListener("keydown", onEsc);
+
     return () => {
       document.removeEventListener("mousedown", onDoc);
       document.removeEventListener("keydown", onEsc);
@@ -589,12 +643,13 @@ function NicheDropdown(props: {
   return (
     <div ref={wrapRef} className="relative">
       <button
+        ref={btnRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="
-          lg-border
           inline-flex h-10 items-center gap-2
           rounded-full
+          border border-black/10
           bg-white
           pl-4 pr-3
           text-[14px]
@@ -606,52 +661,62 @@ function NicheDropdown(props: {
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span className="whitespace-nowrap">{value}</span>
+        {/* это даст “адаптивную” ширину под текст, но не позволит разнести всё */}
+        <span className="whitespace-nowrap max-w-[52vw] truncate">{value}</span>
         <span className="text-[#667085]">
           <ChevronDownIcon />
         </span>
       </button>
 
-      {open ? (
-        <div
-          role="listbox"
-          className="
-            lg-border
-            absolute left-0 top-[calc(100%+8px)] z-30
-            w-[min(360px,calc(100vw-32px))]
-            overflow-hidden
-            rounded-[16px]
-            bg-white
-            shadow-[0_18px_55px_rgba(0,0,0,0.10)]
-          "
-        >
-          <div className="max-h-[280px] overflow-auto p-2">
-            {NICHES.map((n) => {
-              const active = n === value;
-              return (
-                <button
-                  key={n}
-                  type="button"
-                  role="option"
-                  aria-selected={active}
-                  onClick={() => {
-                    onChange(n);
-                    setOpen(false);
-                  }}
-                  className={[
-                    "w-full rounded-[12px] px-3 py-2 text-left text-[14px] transition-colors",
-                    active
-                      ? "bg-[#c73f40]/10 text-[#c73f40] font-semibold"
-                      : "hover: lg-border text-[#101828]",
-                  ].join(" ")}
-                >
-                  {n}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
+      {open && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              ref={menuRef}
+              role="listbox"
+              className="
+                fixed z-[9999]
+                overflow-hidden
+                rounded-[16px]
+                border border-black/10
+                bg-white
+                shadow-[0_18px_55px_rgba(0,0,0,0.10)]
+              "
+              style={{
+                top: pos.top,
+                left: pos.left,
+                width: pos.width,
+                maxWidth: "calc(100vw - 32px)",
+              }}
+            >
+              <div className="max-h-[280px] overflow-auto p-2">
+                {NICHES.map((n) => {
+                  const active = n === value;
+                  return (
+                    <button
+                      key={n}
+                      type="button"
+                      role="option"
+                      aria-selected={active}
+                      onClick={() => {
+                        onChange(n);
+                        setOpen(false);
+                      }}
+                      className={[
+                        "w-full whitespace-nowrap rounded-[12px] px-3 py-2 text-left text-[14px] transition-colors",
+                        active
+                          ? "bg-[#c73f40]/10 text-[#c73f40] font-semibold"
+                          : "hover:bg-black/[0.04] text-[#101828]",
+                      ].join(" ")}
+                    >
+                      {n}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>,
+            document.body
+          )
+        : null}
     </div>
   );
 }
