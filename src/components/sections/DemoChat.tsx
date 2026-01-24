@@ -344,7 +344,7 @@ export default function DemoChatSection() {
             <div
               className="
                 relative
-                rounded-[26px]
+                rounded-[27.5px]
                 p-[2px]
                 shadow-[0_30px_110px_rgba(0,0,0,0.10)]
                 bg-[linear-gradient(90deg,rgba(177,207,235,0.85),rgba(199,63,64,0.55))]
