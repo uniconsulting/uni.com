@@ -326,7 +326,7 @@ export default function DemoChatSection() {
   return (
     <section id="demo-chat" className="relative py-14 md:py-20">
       <div className="mx-auto max-w-[1240px] px-4">
-        <div className="mx-auto max-w-[1100px]">
+        <div className="mx-auto max-w-[1240px]">
           {/* Внешняя LiquidGlass-панель (как в секции 3 инфо-блока) */}
           <div
             className="
@@ -354,7 +354,7 @@ export default function DemoChatSection() {
               <div
                 className="
                   relative overflow-hidden
-                  rounded-[46px]
+                  rounded-[28px]
                   border border-black/5
                   bg-white
                 "
