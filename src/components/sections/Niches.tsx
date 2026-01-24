@@ -116,7 +116,7 @@ function NichePill({
         backdrop-blur-[22px] backdrop-saturate-150
         shadow-[0_22px_70px_rgba(0,0,0,0.05)]
         lg-border
-        transition-[transform] duration-[900ms]
+        transition-[transform] duration-[1900ms]
         ease-out
         hover:scale-[1.08] active:scale-[0.98]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
