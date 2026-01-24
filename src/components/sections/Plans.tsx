@@ -422,11 +422,28 @@ export default function PricingPlansSection() {
             Прозрачные условия, никаких скрытых платежей.
           </div>
 
-          <div className="mt-3 text-white/55 font-semibold tracking-[-0.01em] text-[13px] sm:text-[24px]">
-            + инвестиционная окупаемость
-          </div>
+<div className="mt-3 flex justify-center">
+  <span className="relative inline-block overflow-hidden rounded-[999px] px-2 py-[2px] text-white/55 font-semibold tracking-[-0.01em] text-[13px] sm:text-[24px]">
+    + инвестиционная окупаемость
 
-          {/* Billing switch: уже + симметричные отступы слева/справа */}
+    {/* стеклянный блик */}
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0"
+    >
+      <span
+        className="absolute -left-[40%] top-[-20%] h-[140%] w-[34%] rotate-[14deg] blur-[0.6px] opacity-70 mix-blend-screen"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0) 100%)",
+          animation: "uniGlassSweep 9.5s cubic-bezier(0.16,1,0.3,1) infinite",
+        }}
+      />
+    </span>
+  </span>
+</div>
+
+          {/* Billing switch: уже  симметричные отступы слева/справа */}
           <div className="mt-7 flex justify-center">
             <div
               role="tablist"
@@ -517,6 +534,14 @@ export default function PricingPlansSection() {
               {PLANS.map((p) => {
                 const price = safePrice(billing, p);
                 const priceText = price === null ? "Индивидуально" : formatRub(price);
+
+            <style>{`
+  @keyframes uniGlassSweep {
+    0%   { transform: translateX(-140%) rotate(14deg); opacity: .55; }
+    40%  { opacity: .75; }
+    100% { transform: translateX(420%) rotate(14deg); opacity: .55; }
+  }
+`}</style>
 
                 return (
                   <div
