@@ -410,7 +410,7 @@ export default function PricingPlansSection() {
   const openMega = React.useCallback((key: Plan["key"]) => setOpenKey(key), []);
   const closeMega = React.useCallback(() => setOpenKey(null), []);
 
-  return (          
+  return (
     <section id="plans" className="relative py-14 md:py-20">
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1240px] text-center">
@@ -421,22 +421,6 @@ export default function PricingPlansSection() {
           <div className="mt-1 text-white font-semibold tracking-[-0.01em] text-[16px] sm:text-[28px] lg:text-[28px]">
             Прозрачные условия, никаких скрытых платежей.
           </div>
-
-    {/* стеклянный блик */}
-    <span
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0"
-    >
-      <span
-        className="absolute -left-[40%] top-[-20%] h-[140%] w-[34%] rotate-[14deg] blur-[0.6px] opacity-70 mix-blend-screen"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0) 100%)",
-          animation: "uniGlassSweep 9.5s cubic-bezier(0.16,1,0.3,1) infinite",
-        }}
-      />
-  </span>
-</div>
 
           {/* Billing switch: уже  симметричные отступы слева/справа */}
           <div className="mt-7 flex justify-center">
