@@ -190,7 +190,7 @@ function LoadingPill() {
                 "linear-gradient(90deg, rgba(199,63,64,0.00), rgba(199,63,64,0.18), rgba(177,207,235,0.85), rgba(199,63,64,0.18), rgba(199,63,64,0.00))",
               backgroundSize: "220% 100%",
               filter: "blur(0.2px)",
-              animation: "uniLoaderFlow 2.8s cubic-bezier(0.16,1,0.3,1) infinite",
+              animation: "uniLoaderFlow 20.0s cubic-bezier(0.16,1,0.3,1) infinite",
             }}
           />
         </div>
