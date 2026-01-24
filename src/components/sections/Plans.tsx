@@ -539,7 +539,7 @@ export default function PricingPlansSection() {
 
                       <div className="mt-4">
                         <div className="flex items-end gap-2">
-                          <div className="text-[26px] font-semibold text-[#0f172a] tracking-[-0.02em]">
+                          <div className="text-[26px] font-semibold text-[#41e18b] tracking-[-0.02em]">
                             {priceText}
                           </div>
 
