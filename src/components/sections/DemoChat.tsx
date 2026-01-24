@@ -676,7 +676,7 @@ function NicheDropdown(props: {
                 fixed z-[9999]
                 overflow-hidden
                 rounded-[16px]
-                border border-black/10
+                lg-border
                 bg-white
                 shadow-[0_18px_55px_rgba(0,0,0,0.10)]
               "
