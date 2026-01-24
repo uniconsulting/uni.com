@@ -118,7 +118,7 @@ function NichePill({
         lg-border
         transition-[transform] duration-[2600ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
-        hover:scale-[1.0] active:scale-[0.995]
+        hover:scale-[1.035] active:scale-[0.995]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
         ${active ? "ring-1 ring-[#c73f40]/20" : ""}
       `}
@@ -140,7 +140,7 @@ function NichePill({
           text-[14px] sm:text-[15px]
           font-[400]
           whitespace-nowrap
-          transition-colors duration-[1800ms] ease-out
+          transition-colors duration-[1200ms] ease-out
           ${active ? "text-[#c73f40]" : "text-[#0f172a]"}
           hover:text-[#c73f40]
         `}
@@ -190,7 +190,7 @@ function LoadingPill() {
                 "linear-gradient(90deg, rgba(199,63,64,0.00), rgba(199,63,64,0.18), rgba(177,207,235,0.85), rgba(199,63,64,0.18), rgba(199,63,64,0.00))",
               backgroundSize: "220% 100%",
               filter: "blur(0.2px)",
-              animation: "uniLoaderFlow 4.8s cubic-bezier(0.16,1,0.3,1) infinite",
+              animation: "uniLoaderFlow 2.8s cubic-bezier(0.16,1,0.3,1) infinite",
             }}
           />
         </div>
