@@ -64,7 +64,7 @@ export default function NichesBlock({ onSelectNiche, value }: Props) {
               pointer-events-none absolute left-1/2 top-1/2
               h-[280px] w-[980px] -translate-x-1/2 -translate-y-1/2
               rounded-[999px]
-              bg-black/10 blur-[80px] opacity-30
+              bg-black/06 blur-[80px] opacity-30
             "
           />
 
