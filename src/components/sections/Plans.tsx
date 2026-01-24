@@ -316,7 +316,7 @@ export default function PricingPlansSection() {
                           h-[92px]
                           w-full
                           rounded-[18px]
-                          border border-black/10
+                          border border-black/2
                           bg-white/60
                         "
                       />
@@ -330,7 +330,7 @@ export default function PricingPlansSection() {
                             "active:scale-[0.99]",
                             p.variant === "primary"
                               ? "border-[#c73f40]/30 bg-[#c73f40] text-white shadow-[0_16px_45px_rgba(199,63,64,0.18)] hover:scale-[1.01]"
-                              : "border-black/12 bg-white/75 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.06)] hover:text-[#c73f40] hover:scale-[1.01]",
+                              : "border-black/2 bg-white/75 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.06)] hover:text-[#c73f40] hover:scale-[1.01]",
                           ].join(" ")}
                         >
                           {p.cta}
