@@ -562,6 +562,9 @@ function RolePills(props: {
   );
 }
 
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
 function NicheDropdown(props: {
   value: string;
   onChange: (v: string) => void;
@@ -646,9 +649,9 @@ function NicheDropdown(props: {
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="
-          lg-border
           inline-flex h-10 items-center gap-2
           rounded-full
+          border border-black/10
           bg-white
           pl-4 pr-3
           text-[14px]
@@ -673,10 +676,10 @@ function NicheDropdown(props: {
               ref={menuRef}
               role="listbox"
               className="
-                lg-border
                 fixed z-[9999]
                 overflow-hidden
                 rounded-[16px]
+                border border-black/10
                 bg-white
                 shadow-[0_18px_55px_rgba(0,0,0,0.10)]
               "
@@ -687,7 +690,7 @@ function NicheDropdown(props: {
                 maxWidth: "calc(100vw - 32px)",
               }}
             >
-              <div className="max-h-[240px] overflow-auto p-2">
+              <div className="max-h-[280px] overflow-auto p-2">
                 {NICHES.map((n) => {
                   const active = n === value;
                   return (
@@ -704,7 +707,7 @@ function NicheDropdown(props: {
                         "w-full whitespace-nowrap rounded-[12px] px-3 py-2 text-left text-[14px] transition-colors",
                         active
                           ? "bg-[#c73f40]/10 text-[#c73f40] font-semibold"
-                          : "hover:bg-black/[0.04] text-[#101828]",
+                          : "hover:lg-border text-[#101828]",
                       ].join(" ")}
                     >
                       {n}
