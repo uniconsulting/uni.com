@@ -562,9 +562,6 @@ function RolePills(props: {
   );
 }
 
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-
 function NicheDropdown(props: {
   value: string;
   onChange: (v: string) => void;
