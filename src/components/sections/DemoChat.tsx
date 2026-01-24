@@ -354,7 +354,7 @@ export default function DemoChatSection() {
               <div
                 className="
                   relative overflow-hidden
-                  rounded-[28px]
+                  rounded-[26px]
                   border border-black/5
                   bg-white
                 "
@@ -391,7 +391,7 @@ export default function DemoChatSection() {
       Для быстрого старта используйте FAQ-кнопки над строкой ввода.
     </div>
 
-    <div className="mt-4 flex justify-center">
+    <div className="lg-border mt-4 flex justify-center">
       <RolePills role={role} setRole={setRole} />
     </div>
   </div>
@@ -406,10 +406,10 @@ export default function DemoChatSection() {
                       {sending ? (
                         <div className="flex justify-start">
                           <div
-                            className="
+                            className=" 
+                              lg-border
                               max-w-[78%]
                               rounded-[18px]
-                              border border-black/10
                               bg-[#f6f7f9]
                               px-4 py-3
                               text-[13px] text-[#667085]
@@ -497,7 +497,7 @@ function ChatHeader(props: {
   const { niche, setNiche } = props;
 
   return (
-    <div className="bg-[#f7f7f7] px-4 py-3 md:px-6 border-b border-black/5">
+    <div className="lg-border bg-[#f7f7f7] px-4 py-3 md:px-6 border-b">
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
         <div className="justify-self-start">
           <NicheDropdown value={niche} onChange={setNiche} />
