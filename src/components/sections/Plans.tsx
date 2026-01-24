@@ -140,7 +140,7 @@ export default function PricingPlansSection() {
   return (
     <section id="plans" className="relative py-14 md:py-20">
       <div className="mx-auto max-w-[1240px] px-4">
-        <div className="mx-auto max-w-[980px] text-center">
+        <div className="mx-auto max-w-[1240px] text-center">
           <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
             Сделай выбор
           </h2>
