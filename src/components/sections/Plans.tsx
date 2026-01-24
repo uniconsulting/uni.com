@@ -410,16 +410,7 @@ export default function PricingPlansSection() {
   const openMega = React.useCallback((key: Plan["key"]) => setOpenKey(key), []);
   const closeMega = React.useCallback(() => setOpenKey(null), []);
 
-  return (
-        <>
-      <style>{`
-        @keyframes uniGlassSweep {
-          0%   { transform: translateX(-140%) rotate(14deg); opacity: .55; }
-          40%  { opacity: .75; }
-          100% { transform: translateX(420%) rotate(14deg); opacity: .55; }
-        }
-      `}</style>
-          
+  return (          
     <section id="plans" className="relative py-14 md:py-20">
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1240px] text-center">
