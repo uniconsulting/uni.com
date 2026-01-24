@@ -116,9 +116,9 @@ function NichePill({
         backdrop-blur-[22px] backdrop-saturate-150
         shadow-[0_22px_70px_rgba(0,0,0,0.05)]
         lg-border
-        transition-[transform] duration-[1600ms]
+        transition-[transform] duration-[2600ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
-        hover:scale-[1.045] active:scale-[0.995]
+        hover:scale-[1.0] active:scale-[0.995]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
         ${active ? "ring-1 ring-[#c73f40]/20" : ""}
       `}
@@ -140,7 +140,7 @@ function NichePill({
           text-[14px] sm:text-[15px]
           font-[400]
           whitespace-nowrap
-          transition-colors duration-[900ms] ease-out
+          transition-colors duration-[1800ms] ease-out
           ${active ? "text-[#c73f40]" : "text-[#0f172a]"}
           hover:text-[#c73f40]
         `}
@@ -174,7 +174,7 @@ function LoadingPill() {
         className="
           relative z-10 inline-flex items-center justify-center
           rounded-full
-          px-8 py-3
+          h-12 px-8
           bg-white/82
           border border-black/10
           shadow-[0_16px_45px_rgba(0,0,0,0.06)]
@@ -190,7 +190,7 @@ function LoadingPill() {
                 "linear-gradient(90deg, rgba(199,63,64,0.00), rgba(199,63,64,0.18), rgba(177,207,235,0.85), rgba(199,63,64,0.18), rgba(199,63,64,0.00))",
               backgroundSize: "220% 100%",
               filter: "blur(0.2px)",
-              animation: "uniLoaderFlow 2.8s cubic-bezier(0.16,1,0.3,1) infinite",
+              animation: "uniLoaderFlow 4.8s cubic-bezier(0.16,1,0.3,1) infinite",
             }}
           />
         </div>
