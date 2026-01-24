@@ -30,17 +30,15 @@ type Plan = {
   variant?: "primary" | "outline";
   featured?: boolean;
 
-  // только для MegaMenu/плейсхолдера
   mega: PlanMega;
-  previewLines: string[]; // “размытый” превью-текст в плейсхолдере
+  previewLines: string[];
 };
 
 const PLANS: Plan[] = [
   {
     key: "trial",
     title: "Тестовый",
-    desc:
-      "Соберите первых\nассистентов и оцените\nинтерфейс, аналитику\nи логику работы.",
+    desc: "Соберите первых\nассистентов и оцените\nинтерфейс, аналитику\nи логику работы.",
     priceMonthly: 0,
     noteUnderPrice: "0 ₽ / бессрочно",
     paramsTitle: "Ключевые параметры",
@@ -81,8 +79,7 @@ const PLANS: Plan[] = [
   {
     key: "small",
     title: "Малый",
-    desc:
-      "Для небольших команд:\nбыстрый запуск по\nинструкциям ЮНИ +\nлёгкая помощь эксперта.",
+    desc: "Для небольших команд:\nбыстрый запуск по\nинструкциям ЮНИ +\nлёгкая помощь эксперта.",
     priceMonthly: 9900,
     integrationNote: "интеграции: от 179 900₽ / разово *",
     paramsTitle: "Ключевые параметры",
@@ -129,8 +126,7 @@ const PLANS: Plan[] = [
   {
     key: "mid",
     title: "Средний",
-    desc:
-      "Для масштабирования\nдействующих процессов.\nПолноценная интеграция\nпод ключ командой ЮНИ.",
+    desc: "Для масштабирования\nдействующих процессов.\nПолноценная интеграция\nпод ключ командой ЮНИ.",
     priceMonthly: 39900,
     integrationNote: "интеграции: от 179 900₽ / разово *",
     paramsTitle: "Ключевые параметры",
@@ -146,12 +142,7 @@ const PLANS: Plan[] = [
       blocks: [
         {
           title: "Кому",
-          items: [
-            "Директор по развитию",
-            "Коммерческий директор",
-            "Руководитель продаж",
-            "Маркетолог",
-          ],
+          items: ["Директор по развитию", "Коммерческий директор", "Руководитель продаж", "Маркетолог"],
         },
         {
           title: "Лимиты и каналы",
@@ -179,8 +170,7 @@ const PLANS: Plan[] = [
   {
     key: "enterprise",
     title: "Энтерпрайз",
-    desc:
-      "Для крупных компаний:\nмакс. персонализация,\nSLA и постоянное\nвовлечение команды ЮНИ.",
+    desc: "Для крупных компаний:\nмакс. персонализация,\nSLA и постоянное\nвовлечение команды ЮНИ.",
     priceMonthly: 99900,
     integrationNote: "условия: индивидуально",
     paramsTitle: "Ключевые параметры",
@@ -194,12 +184,7 @@ const PLANS: Plan[] = [
       blocks: [
         {
           title: "Кому",
-          items: [
-            "Маркетолог крупной компании",
-            "Head of Digital",
-            "Руководитель AI-направления",
-            "Контакт-центр и смежные функции",
-          ],
+          items: ["Маркетолог крупной компании", "Head of Digital", "Руководитель AI-направления", "Контакт-центр и смежные функции"],
         },
         {
           title: "Лимиты и каналы",
@@ -283,12 +268,7 @@ function EyeIcon() {
 function CloseIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6 6l12 12M18 6L6 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -297,24 +277,14 @@ function safePrice(billing: Billing, p: Plan) {
   if (p.priceMonthly === null) return null;
   if (p.priceMonthly === 0) return 0;
   if (billing === "monthly") return p.priceMonthly;
-  // годовой: -20%
   return Math.round(p.priceMonthly * 0.8);
 }
 
-function MegaMenu({
-  openKey,
-  onClose,
-}: {
-  openKey: Plan["key"] | null;
-  onClose: () => void;
-}) {
+function MegaMenu({ openKey, onClose }: { openKey: Plan["key"] | null; onClose: () => void }) {
   const [mounted, setMounted] = React.useState(false);
   const [entered, setEntered] = React.useState(false);
 
-  const plan = React.useMemo(
-    () => PLANS.find((p) => p.key === openKey) ?? null,
-    [openKey]
-  );
+  const plan = React.useMemo(() => PLANS.find((p) => p.key === openKey) ?? null, [openKey]);
 
   React.useEffect(() => setMounted(true), []);
 
@@ -329,7 +299,6 @@ function MegaMenu({
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // даём кадр, чтобы transition “въехал”
     const t = window.setTimeout(() => setEntered(true), 10);
 
     return () => {
@@ -360,7 +329,6 @@ function MegaMenu({
           ].join(" ")}
           onMouseDown={(e) => e.stopPropagation()}
         >
-          {/* внутренняя пластика */}
           <div className="pointer-events-none absolute inset-0 opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.12),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.10),transparent_65%)]" />
           <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/12" />
 
@@ -376,21 +344,11 @@ function MegaMenu({
                   </div>
                 ) : null}
 
-                {/* “быстрые” бейджи */}
                 <div className="mt-4 flex flex-wrap gap-2">
                   {plan.previewLines.map((t) => (
                     <span
                       key={t}
-                      className="
-                        rounded-full
-                        border border-black/10
-                        bg-white
-                        px-3 py-1
-                        text-[12px]
-                        font-semibold
-                        text-[#0f172a]
-                        shadow-[0_10px_26px_rgba(0,0,0,0.04)]
-                      "
+                      className="rounded-full border border-black/10 bg-white px-3 py-1 text-[12px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]"
                     >
                       {t}
                     </span>
@@ -401,17 +359,7 @@ function MegaMenu({
               <button
                 type="button"
                 onClick={onClose}
-                className="
-                  lg-border
-                  grid h-10 w-10 place-items-center
-                  rounded-full
-                  border border-black/10
-                  bg-white/65
-                  text-[#0f172a]
-                  shadow-[0_10px_26px_rgba(0,0,0,0.06)]
-                  transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                  hover:scale-[1.04] active:scale-[0.98]
-                "
+                className="lg-border grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white/65 text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.06)] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04] active:scale-[0.98]"
                 aria-label="Закрыть"
               >
                 <CloseIcon />
@@ -422,38 +370,30 @@ function MegaMenu({
               {plan.mega.blocks.map((b) => (
                 <div
                   key={b.title}
-                  className="
-                    lg-border
-                    rounded-[20px]
-                    border border-black/10
-                    bg-white
-                    p-5
-                    shadow-[0_16px_45px_rgba(0,0,0,0.05)]
-                  "
+                  className="lg-border rounded-[20px] border border-black/10 bg-white p-5 shadow-[0_16px_45px_rgba(0,0,0,0.05)]"
                 >
-                  <div className="text-[13px] font-semibold text-[#0f172a]">
-                    {b.title}
-                  </div>
+                  <div className="text-[13px] font-semibold text-[#0f172a]">{b.title}</div>
 
-                  <div className="mt-3 space-y-2">
+                  <ul className="mt-3 space-y-2">
                     {b.items.map((it) => (
-                      <div   
+                      <li
                         key={it}
-  className="flex items-start gap-2 text-[13px] leading-[1.4] text-[#475467]"
->
-  <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70" />
-  <span className="min-w-0">{it}</span>
-                      </div>
+                        className="flex items-start gap-2 text-[13px] leading-[1.4] text-[#475467]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-[8px] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
+                        />
+                        <span className="min-w-0">{it}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               ))}
             </div>
 
             {plan.mega.footnote ? (
-              <div className="px-7 pb-7 text-[12px] text-[#98A2B3]">
-                {plan.mega.footnote}
-              </div>
+              <div className="px-7 pb-7 text-[12px] text-[#98A2B3]">{plan.mega.footnote}</div>
             ) : null}
           </div>
         </div>
@@ -486,69 +426,78 @@ export default function PricingPlansSection() {
             + инвестиционная окупаемость
           </div>
 
-<div className="mt-7 flex justify-center">
-  <div
-    role="tablist"
-    aria-label="Вариант оплаты"
-    className="
-      lg-border
-      w-[min(560px,100%)]
-      rounded-[999px]
-      border border-white/22
-      bg-white/10
-      p-2
-      backdrop-blur-[22px] backdrop-saturate-150
-      shadow-[0_22px_70px_rgba(0,0,0,0.05)]
-    "
-  >
-    <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2">
-      <button
-        type="button"
-        onClick={() => setBilling('monthly')}
-        aria-pressed={billing === 'monthly'}
-        className={[
-          'h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out',
-          'active:scale-[0.99]',
-          billing === 'monthly'
-            ? 'bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]'
-            : 'text-white/75 hover:text-white hover:scale-[1.02]',
-        ].join(' ')}
-      >
-        Ежемесячно
-      </button>
+          {/* Billing switch: уже + симметричные отступы слева/справа */}
+          <div className="mt-7 flex justify-center">
+            <div
+              role="tablist"
+              aria-label="Вариант оплаты"
+              className="
+                lg-border
+                inline-flex items-center gap-2
+                max-w-[calc(100vw-32px)]
+                rounded-[999px]
+                border border-white/22
+                bg-white/10
+                p-2
+                backdrop-blur-[22px] backdrop-saturate-150
+                shadow-[0_22px_70px_rgba(0,0,0,0.05)]
+              "
+            >
+              <button
+                type="button"
+                onClick={() => setBilling("monthly")}
+                aria-pressed={billing === "monthly"}
+                className={[
+                  "h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+                  "active:scale-[0.99]",
+                  billing === "monthly"
+                    ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+                    : "text-white/75 hover:text-white hover:scale-[1.02]",
+                ].join(" ")}
+              >
+                Ежемесячно
+              </button>
 
-      <button
-        type="button"
-        onClick={() => setBilling('yearly')}
-        aria-pressed={billing === 'yearly'}
-        className={[
-          'h-10 justify-self-center rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out',
-          'active:scale-[0.99]',
-          billing === 'yearly'
-            ? 'bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]'
-            : 'text-white/75 hover:text-white hover:scale-[1.02]',
-        ].join(' ')}
-      >
-        Годовой
-      </button>
+              <button
+                type="button"
+                onClick={() => setBilling("yearly")}
+                aria-pressed={billing === "yearly"}
+                className={[
+                  "h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+                  "active:scale-[0.99]",
+                  billing === "yearly"
+                    ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+                    : "text-white/75 hover:text-white hover:scale-[1.02]",
+                ].join(" ")}
+              >
+                Годовой
+              </button>
 
-      <button
-        type="button"
-        onClick={() => setBilling('yearly')}
-        aria-pressed={billing === 'yearly'}
-        className={[
-          "h-10 justify-self-center rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
-          "active:scale-[0.99]",
-          billing === "yearly"
-            ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
-            : "text-white/75 hover:text-white hover:scale-[1.02]",
-        ].join(' ')}
-      >
-        -20%
-      </button>
-    </div>
-  </div>
-</div>
+              {/* Бейдж кликабельный, без лишнего padding у “кнопки”, чтобы справа был ровно p-2 */}
+              <button
+                type="button"
+                onClick={() => setBilling("yearly")}
+                aria-label="Скидка 20% при годовой оплате"
+                className="h-10 p-0 active:scale-[0.99] transition-transform duration-[900ms] ease-out"
+              >
+                <span
+                  className="
+                    inline-flex h-10 items-center
+                    rounded-full
+                    bg-[#c73f40]/12
+                    px-4
+                    text-[12px]
+                    font-semibold
+                    text-[#c73f40]
+                    border border-[#c73f40]/18
+                  "
+                >
+                  -20%
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* Общий контейнер карточек (упаковку НЕ меняем) */}
         <div className="relative mx-auto mt-10 max-w-[1240px]">
@@ -591,7 +540,7 @@ export default function PricingPlansSection() {
 
                       <div className="mt-4">
                         <div className="flex items-end gap-2">
-                          <div className="text-[26px] font-semibold text-[#28df7c] tracking-[-0.02em]">
+                          <div className="text-[26px] font-semibold text-[#0f172a] tracking-[-0.02em]">
                             {priceText}
                           </div>
 
@@ -601,15 +550,11 @@ export default function PricingPlansSection() {
                         </div>
 
                         {p.noteUnderPrice ? (
-                          <div className="mt-1 text-[12px] text-[#98A2B3]">
-                            {p.noteUnderPrice}
-                          </div>
+                          <div className="mt-1 text-[12px] text-[#98A2B3]">{p.noteUnderPrice}</div>
                         ) : null}
 
                         {p.integrationNote ? (
-                          <div className="mt-1 text-[12px] text-[#98A2B3]">
-                            {p.integrationNote}
-                          </div>
+                          <div className="mt-1 text-[12px] text-[#98A2B3]">{p.integrationNote}</div>
                         ) : null}
                       </div>
 
@@ -634,19 +579,12 @@ export default function PricingPlansSection() {
                       <button
                         type="button"
                         onClick={() => openMega(p.key)}
-                        className="
-                          mt-4 inline-flex items-center gap-2
-                          text-[13px] font-semibold
-                          text-[#0f172a]
-                          hover:text-[#c73f40]
-                          transition-colors duration-[600ms]
-                        "
+                        className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#0f172a] hover:text-[#c73f40] transition-colors duration-[600ms]"
                       >
                         Изучить возможности <EyeIcon />
                       </button>
 
-                      {/* Плейсхолдер-контент: добавили “размытый” текст + клик -> MegaMenu
-                         Упаковку блока НЕ меняем (классы/высота/рамка те же). */}
+                      {/* Плейсхолдер-контент: размытый текст + клик -> MegaMenu (упаковку блока НЕ меняем) */}
                       <div
                         className="
                           lg-border
@@ -662,7 +600,6 @@ export default function PricingPlansSection() {
                       >
                         <div className="pointer-events-none absolute inset-0 opacity-70 bg-[radial-gradient(600px_160px_at_25%_0%,rgba(255,255,255,0.40),transparent_60%),radial-gradient(600px_160px_at_85%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
 
-                        {/* размытый “текст внутри” */}
                         <div className="absolute inset-0 p-4">
                           <div
                             className="text-[12px] leading-[1.35] text-[#475467] whitespace-pre-line"
@@ -676,7 +613,6 @@ export default function PricingPlansSection() {
                           </div>
                         </div>
 
-                        {/* кликабельный слой */}
                         <button
                           type="button"
                           onClick={() => openMega(p.key)}
@@ -685,7 +621,6 @@ export default function PricingPlansSection() {
                         />
                       </div>
 
-                      {/* CTA */}
                       <div className="mt-4">
                         <button
                           type="button"
@@ -706,7 +641,6 @@ export default function PricingPlansSection() {
               })}
             </div>
 
-            {/* лёгкая “пластика” внутри общей рамки */}
             <div className="pointer-events-none absolute inset-0 rounded-[40px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
           </div>
         </div>
@@ -736,20 +670,11 @@ export default function PricingPlansSection() {
                 {ADDONS.map((a) => (
                   <div
                     key={a.title}
-                    className="
-                      lg-border
-                      rounded-[18px]
-                      border border-black/10
-                      bg-white/70
-                      p-4
-                      shadow-[0_16px_45px_rgba(0,0,0,0.05)]
-                    "
+                    className="lg-border rounded-[18px] border border-black/10 bg-white/70 p-4 shadow-[0_16px_45px_rgba(0,0,0,0.05)]"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="text-[14px] font-semibold text-[#0f172a]">
-                          {a.title}
-                        </div>
+                        <div className="text-[14px] font-semibold text-[#0f172a]">{a.title}</div>
                         <div className="mt-1 text-[12px] leading-[1.35] text-[#475467]">
                           {a.desc}
                         </div>
@@ -771,7 +696,6 @@ export default function PricingPlansSection() {
         </div>
       </div>
 
-      {/* MegaMenu по центру страницы */}
       <MegaMenu openKey={openKey} onClose={closeMega} />
     </section>
   );
