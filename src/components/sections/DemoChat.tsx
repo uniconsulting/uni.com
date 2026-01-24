@@ -376,7 +376,7 @@ export default function DemoChatSection() {
                   ref={listRef}
                   className="
                     relative
-                    h-[520px] md:h-[620px]
+                    h-[clamp(420px,60vh,620px)]
                     overflow-auto
                     bg-white
                   "
@@ -490,34 +490,33 @@ export default function DemoChatSection() {
   );
 }
 
-function ChatHeader(props: {
-  niche: string;
-  setNiche: (v: any) => void;
-}) {
+function ChatHeader(props: { niche: string; setNiche: (v: any) => void }) {
   const { niche, setNiche } = props;
 
   return (
-    <div className="lg-border bg-[#f7f7f7] px-4 py-3 md:px-6 border-b">
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-        <div className="justify-self-start">
-          <NicheDropdown value={niche} onChange={setNiche} />
-        </div>
-
-        <div className="justify-self-center text-center leading-tight">
-          <div className="text-[14px] font-semibold tracking-[-0.01em] text-[#101828]">
-            ЮНИ.ai
+    <div className="border-b border-black/5">
+      <div className="bg-[#f7f7f7] px-4 py-2 md:px-6">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+          <div className="justify-self-start">
+            <NicheDropdown value={niche} onChange={setNiche} />
           </div>
-          <div className="text-[12px] text-[#667085]">в сети</div>
-        </div>
 
-        <div className="justify-self-end">
-          <div className="lg-border grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
-            <img
-              src="brand/logo.svg"
-              alt="ЮНИ.ai"
-              className="h-full w-full object-cover"
-              draggable={false}
-            />
+          <div className="justify-self-center text-center leading-tight">
+            <div className="text-[14px] font-semibold tracking-[-0.01em] text-[#101828]">
+              ЮНИ.ai
+            </div>
+            <div className="text-[12px] text-[#667085]">в сети</div>
+          </div>
+
+          <div className="justify-self-end">
+            <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
+              <img
+                src="brand/logo.svg"
+                alt="ЮНИ.ai"
+                className="h-full w-full object-cover"
+                draggable={false}
+              />
+            </div>
           </div>
         </div>
       </div>
