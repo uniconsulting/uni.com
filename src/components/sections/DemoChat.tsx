@@ -648,7 +648,7 @@ function NicheDropdown(props: {
         className="
           inline-flex h-10 items-center gap-2
           rounded-full
-          border border-black/10
+          lg-border
           bg-white
           pl-4 pr-3
           text-[14px]
