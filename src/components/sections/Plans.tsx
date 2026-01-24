@@ -437,9 +437,12 @@ function MegaMenu({
 
                   <div className="mt-3 space-y-2">
                     {b.items.map((it) => (
-                      <div key={it} className="flex gap-2 text-[13px] leading-[1.4] text-[#475467]">
-                        <span className="mt-[8px] h-[5px] w-[5px] rounded-full bg-[#c73f40]/70" />
-                        <span>{it}</span>
+                      <div   
+                        key={it}
+  className="flex items-start gap-2 text-[13px] leading-[1.4] text-[#475467]"
+>
+  <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70" />
+  <span className="min-w-0">{it}</span>
                       </div>
                     ))}
                   </div>
