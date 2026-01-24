@@ -423,7 +423,7 @@ export default function PricingPlansSection() {
           </div>
 
 <div className="mt-3 flex justify-center">
-  <span className="uniGlassSweep relative inline-block overflow-hidden rounded-[999px] px-2 py-[2px] text-white/55 font-semibold tracking-[-0.01em] text-[13px] sm:text-[24px]">
+  <span className="uniGlassSweep relative inline-block overflow-hidden rounded-[999px] px-2 py-[2px] text-[#41e18b] font-semibold tracking-[-0.01em] text-[13px] sm:text-[24px]">
     + инвестиционная окупаемость
 
     {/* стеклянный блик */}
