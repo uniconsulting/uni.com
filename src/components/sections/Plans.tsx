@@ -435,7 +435,6 @@ export default function PricingPlansSection() {
           animation: "uniGlassSweep 9.5s cubic-bezier(0.16,1,0.3,1) infinite",
         }}
       />
-    </span>
   </span>
 </div>
 
