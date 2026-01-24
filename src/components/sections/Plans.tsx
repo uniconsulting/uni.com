@@ -537,11 +537,11 @@ export default function PricingPlansSection() {
         onClick={() => setBilling('yearly')}
         aria-pressed={billing === 'yearly'}
         className={[
-          'justify-self-end rounded-full px-4 py-2 text-[12px] font-semibold border transition-[transform,background-color,color] duration-[900ms] ease-out',
-          'active:scale-[0.99]',
-          billing === 'yearly'
-            ? 'bg-white/85 text-[#c73f40] border-[#c73f40]/18 shadow-[0_16px_45px_rgba(0,0,0,0.08)]'
-            : 'bg-[#c73f40]/12 text-[#c73f40] border-[#c73f40]/18',
+          "h-10 justify-self-center rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+          "active:scale-[0.99]",
+          billing === "yearly"
+            ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+            : "text-white/75 hover:text-white hover:scale-[1.02]",
         ].join(' ')}
       >
         -20%
