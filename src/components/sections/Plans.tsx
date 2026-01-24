@@ -458,6 +458,22 @@ export default function PricingPlansSection() {
                 Ежемесячно
               </button>
 
+              <button
+                type="button"
+                onClick={() => setBilling("yearly")}
+                aria-pressed={billing === "yearly"}
+                className={[
+                  "h-10 rounded-[999px] px-5 text-[14px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out",
+                  "active:scale-[0.99]",
+                  billing === "yearly"
+                    ? "bg-white/85 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.08)]"
+                    : "text-white/75 hover:text-white hover:scale-[1.02]",
+                ].join(" ")}
+              >
+                Годовой
+              </button>
+
+              {/* Бейдж кликабельный, без лишнего padding у “кнопки”, чтобы справа был ровно p-2 */}
 <button
   type="button"
   onClick={() => setBilling("yearly")}
@@ -476,29 +492,6 @@ export default function PricingPlansSection() {
     -20%
   </span>
 </button>
-
-              {/* Бейдж кликабельный, без лишнего padding у “кнопки”, чтобы справа был ровно p-2 */}
-              <button
-                type="button"
-                onClick={() => setBilling("yearly")}
-                aria-label="Скидка 20% при годовой оплате"
-                className="h-10 p-0 active:scale-[0.99] transition-transform duration-[900ms] ease-out"
-              >
-                <span
-                  className="
-                    inline-flex h-10 items-center
-                    rounded-full
-                    bg-[#c73f40]/12
-                    px-4
-                    text-[12px]
-                    font-semibold
-                    text-[#c73f40]
-                    border border-[#c73f40]/18
-                  "
-                >
-                  -20%
-                </span>
-              </button>
             </div>
           </div>
         </div>
