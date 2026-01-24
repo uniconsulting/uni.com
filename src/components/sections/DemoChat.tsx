@@ -498,7 +498,7 @@ function ChatHeader(props: {
 
   return (
     <div className="bg-[#f7f7f7] px-4 py-3 md:px-6 border-b border-black/5">
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
         <div className="justify-self-start">
           <NicheDropdown value={niche} onChange={setNiche} />
         </div>
