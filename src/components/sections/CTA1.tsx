@@ -12,7 +12,7 @@ export default function CTA1() {
           </h2>
 
           <div className="mt-1 text-white font-semibold tracking-[-0.01em] text-[16px] sm:text-[28px] lg:text-[28px]">
-            уже готовы работать бесплатно
+            готовы начать работать прямо сейчас
           </div>
         </div>
 
