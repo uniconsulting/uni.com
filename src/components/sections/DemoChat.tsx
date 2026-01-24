@@ -344,7 +344,7 @@ export default function DemoChatSection() {
             <div
               className="
                 relative
-                rounded-[48px]
+                rounded-[26px]
                 p-[2px]
                 shadow-[0_30px_110px_rgba(0,0,0,0.10)]
                 bg-[linear-gradient(90deg,rgba(177,207,235,0.85),rgba(199,63,64,0.55))]
@@ -424,9 +424,9 @@ export default function DemoChatSection() {
                 </div>
 
                 {/* Композер */}
-                <div className="border-t border-black/5 bg-white px-4 pt-3 pb-4 md:px-6">
+                <div className="lg-border bg-white px-4 pt-3 pb-4 md:px-6">
                   {/* FAQ-кнопки: раскладка без “перевеса” */}
-                  <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                  <div className="lg-border mb-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {faq.slice(0, 3).map((q) => (
                       <FaqButton key={q} text={q} onClick={() => void send(q)} />
                     ))}
@@ -435,9 +435,9 @@ export default function DemoChatSection() {
                   <form
                     onSubmit={onSubmit}
                     className="
+                      lg-border
                       flex items-center gap-2
                       rounded-[999px]
-                      border border-black/10
                       bg-white
                       px-3 py-2
                       shadow-[0_10px_30px_rgba(0,0,0,0.04)]
@@ -511,7 +511,7 @@ function ChatHeader(props: {
         </div>
 
         <div className="justify-self-end">
-          <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
+          <div className="lg-border grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
             <img
               src="brand/logo.svg"
               alt="ЮНИ.ai"
@@ -534,9 +534,9 @@ function RolePills(props: {
   return (
     <div
       className="
+        lg-border
         inline-flex flex-wrap items-center justify-center gap-1
         rounded-full
-        border border-black/10
         bg-white
         p-1
         shadow-[0_8px_22px_rgba(0,0,0,0.04)]
@@ -551,7 +551,7 @@ function RolePills(props: {
           className={[
             "rounded-full px-4 py-2 text-[13px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out active:scale-[0.99]",
             role === r.key
-              ? "bg-[#c73f40] text-white shadow-[0_10px_26px_rgba(199,63,64,0.18)]"
+              ? "bg-[#c73f40] text-white shadow-[0_10px_26px_rgba(199,63,64,0.03)]"
               : "bg-transparent text-[#101828] hover:text-[#c73f40] hover:scale-[1.02]",
           ].join(" ")}
         >
@@ -593,9 +593,9 @@ function NicheDropdown(props: {
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="
+          lg-border
           inline-flex h-10 items-center gap-2
           rounded-full
-          border border-black/10
           bg-white
           pl-4 pr-3
           text-[14px]
@@ -617,11 +617,11 @@ function NicheDropdown(props: {
         <div
           role="listbox"
           className="
+            lg-border
             absolute left-0 top-[calc(100%+8px)] z-30
             w-[min(360px,calc(100vw-32px))]
             overflow-hidden
             rounded-[16px]
-            border border-black/10
             bg-white
             shadow-[0_18px_55px_rgba(0,0,0,0.10)]
           "
@@ -643,7 +643,7 @@ function NicheDropdown(props: {
                     "w-full rounded-[12px] px-3 py-2 text-left text-[14px] transition-colors",
                     active
                       ? "bg-[#c73f40]/10 text-[#c73f40] font-semibold"
-                      : "hover:bg-black/[0.04] text-[#101828]",
+                      : "hover: lg-border text-[#101828]",
                   ].join(" ")}
                 >
                   {n}
@@ -667,7 +667,7 @@ function Bubble({ from, text }: { from: Msg["from"]; text: string }) {
           "max-w-[78%] rounded-[18px] px-4 py-3 text-[13px] leading-[1.5] whitespace-pre-wrap",
           isUser
             ? "bg-[#c73f40] text-white shadow-[0_18px_55px_rgba(199,63,64,0.18)]"
-            : "border border-black/10 bg-[#f6f7f9] text-[#101828]",
+            : "lg-border bg-[#f6f7f9] text-[#101828]",
         ].join(" ")}
       >
         {text}
@@ -682,11 +682,11 @@ function FaqButton({ text, onClick }: { text: string; onClick: () => void }) {
       type="button"
       onClick={onClick}
       className="
+        lg-border
         group
         relative
         inline-flex w-full items-center justify-start
         rounded-full
-        border border-black/10
         bg-white
         px-4 py-3
         text-left
@@ -724,9 +724,9 @@ function RoundIconButton(props: {
   const base =
     "grid h-10 w-10 place-items-center rounded-full transition-[transform,opacity,box-shadow] duration-[800ms] ease-out active:scale-[0.97]";
   const ghost =
-    "border border-black/10 bg-[#f3f4f6] text-[#475467] hover:scale-[1.05] hover:shadow-[0_10px_26px_rgba(0,0,0,0.08)]";
+    "lg-border bg-[#f3f4f6] text-[#475467] hover:scale-[1.05] hover:shadow-[0_10px_26px_rgba(0,0,0,0.03)]";
   const primary =
-    "bg-[#c73f40] text-white hover:scale-[1.05] hover:shadow-[0_18px_55px_rgba(199,63,64,0.22)]";
+    "bg-[#c73f40] text-white hover:scale-[1.05] hover:shadow-[0_18px_55px_rgba(199,63,64,0.03)]";
 
   return (
     <button
