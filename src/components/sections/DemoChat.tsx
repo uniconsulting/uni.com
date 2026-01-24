@@ -263,6 +263,12 @@ async function getAliceAnswer(params: {
   return data.reply ?? data.text ?? data.answer ?? "Ответ получен, но формат не распознан.";
 }
 
+type UniNicheSelectDetail = { niche?: string };
+
+function isValidNiche(v: string): v is (typeof NICHES)[number] {
+  return (NICHES as readonly string[]).includes(v);
+}
+
 export default function DemoChatSection() {
   const [niche, setNiche] = useState<(typeof NICHES)[number]>("Автосервис");
   const [role, setRole] = useState<RoleKey>("sales");
@@ -278,6 +284,26 @@ export default function DemoChatSection() {
     const byNiche = FAQ[niche] ?? FAQ["Автосервис"];
     return byNiche[role] ?? byNiche.sales;
   }, [niche, role]);
+
+  useEffect(() => {
+  const handler = (e: Event) => {
+    const ce = e as CustomEvent<UniNicheSelectDetail>;
+    const next = ce.detail?.niche?.trim();
+    if (!next) return;
+
+    // Вариант A: строго только из NICHES
+    if (isValidNiche(next)) {
+      setNiche(next);
+      // опционально: можно сбросить сообщения (если хочешь “чистую” сессию при выборе ниши)
+      // setMessages([]);
+      // setDraft("");
+      requestAnimationFrame(() => inputRef.current?.focus());
+    }
+  };
+
+  window.addEventListener("uni:niche-select", handler as EventListener);
+  return () => window.removeEventListener("uni:niche-select", handler as EventListener);
+}, []);
 
   useEffect(() => {
     // При смене ниши/роли начинаем “чистую” демо-сессию.
