@@ -331,7 +331,7 @@ export default function DemoChatSection() {
           <div
             className="
               relative
-              rounded-[26px]
+              rounded-[34px]
               border border-white/18
               bg-white/10
               p-[10px]
