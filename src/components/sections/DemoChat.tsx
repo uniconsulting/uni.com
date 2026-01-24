@@ -687,7 +687,7 @@ function NicheDropdown(props: {
                 maxWidth: "calc(100vw - 32px)",
               }}
             >
-              <div className="max-h-[280px] overflow-auto p-2">
+              <div className="max-h-[240px] overflow-auto p-2">
                 {NICHES.map((n) => {
                   const active = n === value;
                   return (
