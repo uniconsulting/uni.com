@@ -362,9 +362,15 @@ export default function DemoChatSection() {
                 <ChatHeader
                   niche={niche}
                   setNiche={setNiche}
-                  role={role}
-                  setRole={setRole}
                 />
+
+                {messages.length > 0 ? (
+  <div className="bg-white px-4 py-3 md:px-6 border-b border-black/5">
+    <div className="flex justify-center">
+      <RolePills role={role} setRole={setRole} />
+    </div>
+  </div>
+) : null}
 
                 <div
                   ref={listRef}
@@ -376,16 +382,21 @@ export default function DemoChatSection() {
                   "
                 >
                   {messages.length === 0 ? (
-                    <div className="absolute inset-0 grid place-items-center px-6 text-center">
-                      <div>
-                        <div className="text-[14px] sm:text-[15px] font-semibold text-[#101828]">
-                          Выберите нишу и роль, затем задайте вопрос
-                        </div>
-                        <div className="mt-1 text-[12px] sm:text-[13px] text-[#667085]">
-                          Для быстрого старта используйте FAQ-кнопки над строкой ввода.
-                        </div>
-                      </div>
-                    </div>
+<div className="absolute inset-0 grid place-items-center px-6">
+  <div className="text-center">
+    <div className="text-[14px] sm:text-[15px] font-semibold text-[#101828]">
+      Выберите нишу и роль, затем задайте вопрос
+    </div>
+    <div className="mt-1 text-[12px] sm:text-[13px] text-[#667085]">
+      Для быстрого старта используйте FAQ-кнопки над строкой ввода.
+    </div>
+
+    <div className="mt-4 flex justify-center">
+      <RolePills role={role} setRole={setRole} />
+    </div>
+  </div>
+</div>
+
                   ) : (
                     <div className="px-5 py-6 md:px-7 md:py-7 space-y-3">
                       {messages.map((m) => (
@@ -482,55 +493,24 @@ export default function DemoChatSection() {
 function ChatHeader(props: {
   niche: string;
   setNiche: (v: any) => void;
-  role: RoleKey;
-  setRole: (v: RoleKey) => void;
 }) {
-  const { niche, setNiche, role, setRole } = props;
+  const { niche, setNiche } = props;
 
   return (
-    <div className="bg-[#f7f7f7] px-4 pt-4 pb-3 md:px-6">
-      <div className="flex items-start justify-between gap-3">
-        {/* Ниша */}
-        <div className="relative">
-          <select
-            value={niche}
-            onChange={(e) => setNiche(e.target.value as any)}
-            className="
-              h-10
-              appearance-none
-              rounded-full
-              border border-black/10
-              bg-white
-              pl-4 pr-10
-              text-[14px]
-              font-semibold
-              text-[#101828]
-              shadow-[0_8px_22px_rgba(0,0,0,0.04)]
-              outline-none
-            "
-          >
-            {NICHES.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-
-          <div className="pointer-events-none absolute inset-y-0 right-3 grid place-items-center text-[#667085]">
-            <ChevronDownIcon />
-          </div>
+    <div className="bg-[#f7f7f7] px-4 py-3 md:px-6 border-b border-black/5">
+      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
+        <div className="justify-self-start">
+          <NicheDropdown value={niche} onChange={setNiche} />
         </div>
 
-        {/* Центр */}
-        <div className="pt-1 text-center leading-tight">
+        <div className="justify-self-center text-center leading-tight">
           <div className="text-[14px] font-semibold tracking-[-0.01em] text-[#101828]">
             ЮНИ.ai
           </div>
           <div className="text-[12px] text-[#667085]">в сети</div>
         </div>
 
-        {/* Лого-рамка (как в хедере) */}
-        <div className="pt-[1px]">
+        <div className="justify-self-end">
           <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
             <img
               src="brand/logo.svg"
@@ -541,6 +521,141 @@ function ChatHeader(props: {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function RolePills(props: {
+  role: RoleKey;
+  setRole: (v: RoleKey) => void;
+}) {
+  const { role, setRole } = props;
+
+  return (
+    <div
+      className="
+        inline-flex flex-wrap items-center justify-center gap-1
+        rounded-full
+        border border-black/10
+        bg-white
+        p-1
+        shadow-[0_8px_22px_rgba(0,0,0,0.04)]
+      "
+    >
+      {ROLES.map((r) => (
+        <button
+          key={r.key}
+          type="button"
+          aria-pressed={role === r.key}
+          onClick={() => setRole(r.key)}
+          className={[
+            "rounded-full px-4 py-2 text-[13px] font-semibold transition-[transform,background-color,color] duration-[900ms] ease-out active:scale-[0.99]",
+            role === r.key
+              ? "bg-[#c73f40] text-white shadow-[0_10px_26px_rgba(199,63,64,0.18)]"
+              : "bg-transparent text-[#101828] hover:text-[#c73f40] hover:scale-[1.02]",
+          ].join(" ")}
+        >
+          {r.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function NicheDropdown(props: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const { value, onChange } = props;
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      const t = e.target as Node | null;
+      if (!t) return;
+      if (!wrapRef.current?.contains(t)) setOpen(false);
+    }
+    function onEsc(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onEsc);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onEsc);
+    };
+  }, []);
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="
+          inline-flex h-10 items-center gap-2
+          rounded-full
+          border border-black/10
+          bg-white
+          pl-4 pr-3
+          text-[14px]
+          font-semibold
+          text-[#101828]
+          shadow-[0_8px_22px_rgba(0,0,0,0.04)]
+          outline-none
+        "
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className="whitespace-nowrap">{value}</span>
+        <span className="text-[#667085]">
+          <ChevronDownIcon />
+        </span>
+      </button>
+
+      {open ? (
+        <div
+          role="listbox"
+          className="
+            absolute left-0 top-[calc(100%+8px)] z-30
+            w-[min(360px,calc(100vw-32px))]
+            overflow-hidden
+            rounded-[16px]
+            border border-black/10
+            bg-white
+            shadow-[0_18px_55px_rgba(0,0,0,0.10)]
+          "
+        >
+          <div className="max-h-[280px] overflow-auto p-2">
+            {NICHES.map((n) => {
+              const active = n === value;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  role="option"
+                  aria-selected={active}
+                  onClick={() => {
+                    onChange(n);
+                    setOpen(false);
+                  }}
+                  className={[
+                    "w-full rounded-[12px] px-3 py-2 text-left text-[14px] transition-colors",
+                    active
+                      ? "bg-[#c73f40]/10 text-[#c73f40] font-semibold"
+                      : "hover:bg-black/[0.04] text-[#101828]",
+                  ].join(" ")}
+                >
+                  {n}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
       {/* Роли */}
       <div className="mt-3">
