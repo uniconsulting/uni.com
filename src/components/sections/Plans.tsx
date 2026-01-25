@@ -280,12 +280,7 @@ function EyeIcon() {
 function CloseIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6 6l12 12M18 6L6 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -297,20 +292,11 @@ function safePrice(billing: Billing, p: Plan) {
   return Math.round(p.priceMonthly * 0.8);
 }
 
-function MegaMenu({
-  openKey,
-  onClose,
-}: {
-  openKey: Plan["key"] | null;
-  onClose: () => void;
-}) {
+function MegaMenu({ openKey, onClose }: { openKey: Plan["key"] | null; onClose: () => void }) {
   const [mounted, setMounted] = React.useState(false);
   const [entered, setEntered] = React.useState(false);
 
-  const plan = React.useMemo(
-    () => PLANS.find((p) => p.key === openKey) ?? null,
-    [openKey]
-  );
+  const plan = React.useMemo(() => PLANS.find((p) => p.key === openKey) ?? null, [openKey]);
 
   React.useEffect(() => setMounted(true), []);
 
@@ -351,9 +337,7 @@ function MegaMenu({
         <div
           className={[
             "lg-border rounded-[34px] border border-white/22 bg-white/10 shadow-[0_30px_110px_rgba(0,0,0,0.22)] backdrop-blur-[34px] backdrop-saturate-150 overflow-hidden transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-            entered
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-[0.985] translate-y-[10px]",
+            entered ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-[0.985] translate-y-[10px]",
           ].join(" ")}
           onMouseDown={(e) => e.stopPropagation()}
         >
@@ -376,16 +360,7 @@ function MegaMenu({
                   {plan.previewLines.map((t) => (
                     <span
                       key={t}
-                      className="
-                        rounded-full
-                        border border-black/10
-                        bg-white
-                        px-3 py-1
-                        text-[12px]
-                        font-semibold
-                        text-[#0f172a]
-                        shadow-[0_10px_26px_rgba(0,0,0,0.04)]
-                      "
+                      className="rounded-full border border-black/10 bg-white px-3 py-1 text-[12px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]"
                     >
                       {t}
                     </span>
@@ -396,17 +371,7 @@ function MegaMenu({
               <button
                 type="button"
                 onClick={onClose}
-                className="
-                  lg-border
-                  grid h-10 w-10 place-items-center
-                  rounded-full
-                  border border-black/10
-                  bg-white/65
-                  text-[#0f172a]
-                  shadow-[0_10px_26px_rgba(0,0,0,0.06)]
-                  transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                  hover:scale-[1.04] active:scale-[0.98]
-                "
+                className="lg-border grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white/65 text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.06)] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04] active:scale-[0.98]"
                 aria-label="Закрыть"
               >
                 <CloseIcon />
@@ -417,27 +382,14 @@ function MegaMenu({
               {plan.mega.blocks.map((b) => (
                 <div
                   key={b.title}
-                  className="
-                    lg-border
-                    rounded-[20px]
-                    border border-black/10
-                    bg-white
-                    p-5
-                    shadow-[0_16px_45px_rgba(0,0,0,0.05)]
-                  "
+                  className="lg-border rounded-[20px] border border-black/10 bg-white p-5 shadow-[0_16px_45px_rgba(0,0,0,0.05)]"
                 >
                   <div className="text-[13px] font-semibold text-[#0f172a]">{b.title}</div>
 
                   <ul className="mt-3 space-y-2">
                     {b.items.map((it) => (
-                      <li
-                        key={it}
-                        className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]"
-                      >
-                        <span
-                          aria-hidden="true"
-                          className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
-                        />
+                      <li key={it} className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]">
+                        <span aria-hidden="true" className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70" />
                         <span className="min-w-0">{it}</span>
                       </li>
                     ))}
@@ -457,13 +409,7 @@ function MegaMenu({
   );
 }
 
-function IntegrationMegaMenu({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+function IntegrationMegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [mounted, setMounted] = React.useState(false);
   const [entered, setEntered] = React.useState(false);
 
@@ -497,25 +443,10 @@ function IntegrationMegaMenu({
     { title: "Проектирование", items: ["Разработка ТЗ", "Декомпозиция сценариев и ролей"] },
     {
       title: "Знания и промпты",
-      items: [
-        "Адаптация документов и информации для базы знаний",
-        "Упаковка базы знаний",
-        "Написание промптов",
-      ],
+      items: ["Адаптация документов и информации для базы знаний", "Упаковка базы знаний", "Написание промптов"],
     },
-    {
-      title: "Сборка и запуск",
-      items: [
-        "Разработка MVP-версии",
-        "Тестирование",
-        "Внесение правок",
-        "Доработка до итоговой версии",
-      ],
-    },
-    {
-      title: "Интеграции",
-      items: ["Интеграции с сервисами/площадками/платформами, CRM, ERP", "Права, маршрутизация, события"],
-    },
+    { title: "Сборка и запуск", items: ["Разработка MVP-версии", "Тестирование", "Внесение правок", "Доработка до итоговой версии"] },
+    { title: "Интеграции", items: ["Интеграции с сервисами/площадками/платформами, CRM, ERP", "Права, маршрутизация, события"] },
     { title: "Сопровождение", items: ["Контроль качества", "Улучшения по аналитике и данным", "План развития (roadmap)"] },
   ];
 
@@ -533,9 +464,7 @@ function IntegrationMegaMenu({
         <div
           className={[
             "lg-border rounded-[34px] border border-white/22 bg-white/10 shadow-[0_30px_110px_rgba(0,0,0,0.22)] backdrop-blur-[34px] backdrop-saturate-150 overflow-hidden transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-            entered
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-[0.985] translate-y-[10px]",
+            entered ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-[0.985] translate-y-[10px]",
           ].join(" ")}
           onMouseDown={(e) => e.stopPropagation()}
         >
@@ -556,16 +485,7 @@ function IntegrationMegaMenu({
                   {["Аудит", "ТЗ", "База знаний", "MVP", "Интеграции", "Сопровождение"].map((t) => (
                     <span
                       key={t}
-                      className="
-                        rounded-full
-                        border border-black/10
-                        bg-white
-                        px-3 py-1
-                        text-[12px]
-                        font-semibold
-                        text-[#0f172a]
-                        shadow-[0_10px_26px_rgba(0,0,0,0.04)]
-                      "
+                      className="rounded-full border border-black/10 bg-white px-3 py-1 text-[12px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]"
                     >
                       {t}
                     </span>
@@ -576,17 +496,7 @@ function IntegrationMegaMenu({
               <button
                 type="button"
                 onClick={onClose}
-                className="
-                  lg-border
-                  grid h-10 w-10 place-items-center
-                  rounded-full
-                  border border-black/10
-                  bg-white/65
-                  text-[#0f172a]
-                  shadow-[0_10px_26px_rgba(0,0,0,0.06)]
-                  transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                  hover:scale-[1.04] active:scale-[0.98]
-                "
+                className="lg-border grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white/65 text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.06)] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04] active:scale-[0.98]"
                 aria-label="Закрыть"
               >
                 <CloseIcon />
@@ -597,27 +507,14 @@ function IntegrationMegaMenu({
               {blocks.map((b) => (
                 <div
                   key={b.title}
-                  className="
-                    lg-border
-                    rounded-[20px]
-                    border border-black/10
-                    bg-white
-                    p-5
-                    shadow-[0_16px_45px_rgba(0,0,0,0.05)]
-                  "
+                  className="lg-border rounded-[20px] border border-black/10 bg-white p-5 shadow-[0_16px_45px_rgba(0,0,0,0.05)]"
                 >
                   <div className="text-[13px] font-semibold text-[#0f172a]">{b.title}</div>
 
                   <ul className="mt-3 space-y-2">
                     {b.items.map((it) => (
-                      <li
-                        key={it}
-                        className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]"
-                      >
-                        <span
-                          aria-hidden="true"
-                          className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
-                        />
+                      <li key={it} className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]">
+                        <span aria-hidden="true" className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70" />
                         <span className="min-w-0">{it}</span>
                       </li>
                     ))}
@@ -707,7 +604,6 @@ export default function PricingPlansSection() {
                 Годовой
               </button>
 
-              {/* -20%: белый фон по умолчанию, при выборе yearly текст красный */}
               <button
                 type="button"
                 onClick={() => setBilling("yearly")}
@@ -730,7 +626,7 @@ export default function PricingPlansSection() {
           </div>
         </div>
 
-        {/* Общий контейнер карточек (упаковку НЕ меняем) */}
+        {/* Общий контейнер карточек */}
         <div className="mt-8 md:mt-12">
           <div
             className="
@@ -774,7 +670,6 @@ export default function PricingPlansSection() {
                           <div className="text-[26px] font-semibold text-[#41e18b] tracking-[-0.02em]">
                             {priceText}
                           </div>
-
                           {price !== null ? (
                             <div className="pb-[3px] text-[16px] text-[#98A2B3]">/ мес</div>
                           ) : null}
@@ -792,9 +687,7 @@ export default function PricingPlansSection() {
                       <div className="mt-4 h-px w-full bg-black/10" />
 
                       <div className="mt-4">
-                        <div className="text-[12px] font-semibold text-[#0f172a]">
-                          {p.paramsTitle}
-                        </div>
+                        <div className="text-[12px] font-semibold text-[#0f172a]">{p.paramsTitle}</div>
 
                         <div className="mt-3 space-y-2 text-[13px] text-[#344054]">
                           {p.params.map((x) => (
@@ -810,18 +703,11 @@ export default function PricingPlansSection() {
                       <button
                         type="button"
                         onClick={() => openMega(p.key)}
-                        className="
-                          mt-4 inline-flex items-center gap-2
-                          text-[13px] font-semibold
-                          text-[#0f172a]
-                          hover:text-[#c73f40]
-                          transition-colors duration-[600ms]
-                        "
+                        className="mt-4 inline-flex items-center gap-2 text-[13px] font-semibold text-[#0f172a] hover:text-[#c73f40] transition-colors duration-[600ms]"
                       >
                         Изучить возможности <EyeIcon />
                       </button>
 
-                      {/* Плейсхолдер: размытый текст + клик -> MegaMenu */}
                       <div
                         className="
                           lg-border
@@ -840,11 +726,7 @@ export default function PricingPlansSection() {
                         <div className="absolute inset-0 p-4">
                           <div
                             className="text-[12px] leading-[1.35] text-[#475467] whitespace-pre-line"
-                            style={{
-                              filter: "blur(6px)",
-                              opacity: 0.78,
-                              transform: "translateZ(0)",
-                            }}
+                            style={{ filter: "blur(6px)", opacity: 0.78, transform: "translateZ(0)" }}
                           >
                             {p.previewLines.join("\n")}
                           </div>
@@ -858,12 +740,11 @@ export default function PricingPlansSection() {
                         />
                       </div>
 
-                      {/* CTA */}
                       <div className="mt-4">
                         <button
                           type="button"
                           className={[
-                            "lg-border w-full h-10 rounded-[12px] border px-4 text-[13px] font-semibold transition-[transform,background-color,color,box-shadow] duration-[900ms] ease-out", 
+                            "lg-border w-full h-10 rounded-[12px] border px-4 text-[13px] font-semibold transition-[transform,background-color,color,box-shadow] duration-[900ms] ease-out",
                             "active:scale-[1.01]",
                             p.variant === "primary"
                               ? "border-[#c73f40]/30 bg-[#c73f40] text-white shadow-[0_12px_45px_rgba(199,63,64,0.06)] hover:scale-[1.01]"
@@ -883,7 +764,7 @@ export default function PricingPlansSection() {
           </div>
         </div>
 
-        {/* Под-секция (2 карточки) вместо старых “Доп-услуг” */}
+        {/* Под-секция (2 карточки) */}
         <div className="mt-8 md:mt-12">
           <div
             className="
@@ -917,25 +798,13 @@ export default function PricingPlansSection() {
                       {s.title}
                     </div>
 
-                    <div className="mt-2 text-[13px] leading-[1.45] text-[#475467]">
-                      {s.subtitle}
-                    </div>
+                    <div className="mt-2 text-[13px] leading-[1.45] text-[#475467]">{s.subtitle}</div>
 
                     <div className="mt-4 flex flex-wrap gap-2">
                       {s.chips.map((t) => (
                         <span
                           key={t}
-                          className="
-                            rounded-full
-                            lg-border
-                            border border-[#c73f40]
-                            bg-white
-                            px-3 py-1
-                            text-[12px]
-                            font-semibold
-                            text-[#0f172a]
-                            shadow-[0_10px_26px_rgba(0,0,0,0.04)]
-                          "
+                          className="rounded-full lg-border border border-[#c73f40] bg-white px-3 py-1 text-[12px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]"
                         >
                           {t}
                         </span>
@@ -944,14 +813,8 @@ export default function PricingPlansSection() {
 
                     <ul className="mt-4 space-y-2">
                       {s.bullets.map((it) => (
-                        <li
-                          key={it}
-                          className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]"
-                        >
-                          <span
-                            aria-hidden="true"
-                            className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
-                          />
+                        <li key={it} className="flex items-start gap-2 text-[13px] leading-[1.45] text-[#475467]">
+                          <span aria-hidden="true" className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70" />
                           <span className="min-w-0">{it}</span>
                         </li>
                       ))}
@@ -960,32 +823,20 @@ export default function PricingPlansSection() {
                 ))}
               </div>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              {/* ВОТ ТУТ БЫЛА ПОЛОМКА: оставляем один блок, кнопка рядом с дисклеймером */}
+              <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
                 <div className="text-[12px] text-[#98A2B3]">
                   * Стоимость интеграций зависит от состава систем и глубины сценариев.
                 </div>
 
-<div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
-  <div className="text-[12px] text-[#98A2B3]">
-    * Стоимость интеграций зависит от состава систем и глубины сценариев.
-  </div>
-
-  <button
-    type="button"
-    onClick={openIntegration}
-    className="
-      inline-flex items-center gap-2
-      text-[12px] font-semibold
-      text-[#0f172a]
-      hover:text-[#c73f40]
-      transition-colors duration-[600ms]
-      sm:ml-2
-      self-start sm:self-auto
-    "
-  >
-    Подробнее <EyeIcon />
-  </button>
-</div>
+                <button
+                  type="button"
+                  onClick={openIntegration}
+                  className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#0f172a] hover:text-[#c73f40] transition-colors duration-[600ms] sm:ml-2 self-start sm:self-auto"
+                >
+                  Подробнее <EyeIcon />
+                </button>
+              </div>
             </div>
           </div>
         </div>
