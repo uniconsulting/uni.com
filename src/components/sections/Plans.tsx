@@ -436,7 +436,7 @@ function MegaMenu({
                       >
                         <span
                           aria-hidden="true"
-                          className="mt-[8px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70"
+                          className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
                         />
                         <span className="min-w-0">{it}</span>
                       </li>
@@ -616,7 +616,7 @@ function IntegrationMegaMenu({
                       >
                         <span
                           aria-hidden="true"
-                          className="mt-[8px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70"
+                          className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
                         />
                         <span className="min-w-0">{it}</span>
                       </li>
@@ -863,11 +863,11 @@ export default function PricingPlansSection() {
                         <button
                           type="button"
                           className={[
-                            "lg-border w-full rounded-[12px] border px-4 py-3 text-[13px] font-semibold transition-[transform,background-color,color,box-shadow] duration-[900ms] ease-out", 
+                            "lg-border w-full h-10 rounded-[12px] border px-4 text-[13px] font-semibold transition-[transform,background-color,color,box-shadow] duration-[900ms] ease-out", 
                             "active:scale-[1.01]",
                             p.variant === "primary"
                               ? "border-[#c73f40]/30 bg-[#c73f40] text-white shadow-[0_12px_45px_rgba(199,63,64,0.06)] hover:scale-[1.01]"
-                              : "border-black/5 bg-white/75 text-[#0f172a] shadow-[0_12px_45px_rgba(0,0,0,0.02)] hover:text-[#c73f40] hover:scale-[1.01]",
+                              : "border-black/3 bg-white/75 text-[#0f172a] shadow-[0_12px_45px_rgba(0,0,0,0.02)] hover:text-[#c73f40] hover:scale-[1.01]",
                           ].join(" ")}
                         >
                           {p.cta}
@@ -950,7 +950,7 @@ export default function PricingPlansSection() {
                         >
                           <span
                             aria-hidden="true"
-                            className="mt-[8px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70"
+                            className="mt-[0.55em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
                           />
                           <span className="min-w-0">{it}</span>
                         </li>
@@ -965,20 +965,27 @@ export default function PricingPlansSection() {
                   * Стоимость интеграций зависит от состава систем и глубины сценариев.
                 </div>
 
-                <button
-                  type="button"
-                  onClick={openIntegration}
-                  className="
-                    inline-flex items-center gap-2
-                    text-[12px] font-semibold
-                    text-[#0f172a]
-                    hover:text-[#c73f40]
-                    transition-colors duration-[600ms]
-                  "
-                >
-                  Подробнее <EyeIcon />
-                </button>
-              </div>
+<div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
+  <div className="text-[12px] text-[#98A2B3]">
+    * Стоимость интеграций зависит от состава систем и глубины сценариев.
+  </div>
+
+  <button
+    type="button"
+    onClick={openIntegration}
+    className="
+      inline-flex items-center gap-2
+      text-[12px] font-semibold
+      text-[#0f172a]
+      hover:text-[#c73f40]
+      transition-colors duration-[600ms]
+      sm:ml-2
+      self-start sm:self-auto
+    "
+  >
+    Подробнее <EyeIcon />
+  </button>
+</div>
             </div>
           </div>
         </div>
