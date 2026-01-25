@@ -902,12 +902,14 @@ export default function PricingPlansSection() {
                   <div
                     key={s.title}
                     className="
+                      relative
                       lg-border
                       rounded-[18px]
-                      border border-black/10
-                      bg-white/70
+                      border border-white/22
+                      bg-white/10
                       p-5
-                      shadow-[0_16px_45px_rgba(0,0,0,0.05)]
+                      shadow-[0_20px_60px_rgba(0,0,0,0.03)]
+                      backdrop-blur-[22px] backdrop-saturate-150
                       h-full
                     "
                   >
