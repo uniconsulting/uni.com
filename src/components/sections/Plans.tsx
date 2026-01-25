@@ -754,7 +754,7 @@ export default function PricingPlansSection() {
                   <div
                     key={p.key}
                     className={[
-                      "relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6">"relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6",
+                      "relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6",
                       p.featured ? "border-[#c73f40]/55" : "border-black/10",
                     ].join(" ")}
                   >
