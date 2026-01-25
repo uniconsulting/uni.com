@@ -397,4 +397,37 @@ body {
     animation: none;
     opacity: 0;
   }
+  
 }
+@keyframes uniShine {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  10%  { opacity: 0.35; }
+  40%  { opacity: 0.35; }
+  60%  { opacity: 0.18; }
+  100% { transform: translateX(120%) skewX(-18deg); opacity: 0; }
+}
+
+.uni-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.uni-shine::after {
+  content: "";
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.35) 45%,
+    rgba(255,255,255,0.15) 52%,
+    transparent 65%
+  );
+  transform: translateX(-120%) skewX(-18deg);
+  animation: uniShine 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .uni-shine::after { animation: none; }
+}
+
