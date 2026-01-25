@@ -350,7 +350,7 @@ function MegaMenu({
       <div className="absolute left-1/2 top-1/2 w-[min(980px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2">
         <div
           className={[
-            "lg-border rounded-[34px] border border-white/22 bg-white/10 shadow-[0_30px_110px_rgba(0,0,0,0.22)] backdrop-blur-[26px] backdrop-saturate-150 overflow-hidden transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "lg-border rounded-[34px] border border-white/22 bg-white/10 shadow-[0_30px_110px_rgba(0,0,0,0.22)] backdrop-blur-[34px] backdrop-saturate-150 overflow-hidden transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
             entered
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-[0.985] translate-y-[10px]",
@@ -532,7 +532,7 @@ function IntegrationMegaMenu({
       <div className="absolute left-1/2 top-1/2 w-[min(980px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2">
         <div
           className={[
-            "lg-border rounded-[34px] border border-white/22 bg-white/10 shadow-[0_30px_110px_rgba(0,0,0,0.22)] backdrop-blur-[26px] backdrop-saturate-150 overflow-hidden transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "lg-border rounded-[34px] border border-white/22 bg-white/10 shadow-[0_30px_110px_rgba(0,0,0,0.22)] backdrop-blur-[34px] backdrop-saturate-150 overflow-hidden transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
             entered
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-[0.985] translate-y-[10px]",
@@ -667,7 +667,7 @@ export default function PricingPlansSection() {
               aria-label="Вариант оплаты"
               className="
                 lg-border
-                w-[min(520px,100%)]
+                max-w-[calc(100vw-32px)]
                 rounded-[999px]
                 border border-white/22
                 bg-white/10
