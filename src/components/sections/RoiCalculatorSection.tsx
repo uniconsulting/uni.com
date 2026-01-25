@@ -83,20 +83,27 @@ function useCountUp(target: number, durationMs = 650) {
   return val;
 }
 
+/** Более надежная отрисовка (без absolute svg + без жесткого clip) */
 function HorizonChart({ y1, y3, y5 }: { y1: number; y3: number; y5: number }) {
-  const maxAbs = Math.max(Math.abs(y1), Math.abs(y3), Math.abs(y5), 1);
+  const values = [y1, y3, y5].map((v) => (Number.isFinite(v) ? v : 0));
+  const maxAbs = Math.max(...values.map((v) => Math.abs(v)), 1);
 
-  // центр = 50, амплитуда = 30, чтобы не упираться в края
-  const mapY = (v: number) => 50 - (v / maxAbs) * 30;
+  // центр 50, амплитуда 32 -> точки гарантированно в пределах (18..82)
+  const mapY = (v: number) => 50 - (v / maxAbs) * 32;
 
-  const p1y = mapY(y1);
-  const p3y = mapY(y3);
-  const p5y = mapY(y5);
+  const pts = [
+    { x: 14, y: mapY(values[0]) },
+    { x: 50, y: mapY(values[1]) },
+    { x: 86, y: mapY(values[2]) },
+  ];
 
-  const allBad = y1 < 0 && y3 < 0 && y5 < 0;
+  const allBad = values[0] < 0 && values[1] < 0 && values[2] < 0;
 
-  const stroke = allBad ? "rgba(199,63,64,0.55)" : "rgba(40,223,124,0.55)";
-  const dot = allBad ? "rgba(199,63,64,0.75)" : "rgba(40,223,124,0.75)";
+  const stroke = allBad ? "rgba(199,63,64,0.58)" : "rgba(40,223,124,0.58)";
+  const dot = allBad ? "rgba(199,63,64,0.82)" : "rgba(40,223,124,0.82)";
+  const fill = allBad ? "rgba(199,63,64,0.10)" : "rgba(40,223,124,0.10)";
+
+  const d = `M ${pts[0].x} ${pts[0].y} L ${pts[1].x} ${pts[1].y} L ${pts[2].x} ${pts[2].y}`;
 
   return (
     <div
@@ -118,38 +125,43 @@ function HorizonChart({ y1, y3, y5 }: { y1: number; y3: number; y5: number }) {
           lg-border border border-white/18
           bg-white/65
           p-3
-          shadow-[0_14px_40px_rgba(0,0,0,0.04)]
         `}
       >
-        <div className="relative h-[78px] w-full overflow-hidden rounded-[14px]">
-          <div
-            className="absolute inset-0 opacity-80"
-            style={{
-              background:
-                "radial-gradient(260px 90px at 20% 0%, rgba(255,255,255,0.65), transparent 60%)",
-            }}
-          />
+        <div
+          className={`
+            rounded-[14px]
+            lg-border border border-white/18
+            bg-white/55
+            p-3
+          `}
+        >
+          <svg viewBox="0 0 100 100" className="h-[92px] w-full">
+            <defs>
+              <linearGradient id="roiArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={fill} />
+                <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+              </linearGradient>
+            </defs>
 
-          <svg className="absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
             <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(15,23,42,0.10)" strokeWidth="2" />
 
+            {/* area */}
+            <path d={`${d} L ${pts[2].x} 92 L ${pts[0].x} 92 Z`} fill="url(#roiArea)" />
+
+            {/* line */}
             <path
-              d={`M 14 ${p1y.toFixed(2)} L 50 ${p3y.toFixed(2)} L 86 ${p5y.toFixed(2)}`}
+              d={d}
               fill="none"
               stroke={stroke}
-              strokeWidth="4"
+              strokeWidth="5"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
 
-            {[
-              { x: 14, y: p1y },
-              { x: 50, y: p3y },
-              { x: 86, y: p5y },
-            ].map((p, i) => (
+            {pts.map((p, i) => (
               <g key={i}>
-                <circle cx={p.x} cy={p.y} r="6.6" fill="rgba(255,255,255,0.40)" />
-                <circle cx={p.x} cy={p.y} r="4.1" fill={dot} />
+                <circle cx={p.x} cy={p.y} r="7.2" fill="rgba(255,255,255,0.50)" />
+                <circle cx={p.x} cy={p.y} r="4.6" fill={dot} />
               </g>
             ))}
           </svg>
@@ -157,9 +169,9 @@ function HorizonChart({ y1, y3, y5 }: { y1: number; y3: number; y5: number }) {
 
         <div className="mt-3 grid grid-cols-3 gap-2 text-[12px] text-[#667085]">
           {[
-            { label: "1 год", v: y1 },
-            { label: "3 года", v: y3 },
-            { label: "5 лет", v: y5 },
+            { label: "1 год", v: values[0] },
+            { label: "3 года", v: values[1] },
+            { label: "5 лет", v: values[2] },
           ].map((x) => (
             <div
               key={x.label}
@@ -261,10 +273,47 @@ export default function RoiCalculatorSection() {
     <section id="roi" className="relative py-14 md:py-20">
       <style>{`
         @keyframes roiBlink {
-          0% { opacity: 0.82; transform: translateX(-50%) scale(1); }
-          50% { opacity: 1; transform: translateX(-50%) scale(1.02); }
-          100% { opacity: 0.82; transform: translateX(-50%) scale(1); }
+          0% { opacity: 0.86; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.02); }
+          100% { opacity: 0.86; transform: scale(1); }
         }
+
+        /* Премиальный range */
+        .roi-range {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 100%;
+          height: 12px;
+          border-radius: 999px;
+          background: rgba(15,23,42,0.10);
+          border: 1px solid rgba(255,255,255,0.18);
+          outline: none;
+        }
+        .roi-range::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 22px;
+          height: 22px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.95);
+          border: 1px solid rgba(15,23,42,0.10);
+          box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+          transition: transform 700ms cubic-bezier(0.16,1,0.3,1);
+          cursor: pointer;
+        }
+        .roi-range:active::-webkit-slider-thumb { transform: scale(1.06); }
+
+        .roi-range::-moz-range-thumb {
+          width: 22px;
+          height: 22px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.95);
+          border: 1px solid rgba(15,23,42,0.10);
+          box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+          transition: transform 700ms cubic-bezier(0.16,1,0.3,1);
+          cursor: pointer;
+        }
+        .roi-range:active::-moz-range-thumb { transform: scale(1.06); }
       `}</style>
 
       <div className="mx-auto max-w-[1240px] px-4">
@@ -286,7 +335,7 @@ export default function RoiCalculatorSection() {
               border border-white/18
               bg-white/10
               p-[10px]
-              pb-[84px]
+              pb-[108px]
               shadow-[0_22px_70px_rgba(0,0,0,0.05)]
               backdrop-blur-[26px] backdrop-saturate-150
             `}
@@ -341,7 +390,8 @@ export default function RoiCalculatorSection() {
                       step={1}
                       value={calc.m}
                       onChange={(e) => setManagers(Number(e.target.value))}
-                      className="w-full accent-[#c73f40]"
+                      className="roi-range"
+                      aria-label="Количество менеджеров"
                     />
 
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -353,7 +403,9 @@ export default function RoiCalculatorSection() {
                           className={[
                             "rounded-full lg-border border border-white/18 px-3 py-1 text-[12px] font-semibold transition-[transform,color,background-color] duration-[600ms]",
                             "active:scale-[0.99]",
-                            calc.m === m ? "bg-white text-[#0f172a]" : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
+                            calc.m === m
+                              ? "bg-white text-[#0f172a]"
+                              : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
                           ].join(" ")}
                         >
                           {m}
@@ -365,7 +417,9 @@ export default function RoiCalculatorSection() {
 
                 {/* salary */}
                 <div className="mt-5">
-                  <div className="text-[12px] font-semibold text-[#0f172a]">ФОТ одного менеджера (₽/мес)</div>
+                  <div className="text-[12px] font-semibold text-[#0f172a]">
+                    ФОТ одного менеджера (₽/мес)
+                  </div>
 
                   <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center">
                     <input
@@ -398,7 +452,9 @@ export default function RoiCalculatorSection() {
                           className={[
                             "rounded-full lg-border border border-white/18 px-3 py-1 text-[12px] font-semibold transition-[transform,color,background-color] duration-[600ms]",
                             "active:scale-[0.99]",
-                            calc.s === v ? "bg-white text-[#0f172a]" : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
+                            calc.s === v
+                              ? "bg-white text-[#0f172a]"
+                              : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
                           ].join(" ")}
                         >
                           {formatRub(v).replace(" ₽", "")}
@@ -431,11 +487,12 @@ export default function RoiCalculatorSection() {
                               type="button"
                               onClick={() => setCoeff(v)}
                               className={[
-                                "rounded-full lg-border border border-white/18 px-3 py-1 text-[12px] font-semibold transition-[transform,color,background-color] duration-[600ms]",
+                                // ВАЖНО: контур еле-видимый светло-серый
+                                "rounded-full lg-border border border-black/5 px-3 py-1 text-[12px] font-semibold transition-[transform,color,background-color] duration-[600ms]",
                                 "active:scale-[0.99]",
                                 Math.abs(coeff - v) < 0.001
                                   ? "bg-white text-[#0f172a]"
-                                  : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
+                                  : "bg-white/70 text-[#475467] hover:text-[#c73f40] hover:border-black/10",
                               ].join(" ")}
                             >
                               {v.toFixed(1)}
@@ -489,7 +546,9 @@ export default function RoiCalculatorSection() {
                               className={[
                                 "rounded-[16px] lg-border border border-white/18 p-3 text-left shadow-[0_12px_35px_rgba(0,0,0,0.04)] transition-[transform,color,background-color] duration-[650ms]",
                                 "active:scale-[0.99]",
-                                active ? "bg-white text-[#0f172a]" : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
+                                active
+                                  ? "bg-white text-[#0f172a]"
+                                  : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
                               ].join(" ")}
                             >
                               <div className="text-[12px] font-semibold">{meta.title}</div>
@@ -510,7 +569,9 @@ export default function RoiCalculatorSection() {
                           className={[
                             "h-10 rounded-[999px] lg-border border border-white/18 px-5 text-[13px] font-semibold transition-[transform,color,background-color] duration-[650ms]",
                             "active:scale-[0.99]",
-                            billing === "monthly" ? "bg-white text-[#0f172a]" : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
+                            billing === "monthly"
+                              ? "bg-white text-[#0f172a]"
+                              : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
                           ].join(" ")}
                         >
                           Ежемесячно
@@ -522,7 +583,9 @@ export default function RoiCalculatorSection() {
                           className={[
                             "h-10 rounded-[999px] lg-border border border-white/18 px-5 text-[13px] font-semibold transition-[transform,color,background-color] duration-[650ms]",
                             "active:scale-[0.99]",
-                            billing === "yearly" ? "bg-white text-[#0f172a]" : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
+                            billing === "yearly"
+                              ? "bg-white text-[#0f172a]"
+                              : "bg-white/70 text-[#475467] hover:text-[#c73f40]",
                           ].join(" ")}
                         >
                           Годовой (-20%)
@@ -629,6 +692,7 @@ export default function RoiCalculatorSection() {
                   </div>
                 </div>
 
+                {/* Экономия за 1 год: убрали свечение/тень */}
                 <div
                   className={`
                     mt-5
@@ -636,28 +700,22 @@ export default function RoiCalculatorSection() {
                     lg-border border border-white/18
                     bg-white/65
                     p-5
-                    shadow-[0_16px_45px_rgba(0,0,0,0.04)]
-                    relative overflow-hidden
                   `}
                 >
-                  <div className="pointer-events-none absolute inset-0 opacity-70 bg-[radial-gradient(520px_180px_at_25%_0%,rgba(255,255,255,0.70),transparent_60%),radial-gradient(520px_180px_at_85%_100%,rgba(199,63,64,0.10),transparent_65%)]" />
+                  <div className="text-[12px] font-semibold text-[#667085]">Экономия за 1 год</div>
 
-                  <div className="relative">
-                    <div className="text-[12px] font-semibold text-[#667085]">Экономия за 1 год</div>
+                  <div className="mt-2 flex flex-wrap items-end gap-3">
+                    <div
+                      className={[
+                        "text-[28px] sm:text-[34px] font-semibold tracking-[-0.02em]",
+                        isBad ? "text-[#c73f40]" : "text-[#28df7c]",
+                      ].join(" ")}
+                    >
+                      {formatRub(animSavings1)}
+                    </div>
 
-                    <div className="mt-2 flex flex-wrap items-end gap-3">
-                      <div
-                        className={[
-                          "text-[28px] sm:text-[34px] font-semibold tracking-[-0.02em]",
-                          isBad ? "text-[#c73f40]" : "text-[#28df7c]",
-                        ].join(" ")}
-                      >
-                        {formatRub(animSavings1)}
-                      </div>
-
-                      <div className="pb-[6px] text-[14px] font-semibold text-[#0f172a]">
-                        {`${animSavings1Pct.toFixed(1)}%`}
-                      </div>
+                    <div className="pb-[6px] text-[14px] font-semibold text-[#0f172a]">
+                      {`${animSavings1Pct.toFixed(1)}%`}
                     </div>
                   </div>
                 </div>
@@ -706,27 +764,28 @@ export default function RoiCalculatorSection() {
               </div>
             </div>
 
-            {/* center blinking button on glass */}
-            <button
-              type="button"
-              onClick={() => setExpanded((v) => !v)}
-              className={`
-                absolute left-1/2 bottom-[18px]
-                rounded-[999px]
-                lg-border border border-white/18
-                bg-white/85
-                px-6 py-3
-                text-[13px] font-semibold
-                text-[#0f172a]
-                shadow-[0_22px_70px_rgba(0,0,0,0.12)]
-                hover:text-[#c73f40]
-                active:scale-[0.99]
-              `}
-              style={{ animation: "roiBlink 2.8s ease-in-out infinite", transform: "translateX(-50%)" }}
-              aria-label={expanded ? "Свернуть калькулятор" : "Развернуть калькулятор"}
-            >
-              {expanded ? "Свернуть калькулятор" : "Развернуть калькулятор"}
-            </button>
+            {/* кнопка ниже: в центре стеклянной зоны */}
+            <div className="absolute left-1/2 bottom-[12px] -translate-x-1/2">
+              <button
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+                className={`
+                  rounded-[999px]
+                  lg-border border border-white/18
+                  bg-white/85
+                  px-6 py-3
+                  text-[13px] font-semibold
+                  text-[#0f172a]
+                  shadow-[0_22px_70px_rgba(0,0,0,0.12)]
+                  hover:text-[#c73f40]
+                  active:scale-[0.99]
+                `}
+                style={{ animation: "roiBlink 2.8s ease-in-out infinite" }}
+                aria-label={expanded ? "Свернуть калькулятор" : "Развернуть калькулятор"}
+              >
+                {expanded ? "Свернуть калькулятор" : "Развернуть калькулятор"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
