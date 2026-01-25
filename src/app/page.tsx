@@ -5,6 +5,7 @@ import InfoBlocks from "../components/sections/InfoBlocks";
 import Niches from "../components/sections/Niches";
 import DemoChat from "../components/sections/DemoChat";
 import Plans from "../components/sections/Plans";
+import RoiCalculatorSection from "@/components/sections/RoiCalculatorSection";
 
 export default function Page() {
   return (
@@ -17,6 +18,7 @@ export default function Page() {
         <Niches />
         <DemoChat />
         <Plans />
+        <RoiCalculatorSection />
       </main>
     </>
   );
