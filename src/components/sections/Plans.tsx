@@ -616,7 +616,7 @@ function IntegrationMegaMenu({
                       >
                         <span
                           aria-hidden="true"
-                          className="mt-[8px] h-[7px] w-[7px] shrink-0 rounded-full bg-[#c73f40]/70"
+                          className="mt-[8px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#c73f40]/70"
                         />
                         <span className="min-w-0">{it}</span>
                       </li>
