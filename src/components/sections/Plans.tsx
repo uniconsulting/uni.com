@@ -731,16 +731,16 @@ export default function PricingPlansSection() {
         </div>
 
         {/* Общий контейнер карточек (упаковку НЕ меняем) */}
-        <div className="relative mx-auto mt-10 max-w-[1240px]">
+        <div className="mt-8 md:mt-12">
           <div
             className="
-              lg-border
+              relative mx-auto max-w-[1240px]
               rounded-[34px]
               border border-white/18
               bg-white/10
               p-[10px]
               shadow-[0_22px_70px_rgba(0,0,0,0.05)]
-              backdrop-blur-[34px] backdrop-saturate-150
+              backdrop-blur-[26px]
             "
           >
             <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
@@ -879,21 +879,21 @@ export default function PricingPlansSection() {
               })}
             </div>
 
-            <div className="pointer-events-none absolute inset-0 rounded-[40px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
           </div>
         </div>
 
         {/* Под-секция (2 карточки) вместо старых “Доп-услуг” */}
-        <div className="mx-auto mt-10 max-w-[1240px]">
+        <div className="mt-8 md:mt-12">
           <div
             className="
-              lg-border
+              relative mx-auto max-w-[1240px]
               rounded-[34px]
               border border-white/18
               bg-white/10
               p-[10px]
               shadow-[0_22px_70px_rgba(0,0,0,0.05)]
-              backdrop-blur-[26px] backdrop-saturate-150
+              backdrop-blur-[26px]
             "
           >
             <div className="relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6">
