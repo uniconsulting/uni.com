@@ -735,7 +735,7 @@ export default function PricingPlansSection() {
           <div
             className="
               lg-border
-              rounded-[40px]
+              rounded-[34px]
               border border-white/18
               bg-white/10
               p-[10px]
@@ -754,7 +754,7 @@ export default function PricingPlansSection() {
                   <div
                     key={p.key}
                     className={[
-                      "lg-border rounded-[28px] border bg-white/82 shadow-[0_16px_45px_rgba(0,0,0,0.06)] overflow-hidden",
+                      "relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6">"relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6",
                       p.featured ? "border-[#c73f40]/55" : "border-black/10",
                     ].join(" ")}
                   >
@@ -896,7 +896,7 @@ export default function PricingPlansSection() {
               backdrop-blur-[26px] backdrop-saturate-150
             "
           >
-            <div className="rounded-[26px] bg-white/82 border border-black/10 lg-border p-6">
+            <div className="relative overflow-hidden rounded-[26px] border border-white/22 bg-white/65 shadow-[0_18px_55px_rgba(0,0,0,0.03)] backdrop-blur-[20px] backdrop-saturate-150 p-6">
               <div className="grid gap-3 md:grid-cols-2">
                 {SERVICES.map((s) => (
                   <div
