@@ -927,7 +927,8 @@ export default function PricingPlansSection() {
                           key={t}
                           className="
                             rounded-full
-                            border border-black/10
+                            lg-border
+                            border border-[#c73f40]
                             bg-white
                             px-3 py-1
                             text-[12px]
