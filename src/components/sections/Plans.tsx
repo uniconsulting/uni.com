@@ -740,10 +740,10 @@ export default function PricingPlansSection() {
               bg-white/10
               p-[10px]
               shadow-[0_22px_70px_rgba(0,0,0,0.05)]
-              backdrop-blur-[26px] backdrop-saturate-150
+              backdrop-blur-[34px] backdrop-saturate-150
             "
           >
-            <div className="pointer-events-none absolute inset-0 rounded-[40px] ring-1 ring-white/10" />
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {PLANS.map((p) => {
