@@ -863,11 +863,11 @@ export default function PricingPlansSection() {
                         <button
                           type="button"
                           className={[
-                            "lg-border w-full rounded-[12px] border px-4 py-3 text-[13px] font-semibold transition-[transform,background-color,color,box-shadow] duration-[900ms] ease-out",
+                            "lg-border w-full rounded-[12px] border px-4 py-3 text-[13px] font-semibold transition-[transform,background-color,color,box-shadow] duration-[900ms] ease-out", 
                             "active:scale-[1.01]",
                             p.variant === "primary"
-                              ? "border-[#c73f40]/30 bg-[#c73f40] text-white shadow-[0_16px_45px_rgba(199,63,64,0.06)] hover:scale-[1.01]"
-                              : "border-black/5 bg-white/75 text-[#0f172a] shadow-[0_16px_45px_rgba(0,0,0,0.02)] hover:text-[#c73f40] hover:scale-[1.01]",
+                              ? "border-[#c73f40]/30 bg-[#c73f40] text-white shadow-[0_12px_45px_rgba(199,63,64,0.06)] hover:scale-[1.01]"
+                              : "border-black/5 bg-white/75 text-[#0f172a] shadow-[0_12px_45px_rgba(0,0,0,0.02)] hover:text-[#c73f40] hover:scale-[1.01]",
                           ].join(" ")}
                         >
                           {p.cta}
