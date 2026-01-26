@@ -232,10 +232,10 @@ export default function RoiCalculatorSection() {
 
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1240px] text-center">
-          <h2 className="text-[18px] sm:text-[20px] font-semibold tracking-[-0.01em] text-[#0f172a]">
+          <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
             ROI-калькулятор
           </h2>
-          <div className="mt-1 text-[13px] sm:text-[14px] leading-[1.4] text-[#667085]">
+          <div className="mt-1 text-white font-semibold tracking-[-0.01em] text-[16px] sm:text-[28px] lg:text-[28px]">
             Иновации, которые окупаются - убедитесь сами.
           </div>
         </div>
@@ -483,14 +483,14 @@ export default function RoiCalculatorSection() {
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <button
                   type="button"
-                  className="rounded-[24px] bg-white/92 px-10 py-5 text-[20px] font-semibold text-[#0f172a] border border-black/10 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
+                  className="rounded-[24px] bg-white/92 px-10 py-5 text-[13px] font-semibold text-[#0f172a] border border-black/10 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
                   style={{ animation: "roiPulse 2.8s ease-in-out infinite" }}
                   aria-label="Развернуть калькулятор"
                 >
                   Развернуть калькулятор
                 </button>
 
-                <div className="max-w-[760px] text-[20px] leading-[1.35] text-white/80">
+                <div className="max-w-[760px] text-[13px] leading-[1.35] text-white/80">
                   Разверни калькулятор, чтобы настроить накладные, тариф, долю замещения и увидеть горизонты 3/5 лет.
                 </div>
               </div>
