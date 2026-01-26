@@ -255,51 +255,52 @@ export default function RoiCalculatorSection() {
                         ariaLabel="Количество менеджеров"
                       />
 
-{/* пресеты 1/3/5/10 — но строго на позициях шкалы 1..10 */}
+{/* пресеты 1/3/5/10, но строго на позициях шкалы 1..10 */}
 {(() => {
   const PRESETS = [1, 3, 5, 10] as const;
-  const posPct = (v: number) => ((v - 1) / 9) * 100; // 1..10 => 0..100%
+
+  const colClass: Record<(typeof PRESETS)[number], string> = {
+    1: "col-start-1",
+    3: "col-start-3",
+    5: "col-start-5",
+    10: "col-start-10",
+  };
 
   return (
-    <div className="mt-4 relative h-[54px] w-full">
-      {PRESETS.map((v) => {
-        const active = calc.m === v;
+    <div className="mt-4 px-1">
+      <div className="grid grid-cols-10 items-center">
+        {PRESETS.map((v) => {
+          const active = calc.m === v;
 
-        return (
-          <button
-            key={v}
-            type="button"
-            onClick={() => setManagers(v)}
-            style={{ left: `${posPct(v)}%` }}
-            className={[
-              // позиция строго по проценту шкалы
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2",
-              // форма/размер
-              "h-10 w-10 sm:h-11 sm:w-11 rounded-full",
-              // центрирование цифры
-              "flex items-center justify-center",
-              // чтобы lg-border (если на псевдоэлементах) корректно рисовался
-              "relative isolate overflow-hidden",
-              // важно: лёгкий серый бордюр + lg-border
-              "lg-border border border-black/10",
-              // лёгкая стеклянность (иначе на белом lg-border почти не виден)
-              "bg-white/70 backdrop-blur-[10px]",
-              // мягкая тень без “грязи”
-              "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
-              // интерактив
-              "transition-[transform,background-color,color,box-shadow] duration-[450ms] active:scale-[0.99]",
-              active ? "text-[#0f172a]" : "text-[#98A2B3] hover:text-[#0f172a]",
-            ].join(" ")}
-            aria-label={`Установить ${v} менеджеров`}
-          >
-            <span className="leading-none text-[12px] sm:text-[13px] font-semibold">{v}</span>
+          return (
+            <div key={v} className={colClass[v] + " flex justify-center"}>
+              <button
+                type="button"
+                onClick={() => setManagers(v)}
+                className={[
+                  "relative isolate overflow-hidden",
+                  "h-11 w-11 rounded-full",
+                  "flex items-center justify-center",
+                  "lg-border border border-black/10", // еле-серый бордюр на белом
+                  "bg-white/60 backdrop-blur-[14px]",
+                  "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
+                  "transition-[transform,background-color,color,box-shadow] duration-[450ms]",
+                  "active:scale-[0.99]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-offset-0",
+                  active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
+                ].join(" ")}
+                aria-label={`Установить ${v} менеджеров`}
+              >
+                {/* блик, чтобы LiquidGlass читался даже на светлом фоне */}
+                <span className="pointer-events-none absolute -inset-8 opacity-70 bg-[radial-gradient(60px_34px_at_30%_25%,rgba(255,255,255,0.80),transparent_60%)]" />
+                <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/16" />
 
-            {/* микро-блик поверх (поддерживает ощущение “стекла”, даже если lg-border слабый) */}
-            <span className="pointer-events-none absolute -inset-8 opacity-60 bg-[radial-gradient(60px_34px_at_30%_25%,rgba(255,255,255,0.75),transparent_60%)]" />
-            <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/18" />
-          </button>
-        );
-      })}
+                <span className="relative leading-none text-[13px] font-semibold">{v}</span>
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 })()}
