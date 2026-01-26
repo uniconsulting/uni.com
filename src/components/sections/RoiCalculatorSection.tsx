@@ -236,7 +236,7 @@ export default function RoiCalculatorSection() {
             <div className="relative rounded-[40px] lg-border border border-white/18 bg-white/82 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.03)]">
               <div className="grid gap-4 lg:grid-cols-2">
                 {/* LEFT */}
-                <div className="rounded-[32px] lg-border border border-white/18 bg-white/70 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
+                <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="text-[16px] font-semibold text-[#0f172a]">Входные параметры</div>
 
                   <div className="mt-6">
@@ -245,7 +245,7 @@ export default function RoiCalculatorSection() {
                       <div className="text-[14px] font-semibold text-[#0f172a]">{calc.m}</div>
                     </div>
 
-                    <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/60 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
+                    <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/82 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
                       <GlassRange
                         value={calc.m}
                         min={1}
@@ -304,21 +304,21 @@ export default function RoiCalculatorSection() {
     </div>
   );
 })()}
-
+                      
                     </div>
                   </div>
 
                   <div className="mt-8">
                     <div className="text-[14px] font-semibold text-[#0f172a]">ФОТ одного менеджера (₽/мес)</div>
 
-                    <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/60 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
+                    <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/82 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         {/* поле как на макете: выделенное */}
                         <input
                           value={formatMoneyInput(calc.s)}
                           onChange={(e) => setSalary(parseMoneyInput(e.target.value))}
                           inputMode="numeric"
-                          className="h-12 w-[80px] rounded-[18px] bg-white/92 px-5 text-[16px] font-semibold text-[#0f172a] outline-none border border-[#c73f40]/35 shadow-[0_18px_55px_rgba(199,63,64,0.08)]"
+                          className="relative h-12 w-[100px] rounded-[18px] bg-white/92 px-5 text-[16px] font-semibold text-[#0f172a] outline-none lg-border border border-[#c73f40]/35 shadow-[0_18px_55px_rgba(199,63,64,0.08)]"
                           aria-label="ФОТ одного менеджера"
                         />
 
@@ -351,21 +351,21 @@ export default function RoiCalculatorSection() {
                 </div>
 
                 {/* RIGHT */}
-                <div className="rounded-[32px] lg-border border border-white/18 bg-white/70 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
+                <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="text-[16px] font-semibold text-[#0f172a]">Результат</div>
                       <div className="mt-1 text-[13px] text-[#667085]">Экономия и окупаемость</div>
                     </div>
 
-                    <div className="rounded-[999px] lg-border border border-white/18 bg-white/65 px-4 py-2 text-[13px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]">
+                    <div className="rounded-[999px] lg-border border border-white/18 bg-white/82 px-4 py-2 text-[13px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]">
                       Замещение: {Math.round(calc.share * 100)}%
                     </div>
                   </div>
 
                   {/* градиентная рамка как на макете */}
                   <div className="mt-7 rounded-[26px] p-[2px] bg-gradient-to-r from-[#ff4d4d]/70 via-[#c73f40]/20 to-[#7c3aed]/70">
-                    <div className="rounded-[24px] lg-border border border-white/18 bg-white/75 p-6">
+                    <div className="rounded-[24px] lg-border border border-white/18 bg-white/82 p-6">
                       <div className="text-[13px] font-semibold text-[#667085]">Экономия за 1 год</div>
 
                       <div className="mt-3 flex flex-wrap items-end gap-4">
