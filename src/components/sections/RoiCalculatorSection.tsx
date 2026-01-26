@@ -389,14 +389,14 @@ export default function RoiCalculatorSection() {
                                 className={[
                                   "h-11 px-5 rounded-[16px]",
                                   "flex items-center justify-center",
-                                  "lg-border border border-black/5",
+                                  "lg-border border border-black/2",
                                   "bg-white/40 backdrop-blur-[14px]",
                                   "shadow-[0_10px_26px_rgba(0,0,0,0.03)]",
                                   "transition-[transform,background-color,color] duration-500",
                                   "active:scale-[0.99]",
                                   active
                                     ? "text-[#0f172a] bg-white/75"
-                                    : "text-[#98A2B3/50] hover:text-[#0f172a/50]",
+                                    : "text-black/3 hover:text-[#0f172a]",
                                 ].join(" ")}
                               >
                                 <span className="leading-none text-[13px] font-semibold">
