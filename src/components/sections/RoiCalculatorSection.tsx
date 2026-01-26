@@ -146,7 +146,7 @@ export default function RoiCalculatorSection() {
     const savings1 = peopleYear - year1Uni;
     const savings1Pct = peopleYear > 0 ? (savings1 / peopleYear) * 100 : 0;
 
-    // Окупаемость
+    // Окупаемость (по месячной экономии)
     const monthlyPeople = m * s * coeff * share;
     const monthlySaving = monthlyPeople - DEFAULT_PLAN_MONTHLY;
     const paybackMonths = monthlySaving > 0 ? Math.ceil(INTEGRATION_COST / monthlySaving) : null;
@@ -191,6 +191,7 @@ export default function RoiCalculatorSection() {
           50% { opacity: 1; transform: translateY(-1px); }
           100% { opacity: 0.86; transform: translateY(0); }
         }
+
         .roi-range {
           -webkit-appearance: none;
           appearance: none;
@@ -199,6 +200,7 @@ export default function RoiCalculatorSection() {
           outline: none;
           box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
         }
+
         .roi-range::-webkit-slider-thumb {
           -webkit-appearance: none;
           appearance: none;
@@ -210,6 +212,7 @@ export default function RoiCalculatorSection() {
           box-shadow: 0 18px 55px rgba(0,0,0,0.14);
           cursor: pointer;
         }
+
         .roi-range::-moz-range-thumb {
           width: 22px;
           height: 22px;
@@ -219,6 +222,7 @@ export default function RoiCalculatorSection() {
           box-shadow: 0 18px 55px rgba(0,0,0,0.14);
           cursor: pointer;
         }
+
         .roi-range::-moz-range-track {
           height: 14px;
           border-radius: 999px;
@@ -249,7 +253,6 @@ export default function RoiCalculatorSection() {
                 <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="text-[16px] font-semibold text-[#0f172a]">Входные параметры</div>
 
-                  {/* ПРАВКА №1: “Кол-во менеджеров — 5” в одной строке */}
                   <div className="mt-6 text-[12px] font-semibold text-[#0f172a]">
                     Кол-во менеджеров <span className="text-[#667085]">— {calc.m}</span>
                   </div>
@@ -267,7 +270,6 @@ export default function RoiCalculatorSection() {
                     {/* пресеты 1/3/5/10 строго на позициях шкалы 1..10 */}
                     {(() => {
                       const PRESETS = [1, 3, 5, 10] as const;
-
                       const colClass: Record<(typeof PRESETS)[number], string> = {
                         1: "col-start-1",
                         3: "col-start-3",
@@ -314,104 +316,67 @@ export default function RoiCalculatorSection() {
                     })()}
                   </div>
 
-{/* ПРАВКА №2: ФОТ-инпут: ширина по значению, max=500k, toast */}
-<div className="mt-6">
-  <div className="text-[12px] font-semibold text-[#0f172a]">
-    ФОТ одного менеджера (₽/мес)
-  </div>
+                  {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
+                  <div className="mt-6">
+                    <div className="text-[12px] font-semibold text-[#0f172a]">
+                      ФОТ одного менеджера (₽/мес)
+                    </div>
 
-  <div className="mt-2 relative">
-    {/* toast */}
-    <div
-      className={[
-        "pointer-events-none absolute -top-10 left-0",
-        "rounded-[14px] lg-border border border-white/18",
-        "bg-white/85 backdrop-blur-[16px]",
-        "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
-        "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
-        "transition-all duration-500",
-        salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
-      ].join(" ")}
-      role="status"
-      aria-live="polite"
-    >
-      Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
-    </div>
+                    <div className="mt-2 relative">
+                      <div
+                        className={[
+                          "pointer-events-none absolute -top-10 left-0",
+                          "rounded-[14px] lg-border border border-white/18",
+                          "bg-white/85 backdrop-blur-[16px]",
+                          "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
+                          "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
+                          "transition-all duration-500",
+                          salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
+                        ].join(" ")}
+                        role="status"
+                        aria-live="polite"
+                      >
+                        Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
+                      </div>
 
-    <div className="flex flex-wrap items-center gap-3">
-      {(() => {
-        const display = formatMoneyInput(salary);
-        const chars = clamp(display.length, 6, 12);
+                      <div className="flex flex-wrap items-center gap-3">
+                        {(() => {
+                          const display = formatMoneyInput(salary);
+                          const chars = clamp(display.length, 6, 12);
 
-        return (
-          <input
-            value={display}
-            onChange={(e) => {
-              const n = parseMoneyInput(e.target.value);
-              if (n > SALARY_MAX) {
-                setSalary(SALARY_MAX);
-                setSalaryToast(true);
-                return;
-              }
-              setSalary(n);
-            }}
-            onBlur={() => setSalary(clamp(salary || 0, 10_000, SALARY_MAX))}
-            inputMode="numeric"
-            aria-label="ФОТ одного менеджера в месяц"
-            className={[
-              "h-12",
-              "w-auto shrink-0",
-              "rounded-[16px]",
-              "lg-border border border-white/18",
-              "bg-white/65 backdrop-blur-[14px]",
-              "px-5",
-              "text-[16px] font-semibold text-[#0f172a]",
-              "tabular-nums",
-              "text-center",
-              "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
-              "outline-none focus:border-white/30",
-              "transition-[width] duration-300",
-            ].join(" ")}
-            style={{ width: `calc(${chars}ch + 2.5rem)` }}
-          />
-        );
-      })()}
-
-      {/* пресеты */}
-      <div className="flex flex-wrap items-center gap-3">
-        {[50_000, 80_000, 100_000].map((v) => {
-          const active = salary === v;
-          return (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setSalary(v)}
-              className={[
-                "h-11 px-5 rounded-full",
-                "flex items-center justify-center",
-                "lg-border border border-black/10",
-                "bg-white/60 backdrop-blur-[14px]",
-                "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
-                "transition-[transform,background-color,color] duration-500",
-                "active:scale-[0.99]",
-                active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
-              ].join(" ")}
-            >
-              <span className="leading-none text-[13px] font-semibold">
-                {formatMoneyInput(v)}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-
-    <div className="mt-3 text-[12px] text-[#98A2B3]">
-      77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
-    </div>
-  </div>
-</div>
-
+                          return (
+                            <input
+                              value={display}
+                              onChange={(e) => {
+                                const n = parseMoneyInput(e.target.value);
+                                if (n > SALARY_MAX) {
+                                  setSalary(SALARY_MAX);
+                                  setSalaryToast(true);
+                                  return;
+                                }
+                                setSalary(n);
+                              }}
+                              onBlur={() => setSalary(clamp(salary || 0, 10_000, SALARY_MAX))}
+                              inputMode="numeric"
+                              aria-label="ФОТ одного менеджера в месяц"
+                              className={[
+                                "h-12",
+                                "w-auto shrink-0",
+                                "rounded-[16px]",
+                                "lg-border border border-white/18",
+                                "bg-white/65 backdrop-blur-[14px]",
+                                "px-5",
+                                "text-[16px] font-semibold text-[#0f172a]",
+                                "tabular-nums",
+                                "text-center",
+                                "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
+                                "outline-none focus:border-white/30",
+                                "transition-[width] duration-300",
+                              ].join(" ")}
+                              style={{ width: `calc(${chars}ch + 2.5rem)` }}
+                            />
+                          );
+                        })()}
 
                         <div className="flex flex-wrap items-center gap-3">
                           {[50_000, 80_000, 100_000].map((v) => {
@@ -450,7 +415,7 @@ export default function RoiCalculatorSection() {
                   </div>
                 </div>
 
-                {/* RIGHT (вынесено как отдельная колонка, чтобы ничего не ломалось по сетке) */}
+                {/* RIGHT */}
                 <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -477,6 +442,7 @@ export default function RoiCalculatorSection() {
                         >
                           {formatRub(aSavings1)}
                         </div>
+
                         <div className="pb-[10px] text-[16px] font-semibold text-[#0f172a]">
                           {aSavings1Pct.toFixed(1)}%
                         </div>
@@ -492,9 +458,7 @@ export default function RoiCalculatorSection() {
                         {calc.thresholdManagers !== null ? (
                           <>
                             Окупается от:{" "}
-                            <span className="font-semibold text-[#0f172a]">
-                              {calc.thresholdManagers} менеджеров
-                            </span>{" "}
+                            <span className="font-semibold text-[#0f172a]">{calc.thresholdManagers} менеджеров</span>{" "}
                             <span className="opacity-80">(в пределах 12 мес).</span>
                           </>
                         ) : (
@@ -504,7 +468,6 @@ export default function RoiCalculatorSection() {
                     </div>
                   </div>
 
-                  {/* нижняя строка как на макете */}
                   <div className="mt-6 flex items-center justify-between gap-3">
                     <div className="text-[13px] font-semibold text-[#0f172a]">
                       Замещение: <span className="text-[#667085]">{Math.round(calc.share * 100)}%</span>
