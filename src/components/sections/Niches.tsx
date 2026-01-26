@@ -176,8 +176,8 @@ function LoadingPill() {
           rounded-full
           h-12 px-8
           bg-white/82
-          border border-black/10
-          shadow-[0_16px_45px_rgba(0,0,0,0.06)]
+          border border-black/3
+          shadow-[0_16px_45px_rgba(0,0,0,0.03)]
           min-w-[220px]
         "
       >
