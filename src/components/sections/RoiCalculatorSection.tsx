@@ -338,44 +338,48 @@ export default function RoiCalculatorSection() {
                       </div>
 
                       <div className="flex flex-wrap items-center gap-3">
-                        {(() => {
-                          const display = formatMoneyInput(salary);
-                          const inputSize = clamp(display.length + 1, 6, 12);
+{(() => {
+  const display = formatMoneyInput(salary);
+  const chars = clamp(display.length, 6, 12); // “по значению”, но с адекватными границами
 
-                          return (
-                            <input
-                              value={display}
-                              size={inputSize}
-                              onChange={(e) => {
-                                const n = parseMoneyInput(e.target.value);
-                                if (n > SALARY_MAX) {
-                                  setSalary(SALARY_MAX);
-                                  setSalaryToast(true);
-                                  return;
-                                }
-                                setSalary(n);
-                              }}
-                              onBlur={() => {
-                                const fixed = clamp(salary || 0, 10_000, SALARY_MAX);
-                                setSalary(fixed);
-                              }}
-                              inputMode="numeric"
-                              className={[
-                                "h-12",
-                                "!w-auto shrink-0",
-                                "rounded-[16px]",
-                                "lg-border border border-white/18",
-                                "bg-white/65 backdrop-blur-[14px]",
-                                "px-5",
-                                "text-[16px] font-semibold text-[#0f172a]",
-                                "tabular-nums",
-                                "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
-                                "outline-none focus:border-white/30",
-                              ].join(" ")}
-                              aria-label="ФОТ одного менеджера в месяц"
-                            />
-                          );
-                        })()}
+  return (
+    <input
+      value={display}
+      onChange={(e) => {
+        const n = parseMoneyInput(e.target.value);
+        if (n > SALARY_MAX) {
+          setSalary(SALARY_MAX);
+          setSalaryToast(true);
+          return;
+        }
+        setSalary(n);
+      }}
+      onBlur={() => {
+        const fixed = clamp(salary || 0, 10_000, SALARY_MAX);
+        setSalary(fixed);
+      }}
+      inputMode="numeric"
+      className={[
+        "h-12",
+        "!w-auto shrink-0",
+        "rounded-[16px]",
+        "lg-border border border-white/18",
+        "bg-white/65 backdrop-blur-[14px]",
+        "px-5",
+        "text-[16px] font-semibold text-[#0f172a]",
+        "tabular-nums",
+        "text-center", // ключевое: центрируем число
+        "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
+        "outline-none focus:border-white/30",
+        "transition-[width] duration-300", // плавно подстраивается
+      ].join(" ")}
+      style={{
+        width: `calc(${chars}ch + 2.5rem)`, // 2.5rem = px-5 слева+справа
+      }}
+      aria-label="ФОТ одного менеджера в месяц"
+    />
+  );
+})()}
 
                         <div className="flex flex-wrap items-center gap-3">
                           {[50_000, 80_000, 100_000].map((v) => {
