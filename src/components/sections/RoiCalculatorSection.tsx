@@ -317,7 +317,7 @@ export default function RoiCalculatorSection() {
                   </div>
 
                   {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
-                  <div className="mt-6">
+                  <div className="mt-2">
                     <div className="text-[12px] font-semibold text-[#0f172a]">
                       ФОТ одного менеджера (₽/мес)
                     </div>
