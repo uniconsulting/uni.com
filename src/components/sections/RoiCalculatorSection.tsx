@@ -255,26 +255,32 @@ export default function RoiCalculatorSection() {
                         ariaLabel="Количество менеджеров"
                       />
 
-                      {/* кружки 1 / 3 / 5 / 10 */}
-                      <div className="mt-4 grid grid-cols-4 items-center">
-                        {[1, 3, 5, 10].map((x) => {
-                          const active = calc.m === x;
-                          return (
-                            <button
-                              key={x}
-                              type="button"
-                              onClick={() => setManagers(x)}
-                              className={[
-                                "mx-auto h-10 w-10 rounded-full text-[12px] font-semibold transition-[transform,color,background-color] duration-[500ms] active:scale-[0.99]",
-                                "bg-white border border-black/10",
-                                active ? "text-[#0f172a]" : "text-[#98A2B3]",
-                              ].join(" ")}
-                            >
-                              {x}
-                            </button>
-                          );
-                        })}
-                      </div>
+                      {/* пресеты 1..10 строго под положениями ползунка */}
+<div className="mt-4 grid grid-cols-10 items-center">
+  {Array.from({ length: 10 }, (_, i) => i + 1).map((x) => {
+    const active = calc.m === x;
+
+    return (
+      <button
+        key={x}
+        type="button"
+        onClick={() => setManagers(x)}
+        className={[
+          "mx-auto aspect-square rounded-full transition-[transform,color,background-color,border-color] duration-[450ms] active:scale-[0.99]",
+          // размеры
+          "h-9 w-9 sm:h-10 sm:w-10",
+          // важно: серый бордюр + поверх него lg-border
+          "lg-border border border-black/10 bg-white",
+          // состояния
+          active ? "text-[#0f172a]" : "text-[#98A2B3]",
+        ].join(" ")}
+        aria-label={`Установить ${x} менеджеров`}
+      >
+        <span className="text-[12px] sm:text-[13px] font-semibold">{x}</span>
+      </button>
+    );
+  })}
+</div>
                     </div>
                   </div>
 
