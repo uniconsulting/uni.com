@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import React from "react";
 
@@ -232,11 +232,11 @@ export default function RoiCalculatorSection() {
 
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1240px] text-center">
-          <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
+          <div className="text-[18px] sm:text-[20px] font-semibold tracking-[-0.01em] text-[#0f172a]">
             ROI-калькулятор
           </h2>
-          <div className="mt-2 text-white/70 font-semibold tracking-[-0.01em] text-[13px] sm:text-[16px]">
-            Сравнение стоимости людей и ЮНИ, включая накладные и интеграцию.
+          <div className="mt-1 text-[13px] sm:text-[14px] leading-[1.4] text-[#667085]">
+            Иновации, которые окупаются - убедитесь сами.
           </div>
         </div>
 
@@ -317,7 +317,7 @@ export default function RoiCalculatorSection() {
                   </div>
 
                   {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
-                  <div className="mt-6">
+                  <div className="mt-8">
                     <div className="text-[12px] font-semibold text-[#0f172a]">
                       ФОТ одного менеджера (₽/мес)
                     </div>
@@ -387,16 +387,16 @@ export default function RoiCalculatorSection() {
                                 type="button"
                                 onClick={() => setSalary(v)}
                                 className={[
-                                  "h-11 px-5 rounded-full",
+                                  "h-11 px-5 rounded-[16px]",
                                   "flex items-center justify-center",
-                                  "lg-border border border-black/10",
-                                  "bg-white/60 backdrop-blur-[14px]",
-                                  "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
+                                  "lg-border border border-black/5",
+                                  "bg-white/40 backdrop-blur-[14px]",
+                                  "shadow-[0_10px_26px_rgba(0,0,0,0.03)]",
                                   "transition-[transform,background-color,color] duration-500",
                                   "active:scale-[0.99]",
                                   active
                                     ? "text-[#0f172a] bg-white/75"
-                                    : "text-[#98A2B3] hover:text-[#0f172a]",
+                                    : "text-[#98A2B3/50] hover:text-[#0f172a/50]",
                                 ].join(" ")}
                               >
                                 <span className="leading-none text-[13px] font-semibold">
