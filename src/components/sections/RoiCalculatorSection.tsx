@@ -317,7 +317,7 @@ export default function RoiCalculatorSection() {
                   </div>
 
                   {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
-                  <div className="mt-2">
+                  <div className="mt-6">
                     <div className="text-[12px] font-semibold text-[#0f172a]">
                       ФОТ одного менеджера (₽/мес)
                     </div>
@@ -339,7 +339,7 @@ export default function RoiCalculatorSection() {
                         Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-3">
+                      <div className="mt-2 flex flex-wrap items-center gap-3">
                         {(() => {
                           const display = formatMoneyInput(salary);
                           const chars = clamp(display.length, 6, 12);
@@ -364,9 +364,9 @@ export default function RoiCalculatorSection() {
                                 "w-auto shrink-0",
                                 "rounded-[16px]",
                                 "lg-border border border-white/18",
-                                "bg-white/65 backdrop-blur-[14px]",
+                                "bg-[#c73f40] backdrop-blur-[14px]",
                                 "px-5",
-                                "text-[16px] font-semibold text-[#0f172a]",
+                                "text-[16px] font-semibold text-white",
                                 "tabular-nums",
                                 "text-center",
                                 "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
