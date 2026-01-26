@@ -4,10 +4,13 @@ import React from "react";
 
 const INTEGRATION_COST = 179_990;
 
-// фикс для упрощённого режима (как на макете)
+// упрощённый режим (как на макете)
 const DEFAULT_PLAN_MONTHLY = 39_900; // "Средний"
 const DEFAULT_COEFF = 1.3;
 const DEFAULT_SHARE = 0.7;
+
+const SALARY_MIN = 10_000;
+const SALARY_MAX = 500_000;
 
 function clamp(n: number, a: number, b: number) {
   return Math.min(b, Math.max(a, n));
@@ -93,10 +96,23 @@ function GlassRange({
   ariaLabel: string;
 }) {
   const pct = ((value - min) / Math.max(1e-6, max - min)) * 100;
-  const trackBg = `linear-gradient(90deg, rgba(199,63,64,0.22) 0%, rgba(199,63,64,0.10) ${pct}%, rgba(15,23,42,0.06) ${pct}%, rgba(15,23,42,0.06) 100%)`;
+
+  const trackBg = `linear-gradient(90deg,
+    rgba(199,63,64,0.22) 0%,
+    rgba(199,63,64,0.10) ${pct}%,
+    rgba(15,23,42,0.06) ${pct}%,
+    rgba(15,23,42,0.06) 100%)`;
 
   return (
-    <div className="rounded-[18px] lg-border border border-white/18 bg-white/65 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
+    <div className="relative">
+      {/* трек (рисуем отдельным слоем, стабильно во всех браузерах) */}
+      <div
+        className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[14px] rounded-[999px]"
+        style={{ background: trackBg }}
+      />
+      <div className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[14px] rounded-[999px] ring-1 ring-white/18" />
+      <div className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[14px] rounded-[999px] opacity-70 bg-[radial-gradient(160px_32px_at_18%_0%,rgba(255,255,255,0.55),transparent_60%)]" />
+
       <input
         type="range"
         min={min}
@@ -106,20 +122,26 @@ function GlassRange({
         onChange={(e) => onChange(Number(e.target.value))}
         aria-label={ariaLabel}
         className="roi-range w-full"
-        style={{ background: trackBg }}
       />
     </div>
   );
 }
 
 export default function RoiCalculatorSection() {
-  // как на макете
   const [managers, setManagers] = React.useState<number>(5);
   const [salary, setSalary] = React.useState<number>(77_917);
 
+  const [salaryToast, setSalaryToast] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!salaryToast) return;
+    const t = window.setTimeout(() => setSalaryToast(false), 2600);
+    return () => window.clearTimeout(t);
+  }, [salaryToast]);
+
   const calc = React.useMemo(() => {
     const m = clamp(Math.round(managers), 1, 10);
-    const s = clamp(Math.round(salary || 0), 10_000, 1_000_000);
+    const s = clamp(Math.round(salary || 0), SALARY_MIN, SALARY_MAX);
 
     const coeff = DEFAULT_COEFF;
     const share = DEFAULT_SHARE;
@@ -136,7 +158,7 @@ export default function RoiCalculatorSection() {
     const savings1 = peopleYear - year1Uni;
     const savings1Pct = peopleYear > 0 ? (savings1 / peopleYear) * 100 : 0;
 
-    // Окупаемость
+    // Окупаемость (в месяцах)
     const monthlyPeople = m * s * coeff * share;
     const monthlySaving = monthlyPeople - DEFAULT_PLAN_MONTHLY;
     const paybackMonths = monthlySaving > 0 ? Math.ceil(INTEGRATION_COST / monthlySaving) : null;
@@ -153,20 +175,17 @@ export default function RoiCalculatorSection() {
       return null;
     })();
 
-    const isBad = savings1 < 0;
-
     return {
       m,
       s,
       share,
-      peopleYear,
       year1Uni,
       year2Uni,
       savings1,
       savings1Pct,
       paybackMonths,
       thresholdManagers,
-      isBad,
+      isBad: savings1 < 0,
     };
   }, [managers, salary]);
 
@@ -181,13 +200,21 @@ export default function RoiCalculatorSection() {
           50% { opacity: 1; transform: translateY(-1px); }
           100% { opacity: 0.86; transform: translateY(0); }
         }
+
         .roi-range {
           -webkit-appearance: none;
           appearance: none;
-          height: 14px;
+          height: 22px;
+          background: transparent;
           border-radius: 999px;
           outline: none;
-          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+          margin: 0;
+          padding: 0;
+        }
+        .roi-range::-webkit-slider-runnable-track {
+          height: 14px;
+          background: transparent;
+          border-radius: 999px;
         }
         .roi-range::-webkit-slider-thumb {
           -webkit-appearance: none;
@@ -199,6 +226,13 @@ export default function RoiCalculatorSection() {
           border: 1px solid rgba(15,23,42,0.10);
           box-shadow: 0 18px 55px rgba(0,0,0,0.14);
           cursor: pointer;
+          margin-top: -4px; /* (22-14)/2 */
+        }
+
+        .roi-range::-moz-range-track {
+          height: 14px;
+          background: transparent;
+          border-radius: 999px;
         }
         .roi-range::-moz-range-thumb {
           width: 22px;
@@ -208,11 +242,6 @@ export default function RoiCalculatorSection() {
           border: 1px solid rgba(15,23,42,0.10);
           box-shadow: 0 18px 55px rgba(0,0,0,0.14);
           cursor: pointer;
-        }
-        .roi-range::-moz-range-track {
-          height: 14px;
-          border-radius: 999px;
-          background: transparent;
         }
       `}</style>
 
@@ -232,180 +261,172 @@ export default function RoiCalculatorSection() {
             <div className="pointer-events-none absolute inset-0 rounded-[52px] ring-1 ring-white/10" />
             <div className="pointer-events-none absolute inset-0 rounded-[52px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
 
-            {/* верхний белый блок (две карточки) */}
+            {/* верхний белый блок */}
             <div className="relative rounded-[40px] lg-border border border-white/18 bg-white/82 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.03)]">
               <div className="grid gap-4 lg:grid-cols-2">
                 {/* LEFT */}
                 <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="text-[16px] font-semibold text-[#0f172a]">Входные параметры</div>
 
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="text-[12px] font-semibold text-[#0f172a]">
-                    Кол-во менеджеров <span className="text-[#667085]">— {calc.m}</span>
-                  </div>
-                </div>
-
-                  <div className="mt-6">
-                    <div className="flex items-center justify-between gap-3">
-                    <div className="text-[12px] font-semibold text-[#0f172a]">
-                    Кол-во менеджеров <span className="text-[#667085]">— {calc.m}</span>
-                  </div>
-                </div>
-              </div>
-
-                    <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/82 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
-                      <GlassRange
-                        value={calc.m}
-                        min={1}
-                        max={10}
-                        step={1}
-                        onChange={setManagers}
-                        ariaLabel="Количество менеджеров"
-                      />
-
-{/* пресеты 1/3/5/10, но строго на позициях шкалы 1..10 */}
-{(() => {
-  const PRESETS = [1, 3, 5, 10] as const;
-
-  const colClass: Record<(typeof PRESETS)[number], string> = {
-    1: "col-start-1",
-    3: "col-start-3",
-    5: "col-start-5",
-    10: "col-start-10",
-  };
-
-  return (
-    <div className="mt-4 px-1">
-      <div className="grid grid-cols-10 items-center">
-        {PRESETS.map((v) => {
-          const active = calc.m === v;
-
-          return (
-            <div key={v} className={colClass[v] + " flex justify-center"}>
-              <button
-                type="button"
-                onClick={() => setManagers(v)}
-                className={[
-                  "relative isolate overflow-hidden",
-                  "h-11 w-11 rounded-full",
-                  "flex items-center justify-center",
-                  "lg-border border border-black/5", // еле-серый бордюр на белом
-                  "bg-white/60 backdrop-blur-[14px]",
-                  "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
-                  "transition-[transform,background-color,color,box-shadow] duration-[450ms]",
-                  "active:scale-[0.99]",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-offset-0",
-                  active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
-                ].join(" ")}
-                aria-label={`Установить ${v} менеджеров`}
-              >
-                {/* блик, чтобы LiquidGlass читался даже на светлом фоне */}
-                <span className="pointer-events-none absolute -inset-8 opacity-70 bg-[radial-gradient(60px_34px_at_30%_25%,rgba(255,255,255,0.80),transparent_60%)]" />
-                <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/16" />
-
-                <span className="relative leading-none text-[13px] font-semibold">{v}</span>
-              </button>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-})()}
-                      
+                  {/* managers label (с длинным тире) */}
+                  <div className="mt-6 flex items-center justify-between gap-3">
+                    <div className="text-[20px] font-semibold text-[#0f172a]">
+                      Кол-во менеджеров <span className="text-[#0f172a]/80">— {calc.m}</span>
                     </div>
                   </div>
 
-                 <div className="mt-6">
-  <div className="text-[12px] font-semibold text-[#0f172a]">ФОТ одного менеджера (₽/мес)</div>
+                  {/* managers slider + presets */}
+                  <div className="mt-5 rounded-[26px] lg-border border border-white/18 bg-white/82 p-6 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
+                    <GlassRange
+                      value={calc.m}
+                      min={1}
+                      max={10}
+                      step={1}
+                      onChange={setManagers}
+                      ariaLabel="Количество менеджеров"
+                    />
 
-  <div className="mt-3 relative">
-    {/* toast */}
-    <div
-      className={[
-        "pointer-events-none absolute -top-10 left-0",
-        "rounded-[14px] lg-border border border-white/18",
-        "bg-white/85 backdrop-blur-[16px]",
-        "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
-        "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
-        "transition-all duration-500",
-        salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
-      ].join(" ")}
-      role="status"
-      aria-live="polite"
-    >
-      Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
-    </div>
+                    {/* пресеты 1/3/5/10 на позициях шкалы 1..10 */}
+                    {(() => {
+                      const PRESETS = [1, 3, 5, 10] as const;
+                      const colClass: Record<(typeof PRESETS)[number], string> = {
+                        1: "col-start-1",
+                        3: "col-start-3",
+                        5: "col-start-5",
+                        10: "col-start-10",
+                      };
 
-    <div className="flex flex-wrap items-center gap-3">
-      {(() => {
-        const display = formatMoneyInput(salary);
-        const w = clamp(display.length + 2, 8, 14); // ширина “по значению”
-        return (
-          <input
-            value={display}
-            onChange={(e) => {
-              const n = parseMoneyInput(e.target.value);
-              if (n > SALARY_MAX) {
-                setSalary(SALARY_MAX);
-                setSalaryToast(true);
-                return;
-              }
-              setSalary(n);
-            }}
-            onBlur={() => {
-              // аккуратная нормализация на blur
-              const fixed = clamp(salary || 0, 10_000, SALARY_MAX);
-              setSalary(fixed);
-            }}
-            inputMode="numeric"
-            className={[
-              "h-12",
-              "rounded-[16px]",
-              "lg-border border border-white/18",
-              "bg-white/65 backdrop-blur-[14px]",
-              "px-5",
-              "text-[16px] font-semibold text-[#0f172a]",
-              "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
-              "outline-none focus:border-white/30",
-            ].join(" ")}
-            style={{ width: `${w}ch` }}
-            aria-label="ФОТ одного менеджера в месяц"
-          />
-        );
-      })()}
+                      return (
+                        <div className="mt-5 px-1">
+                          <div className="grid grid-cols-10 items-center">
+                            {PRESETS.map((v) => {
+                              const active = calc.m === v;
 
-      <div className="flex flex-wrap items-center gap-3">
-        {[50_000, 80_000, 100_000].map((v) => {
-          const active = salary === v;
-          return (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setSalary(v)}
-              className={[
-                "h-11 px-5 rounded-full",
-                "flex items-center justify-center",
-                "lg-border border border-black/10",
-                "bg-white/60 backdrop-blur-[14px]",
-                "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
-                "transition-[transform,background-color,color] duration-500",
-                "active:scale-[0.99]",
-                active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
-              ].join(" ")}
-            >
-              <span className="leading-none text-[13px] font-semibold">{formatMoneyInput(v)}</span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
+                              return (
+                                <div key={v} className={colClass[v] + " flex justify-center"}>
+                                  <button
+                                    type="button"
+                                    onClick={() => setManagers(v)}
+                                    className={[
+                                      "relative isolate overflow-hidden",
+                                      "h-14 w-14 rounded-full",
+                                      "flex items-center justify-center",
+                                      "lg-border border border-black/10",
+                                      "bg-white/60 backdrop-blur-[14px]",
+                                      "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
+                                      "transition-[transform,background-color,color,box-shadow] duration-[450ms]",
+                                      "active:scale-[0.99]",
+                                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35",
+                                      active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
+                                    ].join(" ")}
+                                    aria-label={`Установить ${v} менеджеров`}
+                                  >
+                                    <span className="pointer-events-none absolute -inset-8 opacity-70 bg-[radial-gradient(70px_40px_at_30%_25%,rgba(255,255,255,0.80),transparent_60%)]" />
+                                    <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/16" />
+                                    <span className="relative leading-none text-[18px] font-semibold">{v}</span>
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
 
-    <div className="mt-3 text-[12px] text-[#98A2B3]">
-      77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
-    </div>
-  </div>
-</div>
+                  {/* salary */}
+                  <div className="mt-7">
+                    <div className="text-[20px] font-semibold text-[#0f172a]">ФОТ одного менеджера (₽/мес)</div>
+
+                    <div className="mt-4 relative rounded-[26px] lg-border border border-white/18 bg-white/82 p-6 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
+                      {/* toast */}
+                      <div
+                        className={[
+                          "pointer-events-none absolute -top-11 left-6",
+                          "rounded-[14px] lg-border border border-white/18",
+                          "bg-white/85 backdrop-blur-[16px]",
+                          "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
+                          "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
+                          "transition-all duration-500",
+                          salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
+                        ].join(" ")}
+                        role="status"
+                        aria-live="polite"
+                      >
+                        Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-3">
+                        {/* adaptive input */}
+                        {(() => {
+                          const display = formatMoneyInput(salary);
+                          const w = clamp(display.length + 2, 8, 16);
+                          return (
+                            <input
+                              value={display}
+                              onChange={(e) => {
+                                const n = parseMoneyInput(e.target.value);
+                                if (n > SALARY_MAX) {
+                                  setSalary(SALARY_MAX);
+                                  setSalaryToast(true);
+                                  return;
+                                }
+                                setSalary(n);
+                              }}
+                              onBlur={() => {
+                                const fixed = clamp(salary || 0, SALARY_MIN, SALARY_MAX);
+                                setSalary(fixed);
+                              }}
+                              inputMode="numeric"
+                              className={[
+                                "h-14",
+                                "rounded-[18px]",
+                                "lg-border border border-white/18",
+                                "bg-white/65 backdrop-blur-[14px]",
+                                "px-6",
+                                "text-[28px] font-semibold text-[#0f172a]",
+                                "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
+                                "outline-none focus:border-white/30",
+                              ].join(" ")}
+                              style={{ width: `${w}ch` }}
+                              aria-label="ФОТ одного менеджера в месяц"
+                            />
+                          );
+                        })()}
+
+                        {/* presets (как у тебя: 50/80/100) */}
+                        <div className="flex flex-wrap items-center gap-3">
+                          {[50_000, 80_000, 100_000].map((v) => {
+                            const active = salary === v;
+                            return (
+                              <button
+                                key={v}
+                                type="button"
+                                onClick={() => setSalary(v)}
+                                className={[
+                                  "h-14 px-7 rounded-full",
+                                  "flex items-center justify-center",
+                                  "lg-border border border-black/10",
+                                  "bg-white/60 backdrop-blur-[14px]",
+                                  "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
+                                  "transition-[transform,background-color,color] duration-500",
+                                  "active:scale-[0.99]",
+                                  active ? "text-[#0f172a] bg-white/75" : "text-[#B0B8C6] hover:text-[#0f172a]",
+                                ].join(" ")}
+                              >
+                                <span className="leading-none text-[20px] font-semibold">{formatMoneyInput(v)}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="mt-5 text-[16px] text-[#98A2B3]">
+                        77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 {/* RIGHT */}
                 <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
@@ -420,7 +441,7 @@ export default function RoiCalculatorSection() {
                     </div>
                   </div>
 
-                  {/* градиентная рамка как на макете */}
+                  {/* градиентная рамка */}
                   <div className="mt-7 rounded-[26px] p-[2px] bg-gradient-to-r from-[#ff4d4d]/70 via-[#c73f40]/20 to-[#7c3aed]/70">
                     <div className="rounded-[24px] lg-border border border-white/18 bg-white/82 p-6">
                       <div className="text-[13px] font-semibold text-[#667085]">Экономия за 1 год</div>
@@ -434,13 +455,16 @@ export default function RoiCalculatorSection() {
                         >
                           {formatRub(aSavings1)}
                         </div>
+
                         <div className="pb-[10px] text-[16px] font-semibold text-[#0f172a]">
                           {aSavings1Pct.toFixed(1)}%
                         </div>
                       </div>
 
                       <div className="mt-5 text-[14px] font-semibold text-[#0f172a]">
-                        {calc.paybackMonths ? `Окупаемость интеграции: ${calc.paybackMonths} мес` : "Не окупается при этих параметрах"}
+                        {calc.paybackMonths
+                          ? `Окупаемость интеграции: ${calc.paybackMonths} мес`
+                          : "Не окупается при этих параметрах"}
                       </div>
 
                       <div className="mt-2 text-[13px] text-[#98A2B3]">
@@ -457,7 +481,6 @@ export default function RoiCalculatorSection() {
                     </div>
                   </div>
 
-                  {/* нижняя строка как на макете */}
                   <div className="mt-6 flex items-center justify-between gap-3">
                     <div className="text-[13px] font-semibold text-[#0f172a]">
                       Замещение: <span className="text-[#667085]">{Math.round(calc.share * 100)}%</span>
@@ -468,7 +491,7 @@ export default function RoiCalculatorSection() {
               </div>
             </div>
 
-            {/* нижняя стеклянная зона с кнопкой и текстом */}
+            {/* нижняя стеклянная зона */}
             <div className="px-8 pb-8 pt-7">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <button
@@ -476,6 +499,9 @@ export default function RoiCalculatorSection() {
                   className="rounded-[24px] bg-white/92 px-10 py-5 text-[20px] font-semibold text-[#0f172a] border border-black/10 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
                   style={{ animation: "roiPulse 2.8s ease-in-out infinite" }}
                   aria-label="Развернуть калькулятор"
+                  onClick={() => {
+                    // позже сюда подвяжем expanded-режим
+                  }}
                 >
                   Развернуть калькулятор
                 </button>
@@ -486,7 +512,6 @@ export default function RoiCalculatorSection() {
               </div>
             </div>
 
-            {/* мягкая нижняя подсветка */}
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[140px] rounded-b-[52px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
           </div>
         </div>
