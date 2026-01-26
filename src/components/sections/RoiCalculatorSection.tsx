@@ -281,7 +281,7 @@ export default function RoiCalculatorSection() {
                   "relative isolate overflow-hidden",
                   "h-11 w-11 rounded-full",
                   "flex items-center justify-center",
-                  "lg-border border border-black/10", // еле-серый бордюр на белом
+                  "lg-border border border-black/5", // еле-серый бордюр на белом
                   "bg-white/60 backdrop-blur-[14px]",
                   "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
                   "transition-[transform,background-color,color,box-shadow] duration-[450ms]",
