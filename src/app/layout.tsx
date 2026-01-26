@@ -38,7 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               absolute inset-0
               opacity-[0.16]
               bg-[url('/bg/landing-pattern.svg')]
-              bg-repeat
+              bg-no-repeat 
+              bg-center 
+              bg-cover
               bg-[length:900px_900px]
               pointer-events-none
             "
