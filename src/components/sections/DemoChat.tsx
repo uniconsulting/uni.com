@@ -357,7 +357,6 @@ export default function DemoChatSection() {
           {/* Внешняя LiquidGlass-панель (как в секции 3 инфо-блока) */}
           <div
             className="
-              mt-[60px]
               relative
               rounded-[34px]
               border border-white/18
