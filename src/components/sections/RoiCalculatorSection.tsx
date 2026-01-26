@@ -13,11 +13,10 @@ function clamp(n: number, a: number, b: number) {
   return Math.min(b, Math.max(a, n));
 }
 
-function formatRub(v: number) {
-  const n = Math.round(v);
-  const sign = n < 0 ? "−" : "";
-  const abs = Math.abs(n);
-  return `${sign}${abs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽`;
+function parseMoneyInput(raw: string) {
+  const digits = raw.replace(/[^\d]/g, "");
+  const n = digits ? Number(digits) : 0;
+  return Number.isFinite(n) ? n : 0;
 }
 
 function formatMoneyInput(n: number) {
@@ -25,10 +24,11 @@ function formatMoneyInput(n: number) {
   return safe.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-function parseMoneyInput(raw: string) {
-  const digits = raw.replace(/[^\d]/g, "");
-  const n = digits ? Number(digits) : 0;
-  return Number.isFinite(n) ? n : 0;
+function formatRub(v: number) {
+  const n = Math.round(v);
+  const sign = n < 0 ? "−" : "";
+  const abs = Math.abs(n);
+  return `${sign}${abs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽`;
 }
 
 function useCountUp(target: number, durationMs = 650) {
@@ -239,11 +239,19 @@ export default function RoiCalculatorSection() {
                 <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="text-[16px] font-semibold text-[#0f172a]">Входные параметры</div>
 
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-[12px] font-semibold text-[#0f172a]">
+                    Кол-во менеджеров <span className="text-[#667085]">— {calc.m}</span>
+                  </div>
+                </div>
+
                   <div className="mt-6">
-                    <div className="flex items-end justify-between gap-3">
-                      <div className="text-[14px] font-semibold text-[#0f172a]">Кол-во менеджеров</div>
-                      <div className="text-[14px] font-semibold text-[#0f172a]">{calc.m}</div>
-                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                    <div className="text-[12px] font-semibold text-[#0f172a]">
+                    Кол-во менеджеров <span className="text-[#667085]">— {calc.m}</span>
+                  </div>
+                </div>
+              </div>
 
                     <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/82 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
                       <GlassRange
@@ -308,47 +316,96 @@ export default function RoiCalculatorSection() {
                     </div>
                   </div>
 
-                  <div className="mt-8">
-                    <div className="text-[14px] font-semibold text-[#0f172a]">ФОТ одного менеджера (₽/мес)</div>
+                 <div className="mt-6">
+  <div className="text-[12px] font-semibold text-[#0f172a]">ФОТ одного менеджера (₽/мес)</div>
 
-                    <div className="mt-4 rounded-[22px] lg-border border border-white/18 bg-white/82 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        {/* поле как на макете: выделенное */}
-                        <input
-                          value={formatMoneyInput(calc.s)}
-                          onChange={(e) => setSalary(parseMoneyInput(e.target.value))}
-                          inputMode="numeric"
-                          className="relative h-12 w-[100px] rounded-[18px] bg-white/92 px-5 text-[16px] font-semibold text-[#0f172a] outline-none lg-border border border-[#c73f40]/35 shadow-[0_18px_55px_rgba(199,63,64,0.08)]"
-                          aria-label="ФОТ одного менеджера"
-                        />
+  <div className="mt-3 relative">
+    {/* toast */}
+    <div
+      className={[
+        "pointer-events-none absolute -top-10 left-0",
+        "rounded-[14px] lg-border border border-white/18",
+        "bg-white/85 backdrop-blur-[16px]",
+        "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
+        "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
+        "transition-all duration-500",
+        salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
+      ].join(" ")}
+      role="status"
+      aria-live="polite"
+    >
+      Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
+    </div>
 
-                        <div className="flex flex-wrap gap-2">
-                          {[50_000, 77_910, 100_000].map((v) => {
-                            const active = calc.s === v;
-                            return (
-                              <button
-                                key={v}
-                                type="button"
-                                onClick={() => setSalary(v)}
-                                className={[
-                                  "h-11 rounded-[999px] px-5 text-[13px] font-semibold transition-[transform,color,background-color] duration-[500ms] active:scale-[0.99]",
-                                  "bg-white border border-black/10",
-                                  active ? "text-[#0f172a]" : "text-[#C0C6D0]",
-                                ].join(" ")}
-                              >
-                                {formatMoneyInput(v)}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
+    <div className="flex flex-wrap items-center gap-3">
+      {(() => {
+        const display = formatMoneyInput(salary);
+        const w = clamp(display.length + 2, 8, 14); // ширина “по значению”
+        return (
+          <input
+            value={display}
+            onChange={(e) => {
+              const n = parseMoneyInput(e.target.value);
+              if (n > SALARY_MAX) {
+                setSalary(SALARY_MAX);
+                setSalaryToast(true);
+                return;
+              }
+              setSalary(n);
+            }}
+            onBlur={() => {
+              // аккуратная нормализация на blur
+              const fixed = clamp(salary || 0, 10_000, SALARY_MAX);
+              setSalary(fixed);
+            }}
+            inputMode="numeric"
+            className={[
+              "h-12",
+              "rounded-[16px]",
+              "lg-border border border-white/18",
+              "bg-white/65 backdrop-blur-[14px]",
+              "px-5",
+              "text-[16px] font-semibold text-[#0f172a]",
+              "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
+              "outline-none focus:border-white/30",
+            ].join(" ")}
+            style={{ width: `${w}ch` }}
+            aria-label="ФОТ одного менеджера в месяц"
+          />
+        );
+      })()}
 
-                      <div className="mt-3 text-[12px] text-[#98A2B3]">
-                        77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      <div className="flex flex-wrap items-center gap-3">
+        {[50_000, 80_000, 100_000].map((v) => {
+          const active = salary === v;
+          return (
+            <button
+              key={v}
+              type="button"
+              onClick={() => setSalary(v)}
+              className={[
+                "h-11 px-5 rounded-full",
+                "flex items-center justify-center",
+                "lg-border border border-black/10",
+                "bg-white/60 backdrop-blur-[14px]",
+                "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
+                "transition-[transform,background-color,color] duration-500",
+                "active:scale-[0.99]",
+                active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
+              ].join(" ")}
+            >
+              <span className="leading-none text-[13px] font-semibold">{formatMoneyInput(v)}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    <div className="mt-3 text-[12px] text-[#98A2B3]">
+      77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
+    </div>
+  </div>
+</div>
 
                 {/* RIGHT */}
                 <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
