@@ -232,7 +232,7 @@ export default function RoiCalculatorSection() {
 
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1240px] text-center">
-          <div className="text-[18px] sm:text-[20px] font-semibold tracking-[-0.01em] text-[#0f172a]">
+          <h2 className="text-[18px] sm:text-[20px] font-semibold tracking-[-0.01em] text-[#0f172a]">
             ROI-калькулятор
           </h2>
           <div className="mt-1 text-[13px] sm:text-[14px] leading-[1.4] text-[#667085]">
