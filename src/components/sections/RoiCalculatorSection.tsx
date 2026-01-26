@@ -318,12 +318,12 @@ export default function RoiCalculatorSection() {
                           value={formatMoneyInput(calc.s)}
                           onChange={(e) => setSalary(parseMoneyInput(e.target.value))}
                           inputMode="numeric"
-                          className="h-12 w-[160px] rounded-[18px] bg-white/92 px-5 text-[16px] font-semibold text-[#0f172a] outline-none border border-[#c73f40]/35 shadow-[0_18px_55px_rgba(199,63,64,0.08)]"
+                          className="h-12 w-[80px] rounded-[18px] bg-white/92 px-5 text-[16px] font-semibold text-[#0f172a] outline-none border border-[#c73f40]/35 shadow-[0_18px_55px_rgba(199,63,64,0.08)]"
                           aria-label="ФОТ одного менеджера"
                         />
 
                         <div className="flex flex-wrap gap-2">
-                          {[50_000, 80_000, 100_000].map((v) => {
+                          {[50_000, 77_910, 100_000].map((v) => {
                             const active = calc.s === v;
                             return (
                               <button
