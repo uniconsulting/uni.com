@@ -59,10 +59,10 @@ export default function Hero() {
               <div className="absolute inset-0 grid place-items-center px-6 text-center">
                 <div>
                   <div className="text-[13px] font-semibold text-[#0f172a]/70">
-                    Тут будет скрин / видео платформы
+                    Зона для вставки видео работы платформы
                   </div>
                   <div className="mt-1 text-[12px] text-[#0f172a]/45">
-                    (вставим позже, когда пришлёшь картинку)
+                    (16/9)
                   </div>
                 </div>
               </div>
