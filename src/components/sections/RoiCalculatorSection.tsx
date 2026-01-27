@@ -360,6 +360,7 @@ export default function RoiCalculatorSection() {
                               inputMode="numeric"
                               aria-label="ФОТ одного менеджера в месяц"
                               className={[
+                                "mt-2"
                                 "h-12",
                                 "w-auto shrink-0",
                                 "rounded-[16px]",
@@ -399,7 +400,7 @@ export default function RoiCalculatorSection() {
                                     : "text-black/3 hover:text-[#0f172a]",
                                 ].join(" ")}
                               >
-                                <span className="leading-none text-[13px] font-semibold">
+                                <span className="mt-2 leading-none text-[13px] font-semibold">
                                   {formatMoneyInput(v)}
                                 </span>
                               </button>
@@ -483,7 +484,7 @@ export default function RoiCalculatorSection() {
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <button
                   type="button"
-                  className="rounded-[24px] bg-white/92 px-10 py-5 text-[13px] font-semibold text-[#0f172a] border border-black/10 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
+                  className="rounded-[24px] bg-white/92 h-10 px-4 text-[13px] font-semibold text-[#0f172a] border border-black/10 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
                   style={{ animation: "roiPulse 2.8s ease-in-out infinite" }}
                   aria-label="Развернуть калькулятор"
                 >
