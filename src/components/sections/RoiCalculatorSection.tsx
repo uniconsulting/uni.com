@@ -397,7 +397,7 @@ export default function RoiCalculatorSection() {
                                   "text-center",
                                   active
                                     ? "text-[#0f172a] bg-white/75"
-                                    : "text-black/5 hover:text-[#0f172a]",
+                                    : "text-black/5 hover:text-[#0f172a]", "text-center",
                                 ].join(" ")}
                               >
                                 <span className="mt-2 leading-none text-[13px] font-semibold">
