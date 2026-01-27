@@ -394,12 +394,13 @@ export default function RoiCalculatorSection() {
                                   "shadow-[0_10px_26px_rgba(0,0,0,0.03)]",
                                   "transition-[transform,background-color,color] duration-500",
                                   "active:scale-[0.99]",
+                                  "text-center",
                                   active
-                                    ? "text-[#0f172a] bg-white/75 text-center"
-                                    : "text-black/5 hover:text-[#0f172a] text-center",
+                                    ? "text-[#0f172a] bg-white/75"
+                                    : "text-black/5 hover:text-[#0f172a]",
                                 ].join(" ")}
                               >
-                                <span className="mt-2 leading-none text-[13px] font-semibold text-center">
+                                <span className="mt-2 leading-none text-[13px] font-semibold">
                                   {formatMoneyInput(v)}
                                 </span>
                               </button>
