@@ -24,7 +24,7 @@ export default function CTA1() {
               overflow-hidden
               mx-auto
               w-auto
-              max-w-[580px]
+              max-w-[570px]
               rounded-[999px]
               border
               border-white/35
