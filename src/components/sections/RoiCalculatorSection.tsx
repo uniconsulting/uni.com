@@ -316,105 +316,118 @@ export default function RoiCalculatorSection() {
                     })()}
                   </div>
 
- {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
-<div className="mt-8">
-  <div className="text-[12px] font-semibold text-[#0f172a]">
-    ФОТ одного менеджера (₽/мес)
-  </div>
+                 {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
+                  <div className="mt-8">
+                    <div className="text-[12px] font-semibold text-[#0f172a]">
+                      ФОТ одного менеджера (₽/мес)
+                    </div>
 
-  {/* было mt-2 -> делаем меньше и убираем второй mt ниже */}
-  <div className="mt-1 relative">
-    <div
-      className={[
-        "pointer-events-none absolute -top-10 left-0",
-        "rounded-[14px] lg-border border border-white/18",
-        "bg-white/85 backdrop-blur-[16px]",
-        "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
-        "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
-        "transition-all duration-500",
-        salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
-      ].join(" ")}
-      role="status"
-      aria-live="polite"
-    >
-      Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
-    </div>
+                    <div className="mt-2 relative">
+                      <div
+                        className={[
+                          "pointer-events-none absolute -top-10 left-0",
+                          "rounded-[14px] lg-border border border-white/18",
+                          "bg-white/85 backdrop-blur-[16px]",
+                          "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
+                          "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
+                          "transition-all duration-500",
+                          salaryToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
+                        ].join(" ")}
+                        role="status"
+                        aria-live="polite"
+                      >
+                        Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
+                      </div>
 
-    {/* было mt-2 -> УБРАЛИ, чтобы не раздувало расстояние */}
-    <div className="flex flex-wrap items-center gap-3">
-      {(() => {
-        const display = formatMoneyInput(salary);
-        const chars = clamp(display.length, 6, 12);
+                      <div className="flex flex-wrap items-center gap-3">
+                        {(() => {
+                          const display = formatMoneyInput(salary);
+                          const chars = clamp(display.length, 6, 12);
 
-        return (
-          <input
-            value={display}
-            onChange={(e) => {
-              const n = parseMoneyInput(e.target.value);
-              if (n > SALARY_MAX) {
-                setSalary(SALARY_MAX);
-                setSalaryToast(true);
-                return;
-              }
-              setSalary(n);
-            }}
-            onBlur={() => setSalary(clamp(salary || 0, 10_000, SALARY_MAX))}
-            inputMode="numeric"
-            aria-label="ФОТ одного менеджера в месяц"
-            className={[
-              "h-12",
-              "w-auto shrink-0",
-              "rounded-[16px]",
-              "lg-border border border-white/18",
-              "bg-[#c73f40] backdrop-blur-[14px]",
-              "px-5",
-              "text-[16px] font-semibold text-white",
-              "tabular-nums",
-              "text-center",
-              "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
-              "outline-none focus:border-white/30",
-              "transition-[width] duration-300",
-            ].join(" ")}
-            style={{ width: `calc(${chars}ch + 2.5rem)` }}
-          />
-        );
-      })()}
+                          return (
+                            <input
+                              value={display}
+                              onChange={(e) => {
+                                const n = parseMoneyInput(e.target.value);
+                                if (n > SALARY_MAX) {
+                                  setSalary(SALARY_MAX);
+                                  setSalaryToast(true);
+                                  return;
+                                }
+                                setSalary(n);
+                              }}
+                              onBlur={() => setSalary(clamp(salary || 0, 10_000, SALARY_MAX))}
+                              inputMode="numeric"
+                              aria-label="ФОТ одного менеджера в месяц"
+                              className={[
+                                "h-12",
+                                "w-auto shrink-0",
+                                "rounded-[16px]",
+                                "lg-border border border-white/18",
+                                "bg-[#c73f40] backdrop-blur-[14px]",
+                                "px-5",
+                                "text-[16px] font-semibold text-white",
+                                "tabular-nums",
+                                "text-center",
+                                "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
+                                "outline-none focus:border-white/30",
+                                "transition-[width] duration-300",
+                              ].join(" ")}
+                              style={{ width: `calc(${chars}ch + 2.5rem)` }}
+                            />
+                          );
+                        })()}
 
-      <div className="flex flex-wrap items-center gap-3">
-        {[50_000, 80_000, 100_000].map((v) => {
-          const active = salary === v;
+                        <div className="flex flex-wrap items-center gap-3">
+                          {[50_000, 80_000, 100_000].map((v) => {
+                            const active = salary === v;
+                            return (
+                              <button
+                                key={v}
+                                type="button"
+                                onClick={() => setSalary(v)}
+                                className={[
+                                  "h-11 px-5 rounded-[16px]",
+                                  "flex items-center justify-center",
+                                  "lg-border border border-black/2",
+                                  "bg-white/40 backdrop-blur-[14px]",
+                                  "shadow-[0_10px_26px_rgba(0,0,0,0.03)]",
+                                  "transition-[transform,background-color,color] duration-500",
+                                  "active:scale-[0.99]",
+                                  "text-center",
+                                  active
+                                    ? "text-[#0f172a] bg-white/75"
+                                    : "text-black/5 hover:text-[#0f172a]", "text-center",
+                                ].join(" ")}
+                              >
+                                <span className="leading-none text-[13px] font-semibold">
+                                  {formatMoneyInput(v)}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
 
-          return (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setSalary(v)}
-              className={[
-                "h-11 px-5 rounded-[16px]",
-                "flex items-center justify-center",
-                "lg-border border border-black/5",
-                "bg-white/40 backdrop-blur-[14px]",
-                "shadow-[0_10px_26px_rgba(0,0,0,0.03)]",
-                "transition-[transform,background-color,color] duration-500",
-                "active:scale-[0.99]",
-                active ? "text-[#0f172a] bg-white/75" : "text-[#98A2B3] hover:text-[#0f172a]",
-              ].join(" ")}
-            >
-              {/* было mt-2 -> УБРАЛИ, иначе текст всегда ниже центра */}
-              <span className="leading-none text-[13px] font-semibold tabular-nums">
-                {formatMoneyInput(v)}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
+                      <div className="mt-3 text-[12px] text-[#98A2B3]">
+                        77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-    <div className="mt-3 text-[12px] text-[#98A2B3]">
-      77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
-    </div>
-  </div>
-</div>
+                {/* RIGHT */}
+                <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-[16px] font-semibold text-[#0f172a]">Результат</div>
+                      <div className="mt-1 text-[13px] text-[#667085]">Экономия и окупаемость</div>
+                    </div>
+
+                    <div className="rounded-[999px] lg-border border border-white/18 bg-white/82 px-4 py-2 text-[13px] font-semibold text-[#0f172a] shadow-[0_10px_26px_rgba(0,0,0,0.04)]">
+                      Замещение: {Math.round(calc.share * 100)}%
+                    </div>
+                  </div>
 
                   {/* градиентная рамка как на макете */}
                   <div className="mt-7 rounded-[26px] p-[2px] bg-gradient-to-r from-[#ff4d4d]/70 via-[#c73f40]/20 to-[#7c3aed]/70">
