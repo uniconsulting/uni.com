@@ -488,7 +488,7 @@ export default function RoiCalculatorSection() {
 
             {/* нижняя стеклянная зона с кнопкой и текстом */}
             <div className="px-7 pb-7 pt-7">
-              <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
                 <button
                   type="button"
                   className="rounded-[12px] bg-white/92 h-10 px-4 text-[13px] font-semibold text-[#0f172a] border border-black/10 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
