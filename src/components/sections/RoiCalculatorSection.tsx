@@ -372,7 +372,7 @@ export default function RoiCalculatorSection() {
                 "rounded-[12px]",
                 "lg-border border border-white/18",
                 "bg-[#c73f40] backdrop-blur-[14px]",
-                "px-5",
+                "px-2",
                 "text-[16px] font-semibold text-white",
                 "tabular-nums",
                 "text-center",
