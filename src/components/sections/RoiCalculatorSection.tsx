@@ -318,11 +318,11 @@ export default function RoiCalculatorSection() {
 
                  {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
                   <div className="mt-8">
-                    <div className="text-[12px] font-semibold text-[#0f172a]">
+                    <div className="text-[12px] font-semibold text-[#0f172a] mb-2">
                       ФОТ одного менеджера (₽/мес)
                     </div>
 
-                    <div className="mt-0.5 relative">
+                    <div className="relative">
                       <div
                         className={[
                           "pointer-events-none absolute -top-10 left-0",
