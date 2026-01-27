@@ -322,7 +322,7 @@ export default function RoiCalculatorSection() {
                       ФОТ одного менеджера (₽/мес)
                     </div>
 
-                    <div className="mt-2 relative">
+                    <div className="mt-0.5 relative">
                       <div
                         className={[
                           "pointer-events-none absolute -top-10 left-0",
