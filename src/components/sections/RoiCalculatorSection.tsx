@@ -317,14 +317,14 @@ export default function RoiCalculatorSection() {
                   </div>
 
                  {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
-<div className="mt-4">
+<div className="mt-8">
   {/* ВОТ ЗДЕСЬ теперь регулируешь интервал: gap-1 / gap-1.5 / gap-2 */}
   <div className="flex flex-col gap-[2px]">
     <div className="text-[12px] font-semibold text-[#0f172a]">
       ФОТ одного менеджера (₽/мес)
     </div>
 
-    <div className="relative">
+   <div className="relative !mt-0">
       <div
         className={[
           "pointer-events-none absolute -top-10 left-0",
