@@ -491,7 +491,7 @@ export default function RoiCalculatorSection() {
               <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
                 <button
                   type="button"
-                  className="rounded-[12px] bg-white/92 h-10 px-4 text-[13px] font-semibold text-[#0f172a] lg-border border border-black/5 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[0.99]"
+                  className="rounded-[12px] bg-white/92 h-10 px-4 text-[13px] font-semibold text-[#0f172a] lg-border border border-black/5 shadow-[0_22px_70px_rgba(0,0,0,0.10)] hover:text-[#c73f40] active:scale-[1.01]"
                   style={{ animation: "roiPulse 2.8s ease-in-out infinite" }}
                   aria-label="Развернуть калькулятор"
                 >
@@ -504,7 +504,7 @@ export default function RoiCalculatorSection() {
               </div>
             </div>
 
-            <div className="pointer-events-none absolute inset-0 bottom-0 h-[90px] rounded-b-[34px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 bottom-0 h-[70px] rounded-b-[34px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
           </div>
         </div>
       </div>
