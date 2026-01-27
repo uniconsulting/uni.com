@@ -412,6 +412,7 @@ export default function RoiCalculatorSection() {
 
       <div className="mt-3 text-[12px] text-[#98A2B3]">
         77 917 ₽ - медианная зарплата менеджера по продажам в РФ на 2025 год
+        </div>
       </div>
     </div>
   </div>
