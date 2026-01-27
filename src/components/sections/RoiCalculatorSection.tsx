@@ -319,7 +319,7 @@ export default function RoiCalculatorSection() {
                  {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
 <div className="mt-8">
   {/* ВОТ ЗДЕСЬ теперь регулируешь интервал: gap-1 / gap-1.5 / gap-2 */}
-  <div className="flex flex-col gap-[6px]">
+  <div className="flex flex-col gap-[2px]">
     <div className="text-[12px] font-semibold text-[#0f172a]">
       ФОТ одного менеджера (₽/мес)
     </div>
@@ -341,7 +341,7 @@ export default function RoiCalculatorSection() {
         Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-[2px]">
         {(() => {
           const display = formatMoneyInput(salary);
           const chars = clamp(display.length, 6, 12);
