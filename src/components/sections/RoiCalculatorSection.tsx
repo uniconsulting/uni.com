@@ -242,7 +242,7 @@ export default function RoiCalculatorSection() {
 
         <div className="mt-8 md:mt-12">
           {/* внешний стеклянный контейнер */}
-          <div className="lg-border relative mx-auto max-w-[1240px] rounded-[34px] border border-white/18 bg-white/10 p-[12px] shadow-[0_22px_70px_rgba(0,0,0,0.05)] backdrop-blur-[26px] backdrop-saturate-150">
+          <div className="lg-border relative mx-auto max-w-[1240px] rounded-[34px] border border-white/18 bg-white/10 p-[10px] shadow-[0_22px_70px_rgba(0,0,0,0.05)] backdrop-blur-[26px] backdrop-saturate-150">
             <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
             <div className="pointer-events-none absolute inset-0 rounded-[34px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
 
