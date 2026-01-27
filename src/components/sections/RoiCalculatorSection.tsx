@@ -482,7 +482,7 @@ export default function RoiCalculatorSection() {
             </div>
 
             {/* нижняя стеклянная зона с кнопкой и текстом */}
-            <div className="px-8 pb-8 pt-7">
+            <div className="px-7 pb-7 pt-7">
               <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
                 <button
                   type="button"
@@ -499,7 +499,7 @@ export default function RoiCalculatorSection() {
               </div>
             </div>
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[140px] rounded-b-[52px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 bottom-0 h-[120px] rounded-b-[34px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
           </div>
         </div>
       </div>
