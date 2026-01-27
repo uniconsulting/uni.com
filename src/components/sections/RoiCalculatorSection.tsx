@@ -341,7 +341,7 @@ export default function RoiCalculatorSection() {
         Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="!mt-0 flex flex-wrap items-center gap-3">
         {(() => {
           const display = formatMoneyInput(salary);
           const chars = clamp(display.length, 6, 12);
