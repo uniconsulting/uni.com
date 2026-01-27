@@ -323,7 +323,7 @@ export default function RoiCalculatorSection() {
 <div className="mt-8">
   <div
     className="roi-salary-stack flex flex-col"
-    style={{ ["--roi-salary-gap" as any]: "6px" }} // меняй тут: 4px / 6px / 8px
+    style={{ ["--roi-salary-gap" as any]: "2px" }} // меняй тут: 4px / 6px / 8px
   >
     <div className="text-[12px] font-semibold text-[#0f172a]">
       ФОТ одного менеджера (₽/мес)
@@ -498,13 +498,13 @@ export default function RoiCalculatorSection() {
                   Развернуть калькулятор
                 </button>
 
-                <div className="max-w-[760px] text-[13px] leading-[1.35] text-white/80">
+                <div className="max-w-[760px] text-[13px] leading-[0.35] text-white/80">
                   Разверни калькулятор, чтобы настроить накладные, тариф, долю замещения и увидеть горизонты 3/5 лет.
                 </div>
               </div>
             </div>
 
-            <div className="pointer-events-none absolute inset-0 bottom-0 h-[120px] rounded-b-[34px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 bottom-0 h-[100px] rounded-b-[34px] opacity-70 bg-[radial-gradient(900px_220px_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]" />
           </div>
         </div>
       </div>
