@@ -242,15 +242,15 @@ export default function RoiCalculatorSection() {
 
         <div className="mt-8 md:mt-12">
           {/* внешний стеклянный контейнер */}
-          <div className="lg-border relative mx-auto max-w-[1240px] rounded-[52px] border border-white/18 bg-white/10 p-[12px] shadow-[0_22px_70px_rgba(0,0,0,0.05)] backdrop-blur-[26px] backdrop-saturate-150">
-            <div className="pointer-events-none absolute inset-0 rounded-[52px] ring-1 ring-white/10" />
-            <div className="pointer-events-none absolute inset-0 rounded-[52px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
+          <div className="lg-border relative mx-auto max-w-[1240px] rounded-[34px] border border-white/18 bg-white/10 p-[12px] shadow-[0_22px_70px_rgba(0,0,0,0.05)] backdrop-blur-[26px] backdrop-saturate-150">
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] ring-1 ring-white/10" />
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] opacity-70 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.08),transparent_65%)]" />
 
             {/* верхний белый блок (две карточки) */}
-            <div className="relative rounded-[40px] lg-border border border-white/18 bg-white/82 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.03)]">
+            <div className="relative rounded-[26px] lg-border border border-white/18 bg-white/82 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.03)]">
               <div className="grid gap-4 lg:grid-cols-2">
                 {/* LEFT */}
-                <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
+                <div className="rounded-[18px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="text-[16px] font-semibold text-[#0f172a]">Входные параметры</div>
 
                   <div className="mt-6 text-[12px] font-semibold text-[#0f172a]">
@@ -328,7 +328,7 @@ export default function RoiCalculatorSection() {
       <div
         className={[
           "pointer-events-none absolute -top-10 left-0",
-          "rounded-[14px] lg-border border border-white/18",
+          "rounded-[12px] lg-border border border-white/18",
           "bg-white/85 backdrop-blur-[16px]",
           "px-4 py-2 text-[12px] font-semibold text-[#0f172a]",
           "shadow-[0_18px_45px_rgba(0,0,0,0.08)]",
@@ -362,9 +362,9 @@ export default function RoiCalculatorSection() {
               inputMode="numeric"
               aria-label="ФОТ одного менеджера в месяц"
               className={[
-                "h-12",
+                "h-11",
                 "w-auto shrink-0",
-                "rounded-[16px]",
+                "rounded-[12px]",
                 "lg-border border border-white/18",
                 "bg-[#c73f40] backdrop-blur-[14px]",
                 "px-5",
@@ -389,7 +389,7 @@ export default function RoiCalculatorSection() {
                 type="button"
                 onClick={() => setSalary(v)}
                 className={[
-                  "h-11 px-5 rounded-[16px]",
+                  "h-10 px-5 rounded-[10px]",
                   "flex items-center justify-center",
                   "lg-border border border-black/2",
                   "bg-white/40 backdrop-blur-[14px]",
@@ -397,7 +397,7 @@ export default function RoiCalculatorSection() {
                   "transition-[transform,background-color,color] duration-500",
                   "active:scale-[0.99]",
                   "text-center",
-                  active ? "text-[#0f172a] bg-white/75" : "text-black/5 hover:text-[#0f172a]",
+                  active ? "text-[#0f172a] bg-white/75" : "text-black/7 hover:text-[#0f172a]",
                   "text-center",
                 ].join(" ")}
               >
@@ -419,7 +419,7 @@ export default function RoiCalculatorSection() {
 </div>
 
                 {/* RIGHT */}
-                <div className="rounded-[32px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
+                <div className="rounded-[18px] lg-border border border-white/18 bg-white/82 p-7 shadow-[0_16px_45px_rgba(0,0,0,0.04)]">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="text-[16px] font-semibold text-[#0f172a]">Результат</div>
@@ -432,8 +432,8 @@ export default function RoiCalculatorSection() {
                   </div>
 
                   {/* градиентная рамка как на макете */}
-                  <div className="mt-7 rounded-[26px] p-[2px] bg-gradient-to-r from-[#ff4d4d]/70 via-[#c73f40]/20 to-[#7c3aed]/70">
-                    <div className="rounded-[24px] lg-border border border-white/18 bg-white/82 p-6">
+                  <div className="mt-7 rounded-[12px] p-[2px] bg-gradient-to-r from-[#ff4d4d]/70 via-[#c73f40]/20 to-[#7c3aed]/70">
+                    <div className="rounded-[10px] lg-border border border-white/18 bg-white/82 p-6">
                       <div className="text-[13px] font-semibold text-[#667085]">Экономия за 1 год</div>
 
                       <div className="mt-3 flex flex-wrap items-end gap-4">
