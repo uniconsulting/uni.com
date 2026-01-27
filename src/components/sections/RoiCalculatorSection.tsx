@@ -360,7 +360,7 @@ export default function RoiCalculatorSection() {
                               inputMode="numeric"
                               aria-label="ФОТ одного менеджера в месяц"
                               className={[
-                                "mt-2"
+                                "mt-2",
                                 "h-12",
                                 "w-auto shrink-0",
                                 "rounded-[16px]",
