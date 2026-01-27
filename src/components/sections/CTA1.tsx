@@ -23,7 +23,7 @@ export default function CTA1() {
               relative isolate 
               overflow-hidden
               mx-auto
-              w-full
+              w-auto
               max-w-[600px]
               rounded-[999px]
               border
