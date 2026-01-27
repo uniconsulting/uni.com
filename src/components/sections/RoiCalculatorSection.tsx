@@ -227,8 +227,11 @@ export default function RoiCalculatorSection() {
           height: 14px;
           border-radius: 999px;
           background: transparent;
-        }
-      `}</style>
+          
+  .roi-salary-stack > :not([hidden]) ~ :not([hidden]) {
+    margin-top: var(--roi-salary-gap, 6px) !important;
+  }
+`}</style>
 
       <div className="mx-auto max-w-[1240px] px-4">
         <div className="mx-auto max-w-[1240px] text-center">
@@ -316,15 +319,17 @@ export default function RoiCalculatorSection() {
                     })()}
                   </div>
 
-                 {/* ФОТ-инпут: ширина по значению, max=500k, toast */}
+{/* ФОТ-инпут: ширина по значению, max=500k, toast */}
 <div className="mt-8">
-  {/* ВОТ ЗДЕСЬ теперь регулируешь интервал: gap-1 / gap-1.5 / gap-2 */}
-  <div className="!mt-0 flex flex-col">
+  <div
+    className="roi-salary-stack flex flex-col"
+    style={{ ["--roi-salary-gap" as any]: "6px" }} // меняй тут: 4px / 6px / 8px
+  >
     <div className="text-[12px] font-semibold text-[#0f172a]">
       ФОТ одного менеджера (₽/мес)
     </div>
 
-   <div className="relative !mt-0">
+   <div className="relative">
       <div
         className={[
           "pointer-events-none absolute -top-10 left-0",
@@ -341,7 +346,7 @@ export default function RoiCalculatorSection() {
         Ого! Крутая зарплата! Такого сотрудника лучше оставить!))
       </div>
 
-      <div className="!mt-0 flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         {(() => {
           const display = formatMoneyInput(salary);
           const chars = clamp(display.length, 6, 12);
