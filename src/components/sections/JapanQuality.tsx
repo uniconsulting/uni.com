@@ -1,4 +1,4 @@
-
+```tsx
 "use client";
 
 import React from "react";
@@ -23,12 +23,12 @@ const CARDS: Array<{ key: CardKey; title: string; desc: string }> = [
   },
   {
     key: "lean",
-    title: "Lean-подход",
+    title: "Lean",
     desc: "Убираем лишнее. Оставляем то, что реально даёт эффект.",
   },
   {
     key: "dao",
-    title: "ДАО-логика",
+    title: "ДАО",
     desc: "Системность и устойчивость. Решения строятся на принципах.",
   },
   {
@@ -43,17 +43,17 @@ const CARDS: Array<{ key: CardKey; title: string; desc: string }> = [
   },
   {
     key: "implementation",
-    title: "Качество внедрения",
+    title: "Внедрение",
     desc: "Интеграция под ваш процесс. Доводим до результата, а не до отчёта.",
   },
   {
     key: "docs",
-    title: "Документация",
-    desc: "Схемы, инструкции, роли и доступы. Без магии и догадок.",
+    title: "Документы",
+    desc: "Инструкции, схемы, роли и доступы. Без догадок и хаоса.",
   },
   {
     key: "qc",
-    title: "Контроль качества",
+    title: "Контроль",
     desc: "Проверяем сценарии и крайние случаи до релиза и после запуска.",
   },
   {
@@ -64,7 +64,7 @@ const CARDS: Array<{ key: CardKey; title: string; desc: string }> = [
   {
     key: "support",
     title: "Поддержка",
-    desc: "После запуска остаёмся рядом: улучшаем, отвечаем, исправляем быстро.",
+    desc: "После запуска улучшаем, отвечаем и исправляем быстро.",
   },
 ];
 
@@ -280,46 +280,18 @@ function Icon({ k }: { k: CardKey }) {
   }
 }
 
-function useSectionInView() {
-  const ref = React.useRef<HTMLElement | null>(null);
-  const [inView, setInView] = React.useState(false);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.18 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return { ref, inView };
-}
-
 export default function JapaneseQualitySection() {
-  const { ref, inView } = useSectionInView();
-
   return (
-    <section ref={ref as any} id="japanese-quality" className="relative py-14 md:py-20">
+    <section id="japanese-quality" className="relative py-14 md:py-20">
       <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          .jq-sweep { animation: none !important; }
+        }
         @keyframes badgeSweep {
           0% { transform: translateX(-120%) rotate(10deg); opacity: 0; }
-          15% { opacity: .55; }
-          35% { opacity: .0; }
+          12% { opacity: .55; }
+          32% { opacity: 0; }
           100% { transform: translateX(160%) rotate(10deg); opacity: 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .jq-reveal { transition: none !important; transform: none !important; opacity: 1 !important; }
-          .jq-sweep { animation: none !important; }
         }
       `}</style>
 
@@ -337,103 +309,79 @@ export default function JapaneseQualitySection() {
       </div>
 
       <div className="mx-auto max-w-[1240px] px-4">
-        <div
-          className={[
-            "jq-reveal transition-all duration-[900ms] ease-out",
-            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
-          ].join(" ")}
-        >
+        {/* Заголовок/подзаголовок по центру, без анимаций */}
+        <div className="mx-auto max-w-[1240px] text-center">
           <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
             Японское качество
           </h2>
           <div className="mt-1 text-white font-semibold tracking-[-0.01em] text-[16px] sm:text-[28px] lg:text-[28px]">
             наших продуктов и подхода
           </div>
-
-          <div className="mt-7 max-w-[980px] text-left">
-            <p className="text-white/80 text-[14px] sm:text-[16px] leading-[1.55] font-semibold">
-              В основах нашего подхода лежат методы бережливого производства, принципы кайдзен и ДАО.
-            </p>
-            <p className="mt-3 text-white/80 text-[14px] sm:text-[16px] leading-[1.55] font-semibold">
-              В каждом продукте заложен большой ресурс прочности и стабильности.
-            </p>
-          </div>
         </div>
 
+        {/* Текст слева, 12px, с переносами строк как в ТЗ */}
+        <div className="mt-8 max-w-[980px] text-left">
+          <p className="text-white/80 text-[12px] leading-[1.55] font-semibold whitespace-pre-line">
+            {"В основах нашего подхода\nлежат методы бережливого производства,\nпринципы кайдзен и ДАО."}
+          </p>
+
+          <p className="mt-4 text-white/80 text-[12px] leading-[1.55] font-semibold whitespace-pre-line">
+            {"В каждом продукте заложен большой\nресурс прочности и стабильности."}
+          </p>
+        </div>
+
+        {/* Сетка карточек 2x5 (адаптивно), одинаковый размер карточек */}
         <div className="mt-10">
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-            {CARDS.map((c, i) => {
-              const delay = 90 + i * 55;
+            {CARDS.map((c, i) => (
+              <div key={c.key} className="h-full">
+                {/* внешний стеклянный контур-фрейм */}
+                <div className="lg-border h-full rounded-[34px] border border-white/18 bg-white/10 p-[10px] shadow-[0_18px_55px_rgba(0,0,0,0.06)] backdrop-blur-[24px] backdrop-saturate-150">
+                  {/* внутренний фрейм */}
+                  <div className="relative h-full lg-border rounded-[26px] border border-white/18 bg-white/10 p-5 shadow-[0_14px_40px_rgba(0,0,0,0.05)]">
+                    {/* блик */}
+                    <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-70 bg-[radial-gradient(220px_120px_at_20%_10%,rgba(255,255,255,0.14),transparent_60%)]" />
 
-              return (
-                <div
-                  key={c.key}
-                  className={[
-                    "jq-reveal transition-all duration-[900ms] ease-out",
-                    inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
-                  ].join(" ")}
-                  style={{ transitionDelay: `${delay}ms` }}
-                >
-                  {/* внешний стеклянный контур-фрейм */}
-                  <div className="lg-border rounded-[34px] border border-white/18 bg-white/10 p-[10px] shadow-[0_18px_55px_rgba(0,0,0,0.06)] backdrop-blur-[24px] backdrop-saturate-150">
-                    <div className="pointer-events-none absolute" />
-
-                    {/* внутренний фрейм */}
-                    <div className="relative lg-border rounded-[26px] border border-white/18 bg-white/10 p-5 shadow-[0_14px_40px_rgba(0,0,0,0.05)]">
-                      {/* блик */}
-                      <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-70 bg-[radial-gradient(220px_120px_at_20%_10%,rgba(255,255,255,0.14),transparent_60%)]" />
-
-                      <div className="relative flex items-start gap-3">
-                        {/* бейдж */}
-                        <div className="relative isolate">
-                          <div className="lg-border h-11 w-11 rounded-full border border-white/18 bg-white/14 backdrop-blur-[16px] shadow-[0_10px_26px_rgba(0,0,0,0.08)] flex items-center justify-center text-white">
-                            <Icon k={c.key} />
-                          </div>
-
-                          {/* sweep */}
-                          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
-                            <div
-                              className="jq-sweep absolute -left-1/2 top-0 h-full w-1/2 opacity-0"
-                              style={{
-                                animation: inView ? "badgeSweep 8.5s ease-in-out infinite" : "none",
-                                animationDelay: `${0.6 + i * 0.12}s`,
-                                background:
-                                  "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 45%, transparent 100%)",
-                              }}
-                            />
-                          </div>
+                    {/* верхняя линия: бейдж слева, заголовок справа на центральной горизонтали бейджа */}
+                    <div className="relative flex items-center gap-3">
+                      <div className="relative isolate">
+                        <div className="lg-border h-11 w-11 rounded-full border border-white/18 bg-white/14 backdrop-blur-[16px] shadow-[0_10px_26px_rgba(0,0,0,0.08)] flex items-center justify-center text-white">
+                          <Icon k={c.key} />
                         </div>
 
-                        <div className="min-w-0">
-                          <div className="text-white text-[14px] font-semibold leading-[1.15]">
-                            {c.title}
-                          </div>
-                          <div className="mt-2 text-white/70 text-[13px] leading-[1.35] font-semibold">
-                            {c.desc}
-                          </div>
+                        {/* sweep на бейдж (аккуратно, без “якорей доверия”) */}
+                        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+                          <div
+                            className="jq-sweep absolute -left-1/2 top-0 h-full w-1/2 opacity-0"
+                            style={{
+                              animation: "badgeSweep 9s ease-in-out infinite",
+                              animationDelay: `${0.6 + i * 0.14}s`,
+                              background:
+                                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 45%, transparent 100%)",
+                            }}
+                          />
                         </div>
                       </div>
 
-                      {/* hover lift */}
-                      <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <div className="min-w-0">
+                        <div className="text-white text-[14px] font-semibold leading-[1] truncate">
+                          {c.title}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* описание под линией */}
+                    <div className="relative mt-4 text-white/70 text-[13px] leading-[1.4] font-semibold">
+                      {c.desc}
                     </div>
                   </div>
-
-                  {/* hover поведение на весь контейнер */}
-                  <style>{`
-                    #japanese-quality .jq-reveal > div {
-                      transition: transform 520ms cubic-bezier(.2,.8,.2,1);
-                    }
-                    #japanese-quality .jq-reveal:hover > div {
-                      transform: translateY(-4px);
-                    }
-                  `}</style>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 }
+```
