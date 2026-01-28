@@ -1,315 +1,43 @@
-```tsx
 "use client";
 
 import React from "react";
 
-type CardKey =
-  | "kaizen"
-  | "lean"
-  | "dao"
-  | "stability"
-  | "strength"
-  | "implementation"
-  | "docs"
-  | "qc"
-  | "security"
-  | "support";
+type Card = {
+  title: string;
+  badge: string;
+  desc: string;
+};
 
-const CARDS: Array<{ key: CardKey; title: string; desc: string }> = [
-  {
-    key: "kaizen",
-    title: "Кайдзен",
-    desc: "Постоянные улучшения продукта и процессов, даже после запуска.",
-  },
-  {
-    key: "lean",
-    title: "Lean",
-    desc: "Убираем лишнее. Оставляем то, что реально даёт эффект.",
-  },
-  {
-    key: "dao",
-    title: "ДАО",
-    desc: "Системность и устойчивость. Решения строятся на принципах.",
-  },
-  {
-    key: "stability",
-    title: "Стабильность",
-    desc: "Предсказуемое поведение системы и понятные сценарии работы.",
-  },
-  {
-    key: "strength",
-    title: "Прочность",
-    desc: "Запас по нагрузке и архитектуре, чтобы продукт спокойно рос.",
-  },
-  {
-    key: "implementation",
-    title: "Внедрение",
-    desc: "Интеграция под ваш процесс. Доводим до результата, а не до отчёта.",
-  },
-  {
-    key: "docs",
-    title: "Документы",
-    desc: "Инструкции, схемы, роли и доступы. Без догадок и хаоса.",
-  },
-  {
-    key: "qc",
-    title: "Контроль",
-    desc: "Проверяем сценарии и крайние случаи до релиза и после запуска.",
-  },
-  {
-    key: "security",
-    title: "Безопасность",
-    desc: "Разделение доступов и аккуратная работа с данными на каждом шаге.",
-  },
-  {
-    key: "support",
-    title: "Поддержка",
-    desc: "После запуска улучшаем, отвечаем и исправляем быстро.",
-  },
+const CARDS: Card[] = [
+  { title: "Кайдзен", badge: "改善", desc: "Ежедневные улучшения без перегруза процессов." },
+  { title: "Lean", badge: "精益", desc: "Убираем лишнее, усиливаем ценность для клиента." },
+  { title: "ДАО", badge: "道", desc: "Логика потока: простые правила вместо хаоса." },
+  { title: "Стабильность", badge: "安定", desc: "Системы работают ровно, без сюрпризов." },
+  { title: "Прочность", badge: "堅牢", desc: "Запас устойчивости: выдерживает рост нагрузки." },
+  { title: "Внедрение", badge: "導入", desc: "Аккуратно встраиваемся в вашу реальность." },
+  { title: "Документация", badge: "手順", desc: "Понятные регламенты, чтобы команда не терялась." },
+  { title: "Контроль", badge: "検査", desc: "Проверяем качество на каждом критичном шаге." },
+  { title: "Безопасность", badge: "安全", desc: "Минимизируем риски данных и доступа." },
+  { title: "Поддержка", badge: "支援", desc: "Не бросаем: помогаем довести до результата." },
 ];
 
-function Icon({ k }: { k: CardKey }) {
-  const common = "h-5 w-5";
-  switch (k) {
-    case "kaizen":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 3v3m0 12v3M4.5 12H3m18 0h-1.5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-          <path
-            d="M7.2 16.8c2.9 2.9 6.7 2.9 9.6 0s2.9-6.7 0-9.6-6.7-2.9-9.6 0-2.9 6.7 0 9.6Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            opacity="0.9"
-          />
-          <path
-            d="M9 12l2 2 4-5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    case "lean":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M5 8h14M7 12h10M9 16h6"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-          <path
-            d="M6 6l2 2-2 2"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    case "dao":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 21c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-          />
-          <path
-            d="M12 3c2.76 0 5 2.24 5 5s-2.24 5-5 5-5 2.24-5 5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            opacity="0.9"
-          />
-          <circle cx="14.5" cy="7.5" r="1.2" fill="currentColor" opacity="0.95" />
-          <circle cx="9.5" cy="16.5" r="1.2" fill="currentColor" opacity="0.95" />
-        </svg>
-      );
-    case "stability":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M6 15l3-3 3 3 6-6"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M4 19h16"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    case "strength":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 3l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V7l8-4Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M9 12l2 2 4-5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    case "implementation":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M7 7h10v10H7V7Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M4 12h3M17 12h3M12 4v3M12 17v3"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    case "docs":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M7 3h7l3 3v15H7V3Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M14 3v4h4"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-          <path
-            d="M9 11h6M9 15h6"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    case "qc":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M10 14l2 2 5-6"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M12 3l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V7l8-4Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    case "security":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 3l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V7l8-4Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M9 12a3 3 0 0 1 6 0v3H9v-3Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    case "support":
-      return (
-        <svg className={common} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M4 12a8 8 0 0 1 16 0"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-          <path
-            d="M6 12v4a2 2 0 0 0 2 2h2v-6H8a2 2 0 0 0-2 2Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-          <path
-            d="M18 12v4a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
+// ВАЖНО: не используем template literal внутри <style>{...}</style>, чтобы Turbopack не ломался
+const JQ_STYLE =
+  "@media (prefers-reduced-motion: reduce){.jq-sweep{animation:none !important;}}" +
+  "@keyframes badgeSweep{" +
+  "0%{transform:translateX(-120%) rotate(10deg);opacity:0;}" +
+  "12%{opacity:.55;}" +
+  "32%{opacity:0;}" +
+  "100%{transform:translateX(160%) rotate(10deg);opacity:0;}" +
+  "}";
 
-export default function JapaneseQualitySection() {
+export default function JapanQuality() {
   return (
     <section id="japanese-quality" className="relative py-14 md:py-20">
-      <style>{`
-        @media (prefers-reduced-motion: reduce) {
-          .jq-sweep { animation: none !important; }
-        }
-        @keyframes badgeSweep {
-          0% { transform: translateX(-120%) rotate(10deg); opacity: 0; }
-          12% { opacity: .55; }
-          32% { opacity: 0; }
-          100% { transform: translateX(160%) rotate(10deg); opacity: 0; }
-        }
-      `}</style>
-
-      {/* мягкие фоновые иероглифы */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[6%] top-[14%] text-white/8 text-[84px] font-semibold select-none">
-          改善
-        </div>
-        <div className="absolute right-[10%] top-[10%] text-white/7 text-[92px] font-semibold select-none">
-          道
-        </div>
-        <div className="absolute left-[14%] bottom-[8%] text-white/7 text-[88px] font-semibold select-none">
-          品質
-        </div>
-      </div>
+      <style dangerouslySetInnerHTML={{ __html: JQ_STYLE }} />
 
       <div className="mx-auto max-w-[1240px] px-4">
-        {/* Заголовок/подзаголовок по центру, без анимаций */}
+        {/* Заголовок + подзаголовок по центру, без анимаций */}
         <div className="mx-auto max-w-[1240px] text-center">
           <h2 className="text-white font-semibold leading-[0.95] tracking-[-0.02em] text-[24px] sm:text-[32px] lg:text-[42px]">
             Японское качество
@@ -319,61 +47,83 @@ export default function JapaneseQualitySection() {
           </div>
         </div>
 
-        {/* Текст слева, 12px, с переносами строк как в ТЗ */}
-        <div className="mt-8 max-w-[980px] text-left">
-          <p className="text-white/80 text-[12px] leading-[1.55] font-semibold whitespace-pre-line">
-            {"В основах нашего подхода\nлежат методы бережливого производства,\nпринципы кайдзен и ДАО."}
-          </p>
+        {/* Текст слева, 2 абзаца, 12px, с переносами строк как в ТЗ */}
+        <div className="mt-10 md:mt-12">
+          <div className="text-white/85 text-[12px] font-semibold leading-[1.55]">
+            <div>
+              В основах нашего подхода
+              <br />
+              лежат методы бережливого производства,
+              <br />
+              принципы кайдзен и ДАО.
+            </div>
 
-          <p className="mt-4 text-white/80 text-[12px] leading-[1.55] font-semibold whitespace-pre-line">
-            {"В каждом продукте заложен большой\nресурс прочности и стабильности."}
-          </p>
-        </div>
+            <div className="mt-4">
+              В каждом продукте заложен большой
+              <br />
+              ресурс прочности и стабильности.
+            </div>
+          </div>
 
-        {/* Сетка карточек 2x5 (адаптивно), одинаковый размер карточек */}
-        <div className="mt-10">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-            {CARDS.map((c, i) => (
-              <div key={c.key} className="h-full">
-                {/* внешний стеклянный контур-фрейм */}
-                <div className="lg-border h-full rounded-[34px] border border-white/18 bg-white/10 p-[10px] shadow-[0_18px_55px_rgba(0,0,0,0.06)] backdrop-blur-[24px] backdrop-saturate-150">
-                  {/* внутренний фрейм */}
-                  <div className="relative h-full lg-border rounded-[26px] border border-white/18 bg-white/10 p-5 shadow-[0_14px_40px_rgba(0,0,0,0.05)]">
-                    {/* блик */}
-                    <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-70 bg-[radial-gradient(220px_120px_at_20%_10%,rgba(255,255,255,0.14),transparent_60%)]" />
-
-                    {/* верхняя линия: бейдж слева, заголовок справа на центральной горизонтали бейджа */}
-                    <div className="relative flex items-center gap-3">
-                      <div className="relative isolate">
-                        <div className="lg-border h-11 w-11 rounded-full border border-white/18 bg-white/14 backdrop-blur-[16px] shadow-[0_10px_26px_rgba(0,0,0,0.08)] flex items-center justify-center text-white">
-                          <Icon k={c.key} />
-                        </div>
-
-                        {/* sweep на бейдж (аккуратно, без “якорей доверия”) */}
-                        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
-                          <div
-                            className="jq-sweep absolute -left-1/2 top-0 h-full w-1/2 opacity-0"
-                            style={{
-                              animation: "badgeSweep 9s ease-in-out infinite",
-                              animationDelay: `${0.6 + i * 0.14}s`,
-                              background:
-                                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 45%, transparent 100%)",
-                            }}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="min-w-0">
-                        <div className="text-white text-[14px] font-semibold leading-[1] truncate">
-                          {c.title}
-                        </div>
-                      </div>
+          {/* Сетка карточек 2x5 (desktop), адаптивно вниз */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {CARDS.map((c) => (
+              <div
+                key={c.title}
+                className={[
+                  "lg-border",
+                  "rounded-[34px] border border-white/18 bg-white/10",
+                  "p-[10px]",
+                  "backdrop-blur-[24px] backdrop-saturate-150",
+                  "shadow-[0_18px_55px_rgba(0,0,0,0.05)]",
+                ].join(" ")}
+              >
+                <div
+                  className={[
+                    "lg-border",
+                    "relative overflow-hidden",
+                    "h-full",
+                    "rounded-[26px] border border-white/18 bg-white/12",
+                    "p-5",
+                    "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
+                    "backdrop-blur-[22px] backdrop-saturate-150",
+                  ].join(" ")}
+                >
+                  {/* декоративный sweep внутри бейджа */}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={[
+                        "relative isolate overflow-hidden",
+                        "h-10 w-10 rounded-full",
+                        "lg-border border border-white/18",
+                        "bg-white/14 backdrop-blur-[18px]",
+                        "shadow-[0_10px_26px_rgba(0,0,0,0.05)]",
+                        "flex items-center justify-center",
+                      ].join(" ")}
+                      aria-hidden="true"
+                    >
+                      <span
+                        className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[70%] opacity-0"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 45%, transparent 100%)",
+                          animation: "badgeSweep 3.6s ease-in-out infinite",
+                        }}
+                      />
+                      <span className="relative text-white/95 text-[14px] font-semibold leading-none">
+                        {c.badge}
+                      </span>
                     </div>
 
-                    {/* описание под линией */}
-                    <div className="relative mt-4 text-white/70 text-[13px] leading-[1.4] font-semibold">
-                      {c.desc}
+                    {/* название справа, на центральной линии бейджа */}
+                    <div className="text-white font-semibold text-[14px] leading-none">
+                      {c.title}
                     </div>
+                  </div>
+
+                  {/* описание под бейджем */}
+                  <div className="mt-3 text-white/75 text-[12px] leading-[1.45]">
+                    {c.desc}
                   </div>
                 </div>
               </div>
@@ -384,4 +134,3 @@ export default function JapaneseQualitySection() {
     </section>
   );
 }
-```
