@@ -7,6 +7,7 @@ import DemoChat from "../components/sections/DemoChat";
 import Plans from "../components/sections/Plans";
 import RoiCalculatorSection from "../components/sections/RoiCalculatorSection";
 import JapanQuality from "../components/sections/JapanQuality";
+import Faq from "../components/sections/Faq";
 import CTA2 from "../components/sections/CTA2";
 
 export default function Page() {
@@ -22,6 +23,7 @@ export default function Page() {
         <Plans />
         <RoiCalculatorSection />
         <JapanQuality />
+        <Faq />
         <CTA2 />
       </main>
     </>
