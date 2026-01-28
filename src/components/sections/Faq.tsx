@@ -126,43 +126,27 @@ export default function FaqSection() {
                     </button>
 
                     {/* ответ внутри того же pill: просто увеличивает высоту */}
-                    <AnimatePresence initial={false}>
-                      {open && (
-                        <motion.div
-                          id={contentId}
-                          role="region"
-                          aria-labelledby={buttonId}
-                          initial={
-                            reduceMotion
-                              ? { opacity: 1, height: "auto" }
-                              : { opacity: 0, height: 0 }
-                          }
-                          animate={
-                            reduceMotion
-                              ? { opacity: 1, height: "auto" }
-                              : { opacity: 1, height: "auto" }
-                          }
-                          exit={
-                            reduceMotion
-                              ? { opacity: 0, height: 0 }
-                              : { opacity: 0, height: 0 }
-                          }
-                          transition={
-                            reduceMotion
-                              ? { duration: 0.01 }
-                              : { duration: 0.55, ease: EASE }
-                          }
-                          className="overflow-hidden"
-                        >
-                          {/* фрейм ответа: r=18, bg-white */}
-                          <div className="mt-4 rounded-[18px] lg-border border border-white/18 bg-white px-5 py-4 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
-                            <div className="text-[#0f172a] text-[12px] sm:text-[13px] leading-[1.45]">
-                              {item.a}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+<AnimatePresence initial={false}>
+  {open && (
+    <motion.div
+      id={contentId}
+      role="region"
+      aria-labelledby={buttonId}
+      initial={reduceMotion ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+      animate={reduceMotion ? { opacity: 1, height: "auto" } : { opacity: 1, height: "auto" }}
+      exit={reduceMotion ? { opacity: 0, height: 0 } : { opacity: 0, height: 0 }}
+      transition={reduceMotion ? { duration: 0.01 } : { duration: 0.55, ease: EASE }}
+      className="mt-4 overflow-hidden rounded-[18px]"
+    >
+      <div className="relative rounded-[18px] lg-border border border-white/18 bg-white px-5 py-4">
+        <div className="pointer-events-none absolute inset-0 rounded-[18px] ring-1 ring-black/5" />
+        <div className="relative text-[#0f172a] text-[12px] sm:text-[13px] leading-[1.45]">
+          {item.a}
+        </div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
                   </div>
                 </div>
               </div>
