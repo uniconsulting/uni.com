@@ -16,11 +16,10 @@ const garet = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
-      <body>
-        {/* слой градиентов поверх базового цвета */}
-        <div className="page-gradients" aria-hidden />
-
-        {children}
+      <body className="bg-base">
+        <div className="page-bg">
+          {children}
+        </div>
       </body>
     </html>
   );
