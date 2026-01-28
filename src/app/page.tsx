@@ -9,6 +9,7 @@ import RoiCalculatorSection from "../components/sections/RoiCalculatorSection";
 import JapanQuality from "../components/sections/JapanQuality";
 import Faq from "../components/sections/Faq";
 import CTA2 from "../components/sections/CTA2";
+import Footer from "../components/sections/Footer";
 
 export default function Page() {
   return (
@@ -25,6 +26,7 @@ export default function Page() {
         <JapanQuality />
         <Faq />
         <CTA2 />
+        <Footer />
       </main>
     </>
   );
