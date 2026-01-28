@@ -76,7 +76,7 @@ export default function FooterSection() {
           </div>
 
           {/* Правая часть: 3 раздела с одинаковым интервалом */}
-          <div className="ml-auto grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-x-6">
+          <div className="ml-auto grid grid-cols-1 sm:grid-cols-3 gap-7 sm:gap-x-7">
             {/* Контакты */}
             <div>
               <div className="text-[12px] font-semibold text-[#0f172a]">
