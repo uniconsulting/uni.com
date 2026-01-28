@@ -174,7 +174,7 @@ export default function JapanQuality() {
                       className="
                         lg-border
                         inline-flex items-center justify-center
-                        rounded-12 border border-white/18
+                        rounded-[18px] border border-white/18
                         bg-white/70 backdrop-blur-[14px]
                         px-3 h-8
                         shadow-[0_10px_26px_rgba(0,0,0,0.06)]
