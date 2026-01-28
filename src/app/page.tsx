@@ -6,7 +6,6 @@ import Niches from "../components/sections/Niches";
 import DemoChat from "../components/sections/DemoChat";
 import Plans from "../components/sections/Plans";
 import RoiCalculatorSection from "../components/sections/RoiCalculatorSection";
-import JapaneseQuality from "../components/sections/JapaneseQuality";
 import CTA2 from "../components/sections/CTA2";
 
 export default function Page() {
@@ -21,7 +20,6 @@ export default function Page() {
         <DemoChat />
         <Plans />
         <RoiCalculatorSection />
-        <JapaneseQuality />
         <CTA2 />
       </main>
     </>
