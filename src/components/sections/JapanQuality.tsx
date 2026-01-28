@@ -90,11 +90,9 @@ export default function JapanQuality() {
 
   const phraseB = (
     <>
-      В основах нашего подхода
+      В основах нашего подхода лежат методы
       <br />
-      лежат методы бережливого производства,
-      <br />
-      принципы кайдзен и ДАО.
+      бережливого производства, принципы кайдзен и ДАО.
     </>
   );
 
@@ -176,7 +174,7 @@ export default function JapanQuality() {
                       className="
                         lg-border
                         inline-flex items-center justify-center
-                        rounded-full border border-white/18
+                        rounded-12 border border-white/18
                         bg-white/70 backdrop-blur-[14px]
                         px-3 h-8
                         shadow-[0_10px_26px_rgba(0,0,0,0.06)]
