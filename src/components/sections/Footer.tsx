@@ -20,14 +20,14 @@ export default function Footer() {
                   {/* круглый бейдж под лого (как в хедере) */}
                   <div className="lg-border h-12 w-12 rounded-full border border-white/18 bg-white/70 shadow-[0_12px_28px_rgba(0,0,0,0.06)] backdrop-blur-[14px] flex items-center justify-center">
                     {/* сюда можно вставить <Image ... /> */}
-                    <div className="h-8 w-8 rounded-full bg-white/80 ring-1 ring-black/10" />
-                    <img
+                    <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/45 bg-white/18 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-[18px]">
+                  <img
                     src="brand/logo.svg"
                     alt="ЮНИ.ai"
                     className="h-full w-full object-cover"
                     draggable={false}
                   />
-                  </div>
+                </div>
 
                   <div className="text-[#0f172a] font-semibold tracking-[-0.02em] text-[18px]">
                     ЮНИ.ai
