@@ -54,9 +54,9 @@ function Chevron({ open }: { open: boolean }) {
     <span
       className={[
         "ml-4 inline-flex h-10 w-10 items-center justify-center",
-        "rounded-full lg-border border border-black/10", // кнопка на белом фоне -> тонкий серый бордюр
+        "rounded-full lg-border border border-black/5", // кнопка на белом фоне -> тонкий серый бордюр
         "bg-white/70 backdrop-blur-[14px]",
-        "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
+        "shadow-[0_12px_28px_rgba(0,0,0,0.04)]",
         "transition-transform duration-500",
         open ? "rotate-180" : "rotate-0",
       ].join(" ")}
