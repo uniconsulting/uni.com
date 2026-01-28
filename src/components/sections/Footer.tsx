@@ -1,13 +1,11 @@
-"use client";
-
 import React from "react";
 
 export default function FooterSection() {
-  const linkBase =
-    "text-[#0f172a] transition-colors duration-500 hover:text-[#c73f40]";
+  const linkClass =
+    "text-[#0f172a]/80 hover:text-[#c73f40] transition-colors duration-500";
 
   return (
-    <footer id="footer" className="relative w-full">
+    <footer className="relative w-full bg-white/82">
       <style>{`
         @keyframes ruBorderShift {
           0% { background-position: 0% 50%; }
@@ -16,101 +14,98 @@ export default function FooterSection() {
         }
       `}</style>
 
-      {/* цельный светлый футер на всю ширину */}
-      <div className="relative w-full bg-white/82 lg-border border-t border-white/18 backdrop-blur-[26px]">
-        {/* мягкий световой рисунок (внутри того же футера, без отдельных фреймов) */}
-        <div className="pointer-events-none absolute inset-0 opacity-70 bg-[radial-gradient(900px_240px_at_15%_0%,rgba(15,23,42,0.06),transparent_60%),radial-gradient(900px_240px_at_85%_100%,rgba(199,63,64,0.06),transparent_65%)]" />
+      {/* мягкий световой фон, без внутренних фреймов */}
+      <div className="pointer-events-none absolute inset-0 opacity-80 bg-[radial-gradient(900px_420px_at_20%_0%,rgba(59,130,246,0.10),transparent_60%),radial-gradient(900px_420px_at_80%_100%,rgba(199,63,64,0.10),transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-black/5" />
 
-        <div className="relative mx-auto max-w-[1240px] px-4 pt-12 pb-7">
-          <div className="grid gap-10 lg:grid-cols-4">
-            {/* 1) Бренд */}
-            <div className="lg:col-span-1">
-              <a href="#top" className="inline-flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-black/10 bg-white/70 shadow-[0_10px_30px_rgba(0,0,0,0.06)] backdrop-blur-[18px]">
-                  <img
-                    src="brand/logo.svg"
-                    alt="ЮНИ.ai"
-                    className="h-full w-full object-cover"
-                    draggable={false}
-                  />
-                </div>
-
-                <div className="leading-tight">
-                  <div className="text-[14px] font-semibold text-[#0f172a]">
-                    ЮНИ.ai
-                  </div>
-                  <div className="text-[11px] text-[#0f172a]/70">
-                    Системы для SMB с ИИ японского качества
-                  </div>
-                </div>
-              </a>
-
-              <div className="mt-5 text-[12px] font-semibold text-[#0f172a]">
-                СТЭП = Стабильность. Точность. Эффективность. Простота.
+      <div className="relative mx-auto max-w-[1240px] px-4 py-12 md:py-14">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          {/* Бренд */}
+          <div className="lg:max-w-[520px]">
+            <a href="#top" className="flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-black/10 bg-white/55 shadow-[0_10px_30px_rgba(0,0,0,0.06)] backdrop-blur-[18px]">
+                <img
+                  src="brand/logo.svg"
+                  alt="ЮНИ.ai"
+                  className="h-full w-full object-cover"
+                  draggable={false}
+                />
               </div>
 
-              <div className="mt-5 space-y-1 text-[12px] text-[#0f172a]/75 leading-[1.5]">
-                <div className="font-semibold text-[#0f172a]">ООО "БЭНИФИТ"</div>
-                <div>ИНН: 7300031274 • ОГРН: 1247300003257</div>
-                <div>
-                  зарегистрирована 04.04.2024 г. по адресу
-                  <br />
-                  обл. Ульяновская, г. Ульяновск, ул. Жигулевская, д. 17, кв. 4.
+              <div className="leading-tight">
+                <div className="text-[14px] font-semibold text-[#0f172a]">
+                  ЮНИ.ai
+                </div>
+                <div className="text-[11px] text-[#0f172a]/70">
+                  Системы для SMB с ИИ японского качества
                 </div>
               </div>
+            </a>
 
-              {/* RU pill */}
-              <div className="mt-6">
-                <div
-                  className={[
-                    "inline-flex items-center",
-                    "rounded-full p-[1px]",
-                    "bg-[linear-gradient(90deg,#ffffff,#3b82f6,#ef4444,#ffffff)]",
-                    "bg-[length:220%_220%]",
-                    "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
-                  ].join(" ")}
-                  style={{ animation: "ruBorderShift 6s ease-in-out infinite" }}
-                >
-                  <div className="flex items-center gap-2 rounded-full bg-white px-3 py-2">
-                    <span className="text-[11px] font-semibold text-[#0f172a]">
-                      RU
-                    </span>
-                    <span className="text-[11px] text-[#0f172a]/75">
-                      Продукт сделан в России
-                    </span>
-                  </div>
-                </div>
+            <div className="mt-5 text-[12px] font-semibold text-[#0f172a]/85">
+              СТЭП = Стабильность. Точность. Эффективность. Простота.
+            </div>
+
+            <div className="mt-5 space-y-1 text-[12px] text-[#0f172a]/70">
+              <div>ООО "БЭНИФИТ"</div>
+              <div>ИНН: 7300031274 • ОГРН: 1247300003257</div>
+              <div>
+                зарегистрирована 04.04.2024 г. по адресу
+                <br />
+                обл. Ульяновская, г. Ульяновск, ул. Жигулевская, д. 17, кв. 4.
               </div>
             </div>
 
-            {/* 2/3/4: Контакты / Блог / Документы (одинаковый интервал по сетке) */}
-            <div className="grid gap-10 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3">
-              {/* Контакты */}
-              <div>
-                <div className="text-[12px] font-semibold text-[#0f172a]">
-                  Контакты
+            {/* RU pill */}
+            <div className="mt-6">
+              <div
+                className="inline-flex rounded-full p-[1px] shadow-[0_14px_45px_rgba(0,0,0,0.08)]"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(255,255,255,1), rgba(59,130,246,1), rgba(199,63,64,1), rgba(255,255,255,1))",
+                  backgroundSize: "260% 100%",
+                  animation: "ruBorderShift 6.5s ease-in-out infinite",
+                }}
+                aria-label="Продукт сделан в России"
+              >
+                <div className="rounded-full bg-white px-4 py-2 text-[12px] font-semibold text-[#0f172a]">
+                  RU · Продукт сделан в России
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <div className="mt-4 space-y-2 text-[12px] text-[#0f172a]/75">
-                  <div className="text-[#0f172a] font-semibold">
+          {/* Правая часть: 3 раздела с одинаковым интервалом */}
+          <div className="grid flex-1 grid-cols-1 gap-10 sm:grid-cols-3">
+            {/* Контакты */}
+            <div>
+              <div className="text-[12px] font-semibold text-[#0f172a]">
+                Контакты
+              </div>
+              <div className="mt-4 space-y-2 text-[12px]">
+                <div>
+                  <a className={linkClass} href="tel:+79955186942">
                     +7 (995) 518-69-42
-                  </div>
-
+                  </a>
+                </div>
+                <div>
                   <a
-                    className={linkBase}
+                    className={linkClass}
                     href="https://t.me/uni_smb"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Telegram: t.me/uni_smb
+                    Telegram
                   </a>
-
-                  <a className={linkBase} href="mailto:uni.kit@mail.ru">
+                </div>
+                <div>
+                  <a className={linkClass} href="mailto:uni.kit@mail.ru">
                     uni.kit@mail.ru
                   </a>
-
+                </div>
+                <div>
                   <a
-                    className={linkBase}
+                    className={linkClass}
                     href="https://t.me/uni_smb"
                     target="_blank"
                     rel="noreferrer"
@@ -119,25 +114,27 @@ export default function FooterSection() {
                   </a>
                 </div>
               </div>
+            </div>
 
-              {/* Блог */}
-              <div>
-                <div className="text-[12px] font-semibold text-[#0f172a]">
-                  Блог
-                </div>
-
-                <div className="mt-4 space-y-2 text-[12px] text-[#0f172a]/75">
+            {/* Блог */}
+            <div>
+              <div className="text-[12px] font-semibold text-[#0f172a]">
+                Блог
+              </div>
+              <div className="mt-4 space-y-2 text-[12px]">
+                <div>
                   <a
-                    className={linkBase}
+                    className={linkClass}
                     href="https://t.me/uniconsulting"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Telegram-канал: t.me/uniconsulting
+                    Telegram-канал
                   </a>
-
+                </div>
+                <div>
                   <a
-                    className={linkBase}
+                    className={linkClass}
                     href="https://m.tenchat.ru/u/xuxnFlqD"
                     target="_blank"
                     rel="noreferrer"
@@ -146,37 +143,42 @@ export default function FooterSection() {
                   </a>
                 </div>
               </div>
+            </div>
 
-              {/* Документы */}
-              <div>
-                <div className="text-[12px] font-semibold text-[#0f172a]">
-                  Документы
-                </div>
-
-                <div className="mt-4 space-y-2 text-[12px] text-[#0f172a]/75">
-                  <a className={linkBase} href="/privacy">
+            {/* Документы */}
+            <div>
+              <div className="text-[12px] font-semibold text-[#0f172a]">
+                Документы
+              </div>
+              <div className="mt-4 space-y-2 text-[12px]">
+                <div>
+                  <a className={linkClass} href="/privacy">
                     Политика конфиденциальности
                   </a>
-                  <a className={linkBase} href="/opd-consent">
+                </div>
+                <div>
+                  <a className={linkClass} href="/opd-consent">
                     Согласие ОПД клиента
                   </a>
-                  <a className={linkBase} href="/offer">
+                </div>
+                <div>
+                  <a className={linkClass} href="/offer">
                     Публичная оферта
                   </a>
-                  <a className={linkBase} href="/cookies">
+                </div>
+                <div>
+                  <a className={linkClass} href="/cookies">
                     Политика cookies
                   </a>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* нижняя строка */}
-          <div className="mt-10 border-t border-black/5 pt-6">
-            <div className="text-center text-[12px] text-[#0f172a]/60">
-              Copyright © 2026 Uni.ai (ООО "БЭНИФИТ")
-            </div>
-          </div>
+        {/* Нижняя строка */}
+        <div className="mt-10 border-t border-black/5 pt-6 text-center text-[12px] text-[#0f172a]/65">
+          Copyright © 2026 Uni.ai (ООО "БЭНИФИТ")
         </div>
       </div>
     </footer>
