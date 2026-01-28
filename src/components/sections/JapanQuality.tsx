@@ -49,7 +49,7 @@ export default function JapanQuality() {
 
         {/* Текст слева, 2 абзаца, 12px, с переносами строк как в ТЗ */}
         <div className="mt-10 md:mt-12">
-          <div className="text-white/85 text-[12px] font-semibold leading-[1.55]">
+          <div className="text-white/85 text-[12px] sm:text-[24px] lg:text-[28px] font-semibold leading-[1.55]">
             <div>
               В основах нашего подхода
               <br />
@@ -83,7 +83,7 @@ export default function JapanQuality() {
                     "lg-border",
                     "relative overflow-hidden",
                     "h-full",
-                    "rounded-[26px] border border-white/18 bg-white/12",
+                    "rounded-[26px] border border-white/18 bg-white/82",
                     "p-5",
                     "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
                     "backdrop-blur-[22px] backdrop-saturate-150",
@@ -97,7 +97,7 @@ export default function JapanQuality() {
                         "h-10 w-10 rounded-full",
                         "lg-border border border-white/18",
                         "bg-white/14 backdrop-blur-[18px]",
-                        "shadow-[0_10px_26px_rgba(0,0,0,0.05)]",
+                        "shadow-[0_10px_26px_rgba(0,0,0,0.03)]",
                         "flex items-center justify-center",
                       ].join(" ")}
                       aria-hidden="true"
@@ -106,23 +106,23 @@ export default function JapanQuality() {
                         className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[70%] opacity-0"
                         style={{
                           background:
-                            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 45%, transparent 100%)",
+                            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 45%, transparent 100%)",
                           animation: "badgeSweep 3.6s ease-in-out infinite",
                         }}
                       />
-                      <span className="relative text-white/95 text-[14px] font-semibold leading-none">
+                      <span className="relative text-[#0f172a] text-[14px] font-semibold leading-none">
                         {c.badge}
                       </span>
                     </div>
 
                     {/* название справа, на центральной линии бейджа */}
-                    <div className="text-white font-semibold text-[14px] leading-none">
+                    <div className="text-[#0f172a] font-semibold text-[14px] leading-none">
                       {c.title}
                     </div>
                   </div>
 
                   {/* описание под бейджем */}
-                  <div className="mt-3 text-white/75 text-[12px] leading-[1.45]">
+                  <div className="mt-3 text-[#0f172a] text-[12px] leading-[1.45]">
                     {c.desc}
                   </div>
                 </div>
