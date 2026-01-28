@@ -3,24 +3,29 @@
 import React from "react";
 
 export default function FooterSection() {
+  const linkBase =
+    "text-[#0f172a] transition-colors duration-500 hover:text-[#c73f40]";
+
   return (
-    <footer id="footer" className="relative mt-16 w-full">
+    <footer id="footer" className="relative w-full">
       <style>{`
-        @keyframes ruShimmer {
+        @keyframes ruBorderShift {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
       `}</style>
 
-      {/* цельная светлая панель на всю ширину */}
-      <div className="w-full border-t border-white/18 bg-white/86 backdrop-blur-[18px] backdrop-saturate-150">
-        <div className="mx-auto max-w-[1240px] px-4 py-12">
-          {/* сетка */}
-          <div className="grid gap-10 lg:grid-cols-12">
-            {/* БРЕНД */}
-            <div className="lg:col-span-5">
-              <a href="#top" className="flex items-center gap-3">
+      {/* цельный светлый футер на всю ширину */}
+      <div className="relative w-full bg-white/82 lg-border border-t border-white/18 backdrop-blur-[26px]">
+        {/* мягкий световой рисунок (внутри того же футера, без отдельных фреймов) */}
+        <div className="pointer-events-none absolute inset-0 opacity-70 bg-[radial-gradient(900px_240px_at_15%_0%,rgba(15,23,42,0.06),transparent_60%),radial-gradient(900px_240px_at_85%_100%,rgba(199,63,64,0.06),transparent_65%)]" />
+
+        <div className="relative mx-auto max-w-[1240px] px-4 pt-12 pb-7">
+          <div className="grid gap-10 lg:grid-cols-4">
+            {/* 1) Бренд */}
+            <div className="lg:col-span-1">
+              <a href="#top" className="inline-flex items-center gap-3">
                 <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-black/10 bg-white/70 shadow-[0_10px_30px_rgba(0,0,0,0.06)] backdrop-blur-[18px]">
                   <img
                     src="brand/logo.svg"
@@ -31,18 +36,20 @@ export default function FooterSection() {
                 </div>
 
                 <div className="leading-tight">
-                  <div className="text-[14px] font-semibold text-[#0f172a]">ЮНИ.ai</div>
+                  <div className="text-[14px] font-semibold text-[#0f172a]">
+                    ЮНИ.ai
+                  </div>
                   <div className="text-[11px] text-[#0f172a]/70">
                     Системы для SMB с ИИ японского качества
                   </div>
                 </div>
               </a>
 
-              <div className="mt-5 text-[12px] font-semibold text-[#0f172a]/80">
+              <div className="mt-5 text-[12px] font-semibold text-[#0f172a]">
                 СТЭП = Стабильность. Точность. Эффективность. Простота.
               </div>
 
-              <div className="mt-6 space-y-1 text-[12px] text-[#0f172a]/80">
+              <div className="mt-5 space-y-1 text-[12px] text-[#0f172a]/75 leading-[1.5]">
                 <div className="font-semibold text-[#0f172a]">ООО "БЭНИФИТ"</div>
                 <div>ИНН: 7300031274 • ОГРН: 1247300003257</div>
                 <div>
@@ -52,110 +59,123 @@ export default function FooterSection() {
                 </div>
               </div>
 
-              {/* RU плашка */}
-              <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-white/18 bg-white/70 px-4 py-2 shadow-[0_12px_35px_rgba(0,0,0,0.06)] backdrop-blur-[18px]">
-                <span
-                  className="inline-flex h-7 items-center justify-center rounded-full px-3 text-[12px] font-semibold text-[#0f172a]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(90deg, rgba(199,63,64,0.16), rgba(15,23,42,0.06), rgba(199,63,64,0.16))",
-                    backgroundSize: "220% 220%",
-                    animation: "ruShimmer 6.5s ease-in-out infinite",
-                  }}
+              {/* RU pill */}
+              <div className="mt-6">
+                <div
+                  className={[
+                    "inline-flex items-center",
+                    "rounded-full p-[1px]",
+                    "bg-[linear-gradient(90deg,#ffffff,#3b82f6,#ef4444,#ffffff)]",
+                    "bg-[length:220%_220%]",
+                    "shadow-[0_10px_26px_rgba(0,0,0,0.06)]",
+                  ].join(" ")}
+                  style={{ animation: "ruBorderShift 6s ease-in-out infinite" }}
                 >
-                  RU
-                </span>
-                <span className="text-[12px] font-semibold text-[#0f172a]/80">
-                  Продукт сделан в России
-                </span>
+                  <div className="flex items-center gap-2 rounded-full bg-white px-3 py-2">
+                    <span className="text-[11px] font-semibold text-[#0f172a]">
+                      RU
+                    </span>
+                    <span className="text-[11px] text-[#0f172a]/75">
+                      Продукт сделан в России
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* КОНТАКТЫ */}
-            <div className="lg:col-span-2">
-              <div className="text-[12px] font-semibold text-[#0f172a]">Контакты</div>
-              <div className="mt-4 space-y-3 text-[12px] text-[#0f172a]/80">
-                <a
-                  href="tel:+79955186942"
-                  className="block font-semibold text-[#0f172a] transition-colors duration-300 hover:text-[#c73f40]"
-                >
-                  +7 (995) 518-69-42
-                </a>
+            {/* 2/3/4: Контакты / Блог / Документы (одинаковый интервал по сетке) */}
+            <div className="grid gap-10 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3">
+              {/* Контакты */}
+              <div>
+                <div className="text-[12px] font-semibold text-[#0f172a]">
+                  Контакты
+                </div>
 
-                <a
-                  href="https://t.me/uni_smb"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition-colors duration-300 hover:text-[#c73f40]"
-                >
-                  Telegram
-                </a>
+                <div className="mt-4 space-y-2 text-[12px] text-[#0f172a]/75">
+                  <div className="text-[#0f172a] font-semibold">
+                    +7 (995) 518-69-42
+                  </div>
 
-                <a
-                  href="mailto:uni.kit@mail.ru"
-                  className="block transition-colors duration-300 hover:text-[#c73f40]"
-                >
-                  uni.kit@mail.ru
-                </a>
+                  <a
+                    className={linkBase}
+                    href="https://t.me/uni_smb"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Telegram: t.me/uni_smb
+                  </a>
 
-                <a
-                  href="https://t.me/uni_smb"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition-colors duration-300 hover:text-[#c73f40]"
-                >
-                  Сообщить о проблеме
-                </a>
+                  <a className={linkBase} href="mailto:uni.kit@mail.ru">
+                    uni.kit@mail.ru
+                  </a>
+
+                  <a
+                    className={linkBase}
+                    href="https://t.me/uni_smb"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Сообщить о проблеме
+                  </a>
+                </div>
               </div>
-            </div>
 
-            {/* БЛОГ */}
-            <div className="lg:col-span-2">
-              <div className="text-[12px] font-semibold text-[#0f172a]">Блог</div>
-              <div className="mt-4 space-y-3 text-[12px] text-[#0f172a]/80">
-                <a
-                  href="https://t.me/uniconsulting"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition-colors duration-300 hover:text-[#c73f40]"
-                >
-                  Telegram-канал
-                </a>
+              {/* Блог */}
+              <div>
+                <div className="text-[12px] font-semibold text-[#0f172a]">
+                  Блог
+                </div>
 
-                <a
-                  href="https://m.tenchat.ru/u/xuxnFlqD"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition-colors duration-300 hover:text-[#c73f40]"
-                >
-                  TenChat
-                </a>
+                <div className="mt-4 space-y-2 text-[12px] text-[#0f172a]/75">
+                  <a
+                    className={linkBase}
+                    href="https://t.me/uniconsulting"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Telegram-канал: t.me/uniconsulting
+                  </a>
+
+                  <a
+                    className={linkBase}
+                    href="https://m.tenchat.ru/u/xuxnFlqD"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    TenChat
+                  </a>
+                </div>
               </div>
-            </div>
 
-            {/* ДОКУМЕНТЫ */}
-            <div className="lg:col-span-3">
-              <div className="text-[12px] font-semibold text-[#0f172a]">Документы</div>
-              <div className="mt-4 space-y-3 text-[12px] text-[#0f172a]/80">
-                <a href="/privacy" className="block transition-colors duration-300 hover:text-[#c73f40]">
-                  Политика конфиденциальности
-                </a>
-                <a href="/opd-consent" className="block transition-colors duration-300 hover:text-[#c73f40]">
-                  Согласие ОПД клиента
-                </a>
-                <a href="/offer" className="block transition-colors duration-300 hover:text-[#c73f40]">
-                  Публичная оферта
-                </a>
-                <a href="/cookies" className="block transition-colors duration-300 hover:text-[#c73f40]">
-                  Политика cookies
-                </a>
+              {/* Документы */}
+              <div>
+                <div className="text-[12px] font-semibold text-[#0f172a]">
+                  Документы
+                </div>
+
+                <div className="mt-4 space-y-2 text-[12px] text-[#0f172a]/75">
+                  <a className={linkBase} href="/privacy">
+                    Политика конфиденциальности
+                  </a>
+                  <a className={linkBase} href="/opd-consent">
+                    Согласие ОПД клиента
+                  </a>
+                  <a className={linkBase} href="/offer">
+                    Публичная оферта
+                  </a>
+                  <a className={linkBase} href="/cookies">
+                    Политика cookies
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
           {/* нижняя строка */}
-          <div className="mt-12 border-t border-white/18 pt-6 text-center text-[12px] text-[#0f172a]/70">
-            Copyright © 2026 Uni.ai (ООО "БЭНИФИТ")
+          <div className="mt-10 border-t border-black/5 pt-6">
+            <div className="text-center text-[12px] text-[#0f172a]/60">
+              Copyright © 2026 Uni.ai (ООО "БЭНИФИТ")
+            </div>
           </div>
         </div>
       </div>
