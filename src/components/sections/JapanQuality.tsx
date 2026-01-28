@@ -157,16 +157,16 @@ export default function JapanQuality() {
               variants={cardIn}
               initial={reduceMotion ? false : "hidden"}
               whileInView={reduceMotion ? undefined : "show"}
-              viewport={{ once: true, amount: 0.65 }}
+              viewport={{ once: true, amount: 0.45 }}
               whileHover={
                 reduceMotion
                   ? undefined
-                  : { y: -2, transition: { duration: 0.65, ease: EASE } }
+                  : { y: -2, transition: { duration: 0.45, ease: EASE } }
               }
               className="group"
             >
               {/* стекляшка: внешний контур 34, внутренний 26, отступ 10px */}
-              <div className="lg-border rounded-[34px] border border-white/18 bg-white/10 p-[10px] shadow-[0_18px_55px_rgba(0,0,0,0.06)] backdrop-blur-[26px] backdrop-saturate-150">
+              <div className="lg-border rounded-[34px] border border-white/18 bg-white/10 p-[10px] shadow-[0_18px_55px_rgba(0,0,0,0.06)] backdrop-blur-[34px] backdrop-saturate-150">
                 <div className="lg-border rounded-[26px] border border-white/18 bg-white/82 p-5 text-[#0f172a] shadow-[0_14px_40px_rgba(0,0,0,0.04)]">
                   {/* верхняя строка: бейдж слева, title справа по одной линии */}
                   <div className="flex items-center gap-3">
