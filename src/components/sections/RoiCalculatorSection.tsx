@@ -488,7 +488,7 @@ export default function RoiCalculatorSection() {
         }
 
         /* Локальный контроль вертикальных отступов внутри “стека” (чтобы не ломали внешние space-y/prose) */
-        .roi-tight > :not([hidden]) ~ :not([hidden]) { margin-top: var(--roi-gap, 6px) !important; }
+        .roi-tight > :not([hidden]) ~ :not([hidden]) { margin-top: var(--roi-gap, 2px) !important; }
       `}</style>
 
       <div className="mx-auto max-w-[1240px] px-4">
