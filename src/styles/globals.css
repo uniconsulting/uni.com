@@ -17,16 +17,6 @@ body {
   background: #d8dedf;
 }
 
-:root {
-  --japan-pattern-url: "/uni.com/bg/japan-pattern-01.svg";
-  --grain-url: "/uni.com/bg/grain.png";
-}
-
-/* базовый цвет у тебя уже стоит, но оставлю для целостности */
-html, body {
-  background: #b1cfeb;
-}
-
 /* слой общих градиентов на всю страницу */
 .page-gradients {
   position: fixed;
