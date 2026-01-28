@@ -54,24 +54,18 @@ function Chevron({ open }: { open: boolean }) {
     <span
       className={[
         "ml-4 inline-flex h-10 w-10 items-center justify-center",
-        "rounded-full lg-border border border-white/18",
-        "bg-white/10 backdrop-blur-[14px]",
+        "rounded-full lg-border border border-black/10", // кнопка на белом фоне -> тонкий серый бордюр
+        "bg-white/70 backdrop-blur-[14px]",
         "shadow-[0_12px_28px_rgba(0,0,0,0.06)]",
         "transition-transform duration-500",
         open ? "rotate-180" : "rotate-0",
       ].join(" ")}
       aria-hidden="true"
     >
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        className="opacity-90"
-      >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
         <path
           d="M6.5 9.5L12 15l5.5-5.5"
-          stroke="rgba(255,255,255,0.92)"
+          stroke="#0f172a"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -102,10 +96,19 @@ export default function FaqSection() {
 
             return (
               <div key={item.q} className="group">
-                {/* pill-стекляшка */}
-                <div className="lg-border rounded-[999px] border border-white/18 bg-white/10 p-[10px] shadow-[0_22px_70px_rgba(0,0,0,0.05)] backdrop-blur-[26px] backdrop-saturate-150 transition-[transform,background-color] duration-500 group-hover:-translate-y-[1px] group-hover:bg-white/12">
-                  {/* внутренний фрейм */}
-                  <div className="lg-border rounded-[999px] border border-white/18 bg-white/10 px-5 py-4">
+                {/* внешний pill: r=34, при раскрытии только растёт по высоте */}
+                <div
+                  className={[
+                    "lg-border rounded-[34px] border border-white/18",
+                    "bg-white/10 p-[10px]",
+                    "shadow-[0_22px_70px_rgba(0,0,0,0.05)]",
+                    "backdrop-blur-[26px] backdrop-saturate-150",
+                    "transition-[transform,background-color] duration-500",
+                    "group-hover:-translate-y-[1px] group-hover:bg-white/12",
+                  ].join(" ")}
+                >
+                  {/* внутренний фрейм вопроса: r=26, bg-white/82 */}
+                  <div className="lg-border rounded-[26px] border border-white/18 bg-white/82 px-5 py-4">
                     <button
                       id={buttonId}
                       type="button"
@@ -115,13 +118,14 @@ export default function FaqSection() {
                       className="w-full text-left"
                     >
                       <div className="flex items-center justify-between gap-4">
-                        <div className="text-white font-semibold tracking-[-0.01em] text-[14px] sm:text-[16px]">
+                        <div className="text-[#0f172a] font-semibold tracking-[-0.01em] text-[14px] sm:text-[16px]">
                           {item.q}
                         </div>
                         <Chevron open={open} />
                       </div>
                     </button>
 
+                    {/* ответ внутри того же pill: просто увеличивает высоту */}
                     <AnimatePresence initial={false}>
                       {open && (
                         <motion.div
@@ -150,8 +154,9 @@ export default function FaqSection() {
                           }
                           className="overflow-hidden"
                         >
-                          <div className="mt-4 rounded-[26px] lg-border border border-white/18 bg-white/10 px-5 py-4">
-                            <div className="text-white/80 text-[12px] sm:text-[13px] leading-[1.45]">
+                          {/* фрейм ответа: r=18, bg-white */}
+                          <div className="mt-4 rounded-[18px] lg-border border border-white/18 bg-white px-5 py-4 shadow-[0_12px_35px_rgba(0,0,0,0.04)]">
+                            <div className="text-[#0f172a] text-[12px] sm:text-[13px] leading-[1.45]">
                               {item.a}
                             </div>
                           </div>
