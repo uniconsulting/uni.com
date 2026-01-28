@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 
 type Card = {
   title: string;
@@ -10,32 +15,29 @@ type Card = {
 };
 
 const CARDS: Card[] = [
-  { title: "Кайдзен", badge: "改善", desc: "Ежедневные улучшения без перегруза процессов." },
-  { title: "Lean", badge: "精益", desc: "Убираем лишнее, усиливаем ценность для клиента." },
-  { title: "ДАО", badge: "道", desc: "Логика потока: простые правила вместо хаоса." },
-  { title: "Стабильность", badge: "安定", desc: "Системы работают ровно, без сюрпризов." },
-  { title: "Прочность", badge: "堅牢", desc: "Запас устойчивости: выдерживает рост нагрузки." },
-  { title: "Внедрение", badge: "導入", desc: "Аккуратно встраиваемся в вашу реальность." },
-  { title: "Документация", badge: "手順", desc: "Понятные регламенты, чтобы команда не терялась." },
-  { title: "Контроль", badge: "検査", desc: "Проверяем качество на каждом критичном шаге." },
-  { title: "Безопасность", badge: "安全", desc: "Минимизируем риски данных и доступа." },
-  { title: "Поддержка", badge: "支援", desc: "Не бросаем: помогаем довести до результата." },
+  { title: "Кайдзен", badge: "改善", desc: "Ежедневные улучшения, которые дают накопительный эффект." },
+  { title: "Lean", badge: "精益", desc: "Убираем лишнее, усиливаем ценность и скорость решений." },
+  { title: "ДАО", badge: "道", desc: "Логика потока: проще, чище, без суеты и перегруза." },
+  { title: "Стабильность", badge: "安定", desc: "Предсказуемая работа системы в реальных условиях бизнеса." },
+  { title: "Прочность", badge: "堅牢", desc: "Запас устойчивости под рост нагрузки и сложность процессов." },
+  { title: "Внедрение", badge: "導入", desc: "Интеграция без ломки: аккуратно встраиваемся в текущие процессы." },
+  { title: "Документация", badge: "手順", desc: "Понятные инструкции, чтобы команда не зависела от одного человека." },
+  { title: "Контроль", badge: "検査", desc: "Проверка качества на критичных этапах, чтобы не было сюрпризов." },
+  { title: "Безопасность", badge: "安全", desc: "Доступы, данные, контуры, правила. Всё аккуратно и по делу." },
+  { title: "Поддержка", badge: "支援", desc: "Не исчезаем после запуска: доводим до стабильного результата." },
 ];
 
-// Turbopack-safe CSS string
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+// Turbopack-safe CSS (без template literals внутри JSX)
 const JQ_STYLE =
   "@media (prefers-reduced-motion: reduce){.jq-sweep{animation:none !important;}}" +
-  "@keyframes badgeSweep{" +
-  "0%{transform:translateX(-120%) rotate(10deg);opacity:0;}" +
-  "12%{opacity:.45;}" +
-  "32%{opacity:0;}" +
-  "100%{transform:translateX(160%) rotate(10deg);opacity:0;}" +
-  "}";
+  "@keyframes jqBadgeSweep{0%{transform:translateX(-120%) rotate(10deg);}100%{transform:translateX(160%) rotate(10deg);}}";
 
 export default function JapanQuality() {
   const reduceMotion = useReducedMotion();
 
-  // 1) циклический текст под заголовком
+  // циклический текст под заголовком (5 сек / 5 сек)
   const [phraseIdx, setPhraseIdx] = React.useState(0);
 
   React.useEffect(() => {
@@ -44,24 +46,24 @@ export default function JapanQuality() {
     return () => window.clearInterval(t);
   }, [reduceMotion]);
 
-  const RotatingText = phraseIdx === 0 ? (
-    <>
-      В каждом продукте заложен большой
-      <br />
-      ресурс прочности и стабильности.
-    </>
-  ) : (
-    <>
-      В основах нашего подхода
-      <br />
-      лежат методы бережливого производства,
-      <br />
-      принципы кайдзен и ДАО.
-    </>
-  );
+  const RotatingText =
+    phraseIdx === 0 ? (
+      <>
+        В каждом продукте заложен большой
+        <br />
+        ресурс прочности и стабильности.
+      </>
+    ) : (
+      <>
+        В основах нашего подхода
+        <br />
+        лежат методы бережливого производства,
+        <br />
+        принципы кайдзен и ДАО.
+      </>
+    );
 
-  // анимации карточек
-  const cardIn = {
+  const cardIn: Variants = {
     hidden: { opacity: 0, y: 14, filter: "blur(6px)" },
     show: (i: number) => ({
       opacity: 1,
@@ -69,31 +71,28 @@ export default function JapanQuality() {
       filter: "blur(0px)",
       transition: {
         duration: 0.55,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.05 + i * 0.04,
+        ease: EASE,
+        delay: 0.06 + i * 0.04,
       },
     }),
-  } as const;
+  };
 
-  const outerVariants = reduceMotion
-    ? undefined
+  const hoverCard: Variants = reduceMotion
+    ? {}
     : {
-        rest: { y: 0 },
-        hover: { y: -2, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+        rest: { y: 0, scale: 1 },
+        hover: {
+          y: -2,
+          scale: 1.01,
+          transition: { duration: 0.55, ease: EASE },
+        },
       };
 
-  const innerVariants = reduceMotion
-    ? undefined
-    : {
-        rest: { scale: 1 },
-        hover: { scale: 1.01, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-      };
-
-  const badgeTextVariants = reduceMotion
-    ? undefined
+  const badgeText: Variants = reduceMotion
+    ? {}
     : {
         rest: { color: "#0f172a" },
-        hover: { color: "#c73f40", transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
+        hover: { color: "#c73f40", transition: { duration: 0.9, ease: EASE } },
       };
 
   return (
@@ -107,7 +106,7 @@ export default function JapanQuality() {
             Японское качество
           </h2>
 
-          {/* 1.1: циклический текст по центру (без подзаголовка) */}
+          {/* Текст, который меняется каждые 5 секунд */}
           <div className="mt-3 text-white font-semibold tracking-[-0.01em] text-[16px] sm:text-[20px] lg:text-[20px]">
             {reduceMotion ? (
               RotatingText
@@ -118,7 +117,7 @@ export default function JapanQuality() {
                   initial={{ opacity: 0, y: 6, filter: "blur(6px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -6, filter: "blur(6px)" }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.75, ease: EASE }}
                 >
                   {RotatingText}
                 </motion.div>
@@ -127,7 +126,7 @@ export default function JapanQuality() {
           </div>
         </div>
 
-        {/* 1.2: убрали два абзаца слева */}
+        {/* Сетка карточек */}
         <div className="mt-10 md:mt-12">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {CARDS.map((c, i) => (
@@ -148,33 +147,30 @@ export default function JapanQuality() {
                 ].join(" ")}
               >
                 <motion.div
-                  variants={innerVariants}
-                  initial={reduceMotion ? undefined : "rest"}
-                  animate={reduceMotion ? undefined : "rest"}
-                  whileHover={reduceMotion ? undefined : "hover"}
+                  variants={hoverCard}
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
                   className={[
+                    "group",
                     "lg-border",
                     "relative overflow-hidden",
                     "h-full",
                     "rounded-[26px] border border-white/18",
-                    "bg-white/82", // 3) фон внутри стекляшки
+                    "bg-white/82",
                     "p-5",
                     "shadow-[0_12px_35px_rgba(0,0,0,0.04)]",
                     "backdrop-blur-[18px] backdrop-saturate-150",
+                    "transition-shadow duration-500",
+                    "hover:shadow-[0_20px_60px_rgba(0,0,0,0.10)]",
                   ].join(" ")}
                 >
+                  {/* лёгкий внутренний блик */}
                   <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-70 bg-[radial-gradient(220px_140px_at_30%_20%,rgba(255,255,255,0.55),transparent_60%),radial-gradient(240px_160px_at_70%_90%,rgba(199,63,64,0.08),transparent_65%)]" />
 
-                  {/* контент */}
-                  <motion.div
-                    variants={outerVariants}
-                    initial={reduceMotion ? undefined : "rest"}
-                    animate={reduceMotion ? undefined : "rest"}
-                    whileHover={reduceMotion ? undefined : "hover"}
-                    className="relative"
-                  >
+                  <div className="relative">
+                    {/* верхняя строка: бейдж + слово */}
                     <div className="flex items-center gap-3">
-                      {/* бейдж */}
                       <div
                         className={[
                           "relative isolate overflow-hidden",
@@ -186,44 +182,32 @@ export default function JapanQuality() {
                         ].join(" ")}
                         aria-hidden="true"
                       >
-                        {/* sweep: базовый (тёмный) + hover (красный) */}
+                        {/* sweep: по умолчанию тёмный, на hover красный */}
                         <span
-                          className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[70%] opacity-0"
+                          className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[72%] opacity-[0.28] group-hover:opacity-0 transition-opacity duration-[900ms]"
                           style={{
                             background:
                               "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.35) 45%, transparent 100%)",
-                            animation: reduceMotion ? undefined : "badgeSweep 3.6s ease-in-out infinite",
+                            animation: reduceMotion ? undefined : "jqBadgeSweep 3.8s ease-in-out infinite",
                           }}
                         />
                         <span
-                          className={[
-                            "jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[70%] opacity-0",
-                            "transition-opacity duration-700",
-                          ].join(" ")}
+                          className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[72%] opacity-0 group-hover:opacity-[0.55] transition-opacity duration-[900ms]"
                           style={{
                             background:
                               "linear-gradient(90deg, transparent 0%, rgba(199,63,64,0.55) 45%, transparent 100%)",
-                            animation: reduceMotion ? undefined : "badgeSweep 3.6s ease-in-out infinite",
-                          }}
-                        />
-                        {/* переключаем видимость красного sweep через hover по родителю */}
-                        <style
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              "#japanese-quality .jq-card:hover .jq-sweep:nth-child(2){opacity:0;}#japanese-quality .jq-card:hover .jq-sweep:nth-child(3){opacity:.55;}",
+                            animation: reduceMotion ? undefined : "jqBadgeSweep 3.8s ease-in-out infinite",
                           }}
                         />
 
                         <motion.span
-                          variants={badgeTextVariants}
+                          variants={badgeText}
                           className="relative text-[14px] font-semibold leading-none"
-                          style={{ color: "#0f172a" }}
                         >
                           {c.badge}
                         </motion.span>
                       </div>
 
-                      {/* название */}
                       <div className="text-[#0f172a] font-semibold text-[14px] leading-none">
                         {c.title}
                       </div>
@@ -233,10 +217,7 @@ export default function JapanQuality() {
                     <div className="mt-3 text-[#0f172a]/70 text-[12px] leading-[1.45]">
                       {c.desc}
                     </div>
-                  </motion.div>
-
-                  {/* обёртка-ховер таргет */}
-                  <div className="absolute inset-0 jq-card" aria-hidden="true" />
+                  </div>
                 </motion.div>
               </motion.div>
             ))}
