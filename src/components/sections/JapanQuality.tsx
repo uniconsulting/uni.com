@@ -107,24 +107,34 @@ export default function JapanQuality() {
           </h2>
 
           {/* Текст, который меняется каждые 5 секунд */}
-          <div className="mt-3 text-white font-semibold tracking-[-0.01em] text-[16px] sm:text-[20px] lg:text-[20px]">
-            {reduceMotion ? (
-              RotatingText
-            ) : (
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={phraseIdx}
-                  initial={{ opacity: 0, y: 6, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -6, filter: "blur(6px)" }}
-                  transition={{ duration: 0.75, ease: EASE }}
-                >
-                  {RotatingText}
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </div>
-        </div>
+<div className="mt-3 flex justify-center">
+  <div
+    className="
+      text-white font-semibold tracking-[-0.01em]
+      text-[16px] sm:text-[20px] lg:text-[20px]
+      leading-[1.25]
+      min-h-[3.75em]
+      flex items-center
+      text-center
+    "
+  >
+    {reduceMotion ? (
+      RotatingText
+    ) : (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={phraseIdx}
+          initial={{ opacity: 0, y: 6, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -6, filter: "blur(6px)" }}
+          transition={{ duration: 0.75, ease: EASE }}
+        >
+          {RotatingText}
+        </motion.div>
+      </AnimatePresence>
+    )}
+  </div>
+</div>
 
         {/* Сетка карточек */}
         <div className="mt-10 md:mt-12">
@@ -184,19 +194,17 @@ export default function JapanQuality() {
                       >
                         {/* sweep: по умолчанию тёмный, на hover красный */}
                         <span
-                          className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[72%] opacity-[0.28] group-hover:opacity-0 transition-opacity duration-[900ms]"
+                          className="pointer-events-none absolute inset-y-0 left-0 w-[72%] opacity-[0.28] group-hover:opacity-0 transition-opacity duration-[900ms]"
                           style={{
                             background:
                               "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.35) 45%, transparent 100%)",
-                            animation: reduceMotion ? undefined : "jqBadgeSweep 3.8s ease-in-out infinite",
                           }}
                         />
                         <span
-                          className="jq-sweep pointer-events-none absolute inset-y-0 left-0 w-[72%] opacity-0 group-hover:opacity-[0.55] transition-opacity duration-[900ms]"
+                          className="pointer-events-none absolute inset-y-0 left-0 w-[72%] opacity-0 group-hover:opacity-[0.55] transition-opacity duration-[900ms]"
                           style={{
                             background:
                               "linear-gradient(90deg, transparent 0%, rgba(199,63,64,0.55) 45%, transparent 100%)",
-                            animation: reduceMotion ? undefined : "jqBadgeSweep 3.8s ease-in-out infinite",
                           }}
                         />
 
