@@ -124,7 +124,7 @@ export default function JapanQuality() {
             <div
               className="
                 text-white font-semibold tracking-[-0.01em]
-                text-[16px] sm:text-[20px] lg:text-[20px]
+                text-[16px] sm:text-[28px] lg:text-[28px]
                 leading-[1.25]
                 min-h-[3.75em]
                 flex items-center
@@ -159,11 +159,11 @@ export default function JapanQuality() {
               variants={cardIn}
               initial={reduceMotion ? false : "hidden"}
               whileInView={reduceMotion ? undefined : "show"}
-              viewport={{ once: true, amount: 0.35 }}
+              viewport={{ once: true, amount: 0.65 }}
               whileHover={
                 reduceMotion
                   ? undefined
-                  : { y: -2, transition: { duration: 0.35, ease: EASE } }
+                  : { y: -2, transition: { duration: 0.65, ease: EASE } }
               }
               className="group"
             >
