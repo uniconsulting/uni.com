@@ -21,6 +21,12 @@ export default function Footer() {
                   <div className="lg-border h-12 w-12 rounded-full border border-white/18 bg-white/70 shadow-[0_12px_28px_rgba(0,0,0,0.06)] backdrop-blur-[14px] flex items-center justify-center">
                     {/* сюда можно вставить <Image ... /> */}
                     <div className="h-8 w-8 rounded-full bg-white/80 ring-1 ring-black/10" />
+                    <img
+                    src="brand/logo.svg"
+                    alt="ЮНИ.ai"
+                    className="h-full w-full object-cover"
+                    draggable={false}
+                  />
                   </div>
 
                   <div className="text-[#0f172a] font-semibold tracking-[-0.02em] text-[18px]">
