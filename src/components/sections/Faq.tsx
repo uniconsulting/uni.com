@@ -56,7 +56,7 @@ function Chevron({ open }: { open: boolean }) {
         "ml-4 inline-flex h-10 w-10 items-center justify-center",
         "rounded-full lg-border border border-black/5", // кнопка на белом фоне -> тонкий серый бордюр
         "bg-white/70 backdrop-blur-[14px]",
-        "shadow-[0_12px_28px_rgba(0,0,0,0.04)]",
+        "shadow-[0_12px_28px_rgba(0,0,0,0.03)]",
         "transition-transform duration-500",
         open ? "rotate-180" : "rotate-0",
       ].join(" ")}
@@ -108,7 +108,7 @@ export default function FaqSection() {
                   ].join(" ")}
                 >
                   {/* внутренний фрейм вопроса: r=26, bg-white/82 */}
-                  <div className="lg-border rounded-[26px] border border-white/18 bg-white/82 px-5 py-4">
+                  <div className="lg-border rounded-[26px] border border-white/18 bg-white/82 px-5 pt-4 pb-5">
                     <button
                       id={buttonId}
                       type="button"
