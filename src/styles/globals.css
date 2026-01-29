@@ -117,8 +117,7 @@ html {
     /* базовая логика: на больших экранах держим “как есть” 1920, на меньших — тянем по ширине */
     background-size: 1920px auto;
 
-    opacity: 0.38;
-    mix-blend-mode: normal;
+    opacity: 0.90;
     transform: translateZ(0);
     will-change: transform;
   }
