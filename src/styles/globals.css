@@ -92,6 +92,31 @@ html {
       radial-gradient(560px 460px at 40% 5900px, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 78%);
 
     background-repeat: no-repeat;
+
+     /* 3) Композиция элементов на всю страницу */
+  .page-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;          /* внутри page-bg, под контентом */
+    pointer-events: none;
+
+    background-image: url("/bg/elements.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+
+    /* чтобы не апскейлить выше 1920, но на меньших экранах подгонять по ширине */
+    background-size: 1920px auto;
+
+    opacity: 0.22;
+    mix-blend-mode: soft-light; /* можно поменять на normal/overlay */
+    transform: translateZ(0);   /* чуть стабильнее рендер */
+  }
+
+  @media (max-width: 1920px) {
+    .page-bg::before {
+      background-size: 100% auto;
+    }
   }
 }
 
