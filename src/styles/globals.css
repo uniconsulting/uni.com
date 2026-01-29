@@ -116,7 +116,6 @@ html {
   @media (max-width: 1920px) {
     .page-bg::before {
       background-size: 100% auto;
-    }
   }
 }
 
