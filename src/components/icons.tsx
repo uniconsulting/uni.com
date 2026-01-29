@@ -3,7 +3,7 @@ import * as React from "react";
 // Вставь сюда КОД ИКОНКИ звонка из Header.tsx (как есть)
 export function PhoneIcon(props: React.SVGProps<SVGSVGElement>) {
 return (
-   <svg viewBox="0 0 28 28" fill="none" {...props}>
+   <svg viewBox="-2 -2 28 28" fill="none" {...props}>
       <path
         d="M8.7 10.3c1.3 2.5 3.5 4.7 6 6l1.9-1.9c.3-.3.8-.4 1.2-.2 1.1.4 2.3.7 3.6.8.6.1 1 .6 1 1.2V20c0 .7-.6 1.2-1.3 1.2C11 21.2 2.8 13 2.8 2.9 2.8 2.2 3.4 1.6 4.1 1.6H7c.6 0 1.1.4 1.2 1 .1 1.2.4 2.5.8 3.6.1.4 0 .9-.3 1.2L6.9 9.2"
         stroke="currentColor"
