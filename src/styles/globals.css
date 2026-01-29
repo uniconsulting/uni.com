@@ -7,104 +7,117 @@ html {
   scroll-padding-top: 96px; /* чтобы якоря не уезжали под header */
 }
 
-html, body {
+/* globals.css */
+
+html,
+body {
   height: 100%;
 }
 
 body {
-  font-family: var(--font-garet), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: rgb(var(--fg-rgb));
-}
-
-.bg-base {
-  background: #d8dedf; /* базовый цвет */
-}
-
-/* это “полотно” фона на всю высоту страницы */
-.page-bg {
+  /* 1) базовый цвет */
+  background: #eaf1f6;
   min-height: 100vh;
+
+  /* важно, чтобы псевдослой сел на всю высоту контента */
   position: relative;
-  isolation: isolate;
+  isolation: isolate; /* чтобы z-index:-1 работал стабильно */
+}
 
-  background-color: #d8dedf;
+/* 2) композиция градиентов НА ВСЮ СТРАНИЦУ (не повторяется) */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 
-  /* один раз на всю страницу, без зацикливания */
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-attachment: scroll;
-
-  /* чем больше пятен, тем “хаотичнее” и без повторов */
+  /* НИКАКИХ background-repeat/background-size тут не ставим,
+     иначе снова начнётся “тайлинг” */
   background-image:
-    radial-gradient(900px 700px at 12% 6%,
-      rgba(236, 170, 190, 0.65) 0%,
-      rgba(236, 170, 190, 0.26) 34%,
-      transparent 68%
-    ),
-    radial-gradient(1150px 900px at 55% 10%,
-      rgba(164, 198, 236, 0.90) 0%,
-      rgba(164, 198, 236, 0.38) 42%,
-      transparent 74%
-    ),
-    radial-gradient(900px 700px at 92% 14%,
-      rgba(255, 255, 255, 0.60) 0%,
-      rgba(255, 255, 255, 0.20) 46%,
-      transparent 76%
+    /* мягкая общая “вуаль”, как на референсе */
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.38) 38%,
+      rgba(255, 255, 255, 0.62) 100%
     ),
 
-    radial-gradient(1050px 820px at 18% 24%,
-      rgba(170, 204, 238, 0.72) 0%,
-      rgba(170, 204, 238, 0.28) 44%,
-      transparent 78%
-    ),
-    radial-gradient(900px 720px at 78% 30%,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.16) 42%,
-      transparent 74%
+    /* TOP: розовый слева */
+    radial-gradient(900px 720px at 18% 120px,
+      rgba(214, 155, 188, 0.62) 0%,
+      rgba(214, 155, 188, 0.0) 62%
     ),
 
-    radial-gradient(1200px 980px at 14% 46%,
-      rgba(150, 186, 228, 0.78) 0%,
-      rgba(150, 186, 228, 0.30) 46%,
-      transparent 80%
-    ),
-    radial-gradient(980px 760px at 84% 52%,
-      rgba(245, 205, 220, 0.62) 0%,
-      rgba(245, 205, 220, 0.24) 44%,
-      transparent 78%
-    ),
-    radial-gradient(920px 740px at 56% 58%,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.14) 46%,
-      transparent 78%
+    /* TOP: голубой справа */
+    radial-gradient(900px 760px at 78% 110px,
+      rgba(144, 187, 220, 0.62) 0%,
+      rgba(144, 187, 220, 0.0) 62%
     ),
 
-    radial-gradient(1200px 980px at 16% 70%,
-      rgba(150, 186, 228, 0.70) 0%,
-      rgba(150, 186, 228, 0.26) 48%,
-      transparent 82%
-    ),
-    radial-gradient(1100px 860px at 78% 74%,
-      rgba(245, 205, 220, 0.58) 0%,
-      rgba(245, 205, 220, 0.22) 46%,
-      transparent 80%
-    ),
-
-    radial-gradient(1100px 860px at 92% 86%,
+    /* верхняя светлая “полоса” по центру */
+    radial-gradient(1100px 360px at 52% 520px,
       rgba(255, 255, 255, 0.62) 0%,
-      rgba(255, 255, 255, 0.20) 48%,
-      transparent 82%
-    ),
-    radial-gradient(1050px 820px at 10% 92%,
-      rgba(244, 200, 214, 0.60) 0%,
-      rgba(244, 200, 214, 0.20) 46%,
-      transparent 82%
+      rgba(255, 255, 255, 0.0) 70%
     ),
 
-    linear-gradient(180deg,
-      rgba(255,255,255,0.18) 0%,
-      rgba(255,255,255,0.06) 28%,
-      rgba(255,255,255,0.10) 100%
+    /* MID: холодный голубой слева */
+    radial-gradient(950px 900px at 22% 980px,
+      rgba(126, 168, 214, 0.58) 0%,
+      rgba(126, 168, 214, 0.0) 66%
+    ),
+
+    /* MID: тёплый блик справа */
+    radial-gradient(980px 720px at 82% 980px,
+      rgba(247, 220, 224, 0.58) 0%,
+      rgba(247, 220, 224, 0.0) 66%
+    ),
+
+    /* MID: нейтральный “дым” по центру */
+    radial-gradient(1000px 520px at 50% 1320px,
+      rgba(205, 214, 220, 0.52) 0%,
+      rgba(205, 214, 220, 0.0) 70%
+    ),
+
+    /* LOWER MID: синий слева (второй) */
+    radial-gradient(980px 900px at 24% 1680px,
+      rgba(132, 173, 214, 0.56) 0%,
+      rgba(132, 173, 214, 0.0) 66%
+    ),
+
+    /* LOWER MID: холодный серо-голубой справа */
+    radial-gradient(980px 860px at 84% 1680px,
+      rgba(210, 222, 226, 0.52) 0%,
+      rgba(210, 222, 226, 0.0) 66%
+    ),
+
+    /* BOTTOM: розовый слева */
+    radial-gradient(980px 820px at 18% 2280px,
+      rgba(248, 220, 226, 0.62) 0%,
+      rgba(248, 220, 226, 0.0) 66%
+    ),
+
+    /* BOTTOM: розово-серый справа */
+    radial-gradient(1100px 760px at 72% 2360px,
+      rgba(238, 228, 232, 0.56) 0%,
+      rgba(238, 228, 232, 0.0) 70%
+    ),
+
+    /* финальный мягкий “подсвет” снизу */
+    radial-gradient(1200px 520px at 50% calc(100% - 140px),
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.0) 72%
     );
+
+  /* лёгкое сглаживание как в референсе */
+  filter: blur(0.001px);
+}
+
+/* опционально: если есть “дёрганья” на некоторых девайсах */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    filter: none;
+  }
 }
 
 /* === LiquidGlass helpers === */
