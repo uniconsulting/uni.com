@@ -21,7 +21,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* 3-й слой: элементы на всю страницу */}
           <div aria-hidden className="page-elements" />
           {children}
-          </div>
         </div>
       </body>
     </html>
