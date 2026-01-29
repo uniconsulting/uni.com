@@ -59,11 +59,11 @@ html {
       radial-gradient(1600px 1200px at 84% 5100px, rgba(245, 205, 219, 0.70) 0%, rgba(245, 205, 219, 0) 78%),
 
       /* ещё немного синего “внизу слева”, как в рефе */
-      radial-gradient(1700px 1300px at 18% 5600px, rgba(95, 146, 204, 0.72) 0%, rgba(95, 146, 204, 0) 80%);
+      radial-gradient(1700px 1300px at 18% 5600px, rgba(95, 146, 204, 0.72) 0%, rgba(95, 146, 204, 0) 80%),
 
       /* внизу (голубые “облака”) */
       radial-gradient(1500px 1200px at 18% 6300px, rgba(92, 142, 198, 0.74) 0%, rgba(92, 142, 198, 0) 77%),
-      radial-gradient(1550px 1250px at 76% 6600px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%),
+      radial-gradient(1550px 1250px at 76% 6600px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%);
 
     background-repeat: no-repeat;
   }
