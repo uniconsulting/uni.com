@@ -18,7 +18,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ru">
       <body className="bg-base">
         <div className="page-bg">
+          {/* 3-й слой: элементы на всю страницу */}
+          <div aria-hidden className="page-elements" />
           {children}
+          </div>
         </div>
       </body>
     </html>
