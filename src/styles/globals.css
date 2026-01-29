@@ -7,6 +7,10 @@ html {
   scroll-padding-top: 96px; /* чтобы якоря не уезжали под header */
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   html,
   body {
@@ -14,100 +18,76 @@ html {
   }
 
   body {
-    background-color: #d8dedf;
+    background: #d8dedf; /* базовый цвет */
     position: relative;
-    isolation: isolate; /* чтобы ::before корректно жил под контентом */
+    isolation: isolate; /* чтобы blend-режимы не влияли на контент */
+    overflow-x: hidden;
   }
 
-  /* Слой с градиентами поверх базового цвета */
+  /* 1) Цветные “пятна” (скроллятся вместе со страницей) */
   body::before {
     content: "";
-    position: fixed;
+    position: absolute; /* НЕ fixed */
     inset: 0;
     z-index: -1;
     pointer-events: none;
 
-    /* Важно: без repeat, без паттерна. Просто большая “карта” пятен. */
+    /* небольшая общая дымка + много blur-пятен */
+    background:
+      /* лёгкая общая вуаль */
+      radial-gradient(1400px 900px at 55% 14%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 68%),
+      radial-gradient(1700px 1200px at 45% 62%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 70%),
+
+      /* верхняя часть (как в рефе: розовый слева + синий справа) */
+      radial-gradient(1200px 1000px at 12% 120px, rgba(224, 137, 178, 0.88) 0%, rgba(224, 137, 178, 0) 72%),
+      radial-gradient(1300px 1100px at 86% 180px, rgba(116, 164, 210, 0.88) 0%, rgba(116, 164, 210, 0) 74%),
+
+      /* дополнительная насыщенность вверху */
+      radial-gradient(900px 850px at 30% 420px, rgba(206, 120, 162, 0.62) 0%, rgba(206, 120, 162, 0) 74%),
+      radial-gradient(900px 850px at 70% 520px, rgba(96, 146, 198, 0.62) 0%, rgba(96, 146, 198, 0) 76%),
+
+      /* середина (голубые “облака”) */
+      radial-gradient(1500px 1200px at 18% 1600px, rgba(92, 142, 198, 0.74) 0%, rgba(92, 142, 198, 0) 77%),
+      radial-gradient(1550px 1250px at 76% 2100px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%),
+
+      /* “светлая полка” ближе к центру */
+      radial-gradient(1800px 1100px at 58% 2600px, rgba(245, 248, 250, 0.78) 0%, rgba(245, 248, 250, 0) 72%),
+
+      /* нижняя часть (тёплый розовый + серо-белые туманы) */
+      radial-gradient(1500px 1200px at 70% 3400px, rgba(246, 202, 216, 0.82) 0%, rgba(246, 202, 216, 0) 76%),
+      radial-gradient(1800px 1300px at 26% 4200px, rgba(245, 248, 250, 0.80) 0%, rgba(245, 248, 250, 0) 76%),
+      radial-gradient(1600px 1200px at 84% 5100px, rgba(245, 205, 219, 0.70) 0%, rgba(245, 205, 219, 0) 78%),
+
+      /* ещё немного синего “внизу слева”, как в рефе */
+      radial-gradient(1700px 1300px at 18% 5600px, rgba(95, 146, 204, 0.72) 0%, rgba(95, 146, 204, 0) 80%);
+
     background-repeat: no-repeat;
+  }
 
-    /* Композиция: больше насыщенных пятен + белые высветления */
-    background-image:
-      /* TOP: розово-лиловые акценты */
-      radial-gradient(1100px 900px at 12% 120px,
-        rgba(214, 150, 188, 0.82) 0%,
-        rgba(214, 150, 188, 0) 72%),
-      radial-gradient(900px 800px at 26% 520px,
-        rgba(190, 150, 214, 0.55) 0%,
-        rgba(190, 150, 214, 0) 74%),
+  /* 2) Белые “блики” по всей высоте страницы (не паттерн, не плитка) */
+  body::after {
+    content: "";
+    position: absolute; /* НЕ fixed */
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 
-      /* TOP: холодные синие/бирюзовые акценты */
-      radial-gradient(1200px 980px at 86% 160px,
-        rgba(120, 166, 214, 0.78) 0%,
-        rgba(120, 166, 214, 0) 75%),
-      radial-gradient(900px 820px at 72% 520px,
-        rgba(140, 206, 212, 0.42) 0%,
-        rgba(140, 206, 212, 0) 76%),
+    opacity: 0.58;
+    mix-blend-mode: soft-light; /* можно убрать, если не нравится (просто станет чуть “прямее”) */
 
-      /* TOP: белые высветления (дают “дорогой” свет) */
-      radial-gradient(1400px 1050px at 52% 520px,
-        rgba(245, 248, 249, 0.80) 0%,
-        rgba(245, 248, 249, 0) 74%),
-      radial-gradient(1200px 900px at 92% 740px,
-        rgba(245, 248, 249, 0.55) 0%,
-        rgba(245, 248, 249, 0) 76%),
+    background:
+      radial-gradient(520px 420px at 18% 420px, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 72%),
+      radial-gradient(640px 520px at 78% 860px, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(760px 620px at 52% 1350px, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(560px 460px at 10% 2050px, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(820px 680px at 86% 2650px, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 78%),
+      radial-gradient(620px 520px at 28% 3300px, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(880px 720px at 68% 3920px, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0) 80%),
+      radial-gradient(600px 500px at 14% 4700px, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 78%),
+      radial-gradient(760px 620px at 84% 5400px, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0) 80%),
+      radial-gradient(560px 460px at 40% 5900px, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 78%);
 
-      /* MID-1: большие синие волны */
-      radial-gradient(1600px 1200px at 18% 1500px,
-        rgba(110, 150, 205, 0.72) 0%,
-        rgba(110, 150, 205, 0) 76%),
-      radial-gradient(1500px 1150px at 78% 1850px,
-        rgba(122, 160, 206, 0.60) 0%,
-        rgba(122, 160, 206, 0) 77%),
-
-      /* MID-1: тёплый акцент справа (как розовый “дым”) */
-      radial-gradient(1400px 1100px at 70% 2550px,
-        rgba(246, 204, 216, 0.78) 0%,
-        rgba(246, 204, 216, 0) 74%),
-
-      /* MID-1: дополнительные мелкие акценты, чтобы фон был “живой” */
-      radial-gradient(900px 780px at 34% 2350px,
-        rgba(178, 210, 230, 0.40) 0%,
-        rgba(178, 210, 230, 0) 78%),
-      radial-gradient(850px 760px at 88% 3100px,
-        rgba(190, 150, 214, 0.26) 0%,
-        rgba(190, 150, 214, 0) 78%),
-
-      /* MID-2: белые высветления по центру */
-      radial-gradient(1650px 1250px at 52% 3300px,
-        rgba(245, 248, 249, 0.78) 0%,
-        rgba(245, 248, 249, 0) 75%),
-      radial-gradient(1200px 900px at 16% 3500px,
-        rgba(245, 248, 249, 0.42) 0%,
-        rgba(245, 248, 249, 0) 78%),
-
-      /* BOTTOM: синие волны + тёплые пятна */
-      radial-gradient(1700px 1250px at 22% 4100px,
-        rgba(106, 146, 206, 0.70) 0%,
-        rgba(106, 146, 206, 0) 76%),
-      radial-gradient(1200px 980px at 62% 4550px,
-        rgba(246, 204, 216, 0.62) 0%,
-        rgba(246, 204, 216, 0) 76%),
-      radial-gradient(1500px 1200px at 78% 5200px,
-        rgba(245, 248, 249, 0.80) 0%,
-        rgba(245, 248, 249, 0) 76%),
-
-      /* Общий вертикальный wash */
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.18) 0%,
-        rgba(255, 255, 255, 0.06) 24%,
-        rgba(255, 255, 255, 0.10) 52%,
-        rgba(255, 255, 255, 0.20) 100%
-      );
-
-    /* Чтобы слой был гладкий и не “дрожал” */
-    transform: translateZ(0);
-    will-change: transform;
+    background-repeat: no-repeat;
   }
 }
 
