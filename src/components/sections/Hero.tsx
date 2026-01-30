@@ -23,7 +23,7 @@ export default function Hero() {
         <h1 className="mx-auto max-w-[1240px] text-center text-white leading-[0.94] tracking-[-0.02em]">
           <span
             className="
-              uni-hero-line uni-hero-line--1
+              text-focus-in 
               block text-[36px] sm:text-[54px] md:text-[70px] font-[600]
             "
           >
@@ -32,6 +32,8 @@ export default function Hero() {
           </span>
         </h1>
 
+.text-focus-in{-webkit-animation:text-focus-in 1.5s both;animation:text-focus-in 1.5s both}
+        
         {/* Плейсхолдер видео/скрина (оставляю как было) */}
         <div className="mt-8 md:mt-12">
           <div
