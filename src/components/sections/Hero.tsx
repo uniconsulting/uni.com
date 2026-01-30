@@ -31,8 +31,6 @@ export default function Hero() {
             <RotatingPhrase />
           </span>
         </h1>
-
-.text-focus-in{-webkit-animation:text-focus-in 1.5s both;animation:text-focus-in 1.5s both}
         
         {/* Плейсхолдер видео/скрина (оставляю как было) */}
         <div className="mt-8 md:mt-12">
