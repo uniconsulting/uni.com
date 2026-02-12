@@ -229,7 +229,7 @@ html {
     background-size: min(1920px, 100vw) auto;
 
     /* подстройка видимости */
-    opacity: 0.28;
+    opacity: 1;
 
     transform: translateZ(0);
   }
