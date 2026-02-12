@@ -18,7 +18,7 @@ html {
   }
 
   body {
-    background: #d8dedf; /* 1) базовый цвет */
+    background: #000000; /* 1) базовый цвет */
     position: relative;
     isolation: isolate; /* чтобы blend-режимы не влияли на контент */
     overflow-x: hidden;
