@@ -20,42 +20,117 @@ html {
   body {
     background: #d8dedf; /* 1) базовый цвет */
     position: relative;
-    isolation: isolate;
+    isolation: isolate; /* чтобы blend-режимы не влияли на контент */
     overflow-x: hidden;
   }
 
-  /* 1) Цветные “пятна” */
+  /* 1) Цветные “пятна” (скроллятся вместе со страницей) */
   body::before {
     content: "";
-    position: absolute;
+    position: absolute; /* НЕ fixed */
     inset: 0;
     z-index: -2;
     pointer-events: none;
 
     background:
-      radial-gradient(1400px 900px at 55% 14%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 68%),
-      radial-gradient(1700px 1200px at 45% 62%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 70%),
-      radial-gradient(1200px 1000px at 12% 120px, rgba(224, 137, 178, 0.68) 0%, rgba(224, 137, 178, 0) 72%),
-      radial-gradient(1300px 1100px at 86% 180px, rgba(116, 164, 210, 0.68) 0%, rgba(116, 164, 210, 0) 74%),
-      radial-gradient(900px 850px at 30% 420px, rgba(206, 120, 162, 0.62) 0%, rgba(206, 120, 162, 0) 74%),
-      radial-gradient(900px 850px at 70% 520px, rgba(96, 146, 198, 0.62) 0%, rgba(96, 146, 198, 0) 76%),
-      radial-gradient(1500px 1200px at 18% 1600px, rgba(92, 142, 198, 0.74) 0%, rgba(92, 142, 198, 0) 77%),
-      radial-gradient(1550px 1250px at 76% 2100px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%),
-      radial-gradient(1800px 1100px at 58% 2600px, rgba(245, 248, 250, 0.78) 0%, rgba(245, 248, 250, 0) 72%),
-      radial-gradient(1500px 1200px at 70% 3400px, rgba(246, 202, 216, 0.82) 0%, rgba(246, 202, 216, 0) 76%),
-      radial-gradient(1800px 1300px at 26% 4200px, rgba(245, 248, 250, 0.80) 0%, rgba(245, 248, 250, 0) 76%),
-      radial-gradient(1600px 1200px at 84% 5100px, rgba(245, 205, 219, 0.70) 0%, rgba(245, 205, 219, 0) 78%),
-      radial-gradient(1700px 1300px at 18% 5600px, rgba(95, 146, 204, 0.72) 0%, rgba(95, 146, 204, 0) 80%),
-      radial-gradient(1500px 1200px at 18% 7300px, rgba(92, 142, 198, 0.74) 0%, rgba(92, 142, 198, 0) 77%),
-      radial-gradient(1550px 1250px at 76% 7800px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%);
+      /* лёгкая общая вуаль */
+      radial-gradient(
+        1400px 900px at 55% 14%,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0) 68%
+      ),
+      radial-gradient(
+        1700px 1200px at 45% 62%,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+
+      /* верхняя часть (розовый слева + синий справа) */
+      radial-gradient(
+        1200px 1000px at 12% 120px,
+        rgba(224, 137, 178, 0.68) 0%,
+        rgba(224, 137, 178, 0) 72%
+      ),
+      radial-gradient(
+        1300px 1100px at 86% 180px,
+        rgba(116, 164, 210, 0.68) 0%,
+        rgba(116, 164, 210, 0) 74%
+      ),
+
+      /* дополнительная насыщенность вверху */
+      radial-gradient(
+        900px 850px at 30% 420px,
+        rgba(206, 120, 162, 0.62) 0%,
+        rgba(206, 120, 162, 0) 74%
+      ),
+      radial-gradient(
+        900px 850px at 70% 520px,
+        rgba(96, 146, 198, 0.62) 0%,
+        rgba(96, 146, 198, 0) 76%
+      ),
+
+      /* середина (голубые “облака”) */
+      radial-gradient(
+        1500px 1200px at 18% 1600px,
+        rgba(92, 142, 198, 0.74) 0%,
+        rgba(92, 142, 198, 0) 77%
+      ),
+      radial-gradient(
+        1550px 1250px at 76% 2100px,
+        rgba(120, 170, 222, 0.62) 0%,
+        rgba(120, 170, 222, 0) 78%
+      ),
+
+      /* “светлая полка” ближе к центру */
+      radial-gradient(
+        1800px 1100px at 58% 2600px,
+        rgba(245, 248, 250, 0.78) 0%,
+        rgba(245, 248, 250, 0) 72%
+      ),
+
+      /* нижняя часть (тёплый розовый + серо-белые туманы) */
+      radial-gradient(
+        1500px 1200px at 70% 3400px,
+        rgba(246, 202, 216, 0.82) 0%,
+        rgba(246, 202, 216, 0) 76%
+      ),
+      radial-gradient(
+        1800px 1300px at 26% 4200px,
+        rgba(245, 248, 250, 0.8) 0%,
+        rgba(245, 248, 250, 0) 76%
+      ),
+      radial-gradient(
+        1600px 1200px at 84% 5100px,
+        rgba(245, 205, 219, 0.7) 0%,
+        rgba(245, 205, 219, 0) 78%
+      ),
+
+      /* синее “внизу слева” */
+      radial-gradient(
+        1700px 1300px at 18% 5600px,
+        rgba(95, 146, 204, 0.72) 0%,
+        rgba(95, 146, 204, 0) 80%
+      ),
+
+      /* самый низ (ещё облака) */
+      radial-gradient(
+        1500px 1200px at 18% 7300px,
+        rgba(92, 142, 198, 0.74) 0%,
+        rgba(92, 142, 198, 0) 77%
+      ),
+      radial-gradient(
+        1550px 1250px at 76% 7800px,
+        rgba(120, 170, 222, 0.62) 0%,
+        rgba(120, 170, 222, 0) 78%
+      );
 
     background-repeat: no-repeat;
   }
 
-  /* 2) Белые “блики” */
+  /* 2) Белые “блики” по всей высоте страницы */
   body::after {
     content: "";
-    position: absolute;
+    position: absolute; /* НЕ fixed */
     inset: 0;
     z-index: -1;
     pointer-events: none;
@@ -64,57 +139,106 @@ html {
     mix-blend-mode: soft-light;
 
     background:
-      radial-gradient(520px 420px at 18% 420px, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 72%),
-      radial-gradient(640px 520px at 78% 860px, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0) 74%),
-      radial-gradient(760px 620px at 52% 1350px, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 76%),
-      radial-gradient(560px 460px at 10% 2050px, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0) 74%),
-      radial-gradient(820px 680px at 86% 2650px, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 78%),
-      radial-gradient(620px 520px at 28% 3300px, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0) 76%),
-      radial-gradient(880px 720px at 68% 3920px, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0) 80%),
-      radial-gradient(600px 500px at 14% 4700px, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 78%),
-      radial-gradient(760px 620px at 84% 5400px, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0) 80%),
-      radial-gradient(560px 460px at 40% 5900px, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 78%),
-      radial-gradient(720px 600px at 78% 6600px, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 80%),
-      radial-gradient(660px 560px at 16% 7050px, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0) 80%),
-      radial-gradient(820px 680px at 52% 7600px, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 82%);
+      radial-gradient(
+        520px 420px at 18% 420px,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0) 72%
+      ),
+      radial-gradient(
+        640px 520px at 78% 860px,
+        rgba(255, 255, 255, 0.52) 0%,
+        rgba(255, 255, 255, 0) 74%
+      ),
+      radial-gradient(
+        760px 620px at 52% 1350px,
+        rgba(255, 255, 255, 0.46) 0%,
+        rgba(255, 255, 255, 0) 76%
+      ),
+      radial-gradient(
+        560px 460px at 10% 2050px,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0) 74%
+      ),
+      radial-gradient(
+        820px 680px at 86% 2650px,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0) 78%
+      ),
+      radial-gradient(
+        620px 520px at 28% 3300px,
+        rgba(255, 255, 255, 0.48) 0%,
+        rgba(255, 255, 255, 0) 76%
+      ),
+      radial-gradient(
+        880px 720px at 68% 3920px,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      radial-gradient(
+        600px 500px at 14% 4700px,
+        rgba(255, 255, 255, 0.46) 0%,
+        rgba(255, 255, 255, 0) 78%
+      ),
+      radial-gradient(
+        760px 620px at 84% 5400px,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      radial-gradient(
+        560px 460px at 40% 5900px,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0) 78%
+      ),
+      radial-gradient(
+        720px 600px at 78% 6600px,
+        rgba(255, 255, 255, 0.38) 0%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      radial-gradient(
+        660px 560px at 16% 7050px,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      radial-gradient(
+        820px 680px at 52% 7600px,
+        rgba(255, 255, 255, 0.34) 0%,
+        rgba(255, 255, 255, 0) 82%
+      );
 
     background-repeat: no-repeat;
   }
 
   /* 3) Композиция элементов на всю страницу (public/bg/elements.png) */
-.page-bg {
-  position: relative;
-  z-index: 0;
-  min-height: 100vh;
-}
+  .page-bg {
+    position: relative;
+    z-index: 0;
+    min-height: 100vh;
+  }
 
-/* слой элементов: между фоном body и контентом */
-.page-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  /* слой элементов: между фоном body и контентом */
+  .page-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 
-  background-image: url("/bg/elements.png");
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: min(1920px, 100vw) auto;
+    background-image: url("/bg/elements.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: min(1920px, 100vw) auto;
 
-  /* на рефе элементы нежные: чаще всего нужно ~0.18–0.35 */
-  opacity: 0.28;
+    /* подстройка видимости */
+    opacity: 0.28;
 
-  /* если совсем не видно — временно включи, чтобы “проявить” */
-  /* mix-blend-mode: multiply; */
-  /* filter: contrast(1.15) saturate(1.05); */
+    transform: translateZ(0);
+  }
 
-  transform: translateZ(0);
-}
-
-/* поднимаем весь контент выше слоя элементов */
-.page-bg > * {
-  position: relative;
-  z-index: 1;
+  /* контент выше слоя элементов */
+  .page-bg > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 /* === LiquidGlass helpers === */
