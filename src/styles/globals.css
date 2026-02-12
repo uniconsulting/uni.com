@@ -20,57 +20,42 @@ html {
   body {
     background: #d8dedf; /* 1) базовый цвет */
     position: relative;
-    isolation: isolate; /* чтобы blend-режимы не влияли на контент */
+    isolation: isolate;
     overflow-x: hidden;
   }
 
-  /* 1) Цветные “пятна” (скроллятся вместе со страницей) */
+  /* 1) Цветные “пятна” */
   body::before {
     content: "";
-    position: absolute; /* НЕ fixed */
+    position: absolute;
     inset: 0;
     z-index: -2;
     pointer-events: none;
 
     background:
-      /* лёгкая общая вуаль */
       radial-gradient(1400px 900px at 55% 14%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 68%),
       radial-gradient(1700px 1200px at 45% 62%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 70%),
-
-      /* верхняя часть (розовый слева + синий справа) */
       radial-gradient(1200px 1000px at 12% 120px, rgba(224, 137, 178, 0.68) 0%, rgba(224, 137, 178, 0) 72%),
       radial-gradient(1300px 1100px at 86% 180px, rgba(116, 164, 210, 0.68) 0%, rgba(116, 164, 210, 0) 74%),
-
-      /* дополнительная насыщенность вверху */
       radial-gradient(900px 850px at 30% 420px, rgba(206, 120, 162, 0.62) 0%, rgba(206, 120, 162, 0) 74%),
       radial-gradient(900px 850px at 70% 520px, rgba(96, 146, 198, 0.62) 0%, rgba(96, 146, 198, 0) 76%),
-
-      /* середина (голубые “облака”) */
       radial-gradient(1500px 1200px at 18% 1600px, rgba(92, 142, 198, 0.74) 0%, rgba(92, 142, 198, 0) 77%),
       radial-gradient(1550px 1250px at 76% 2100px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%),
-
-      /* “светлая полка” ближе к центру */
       radial-gradient(1800px 1100px at 58% 2600px, rgba(245, 248, 250, 0.78) 0%, rgba(245, 248, 250, 0) 72%),
-
-      /* нижняя часть (тёплый розовый + серо-белые туманы) */
       radial-gradient(1500px 1200px at 70% 3400px, rgba(246, 202, 216, 0.82) 0%, rgba(246, 202, 216, 0) 76%),
       radial-gradient(1800px 1300px at 26% 4200px, rgba(245, 248, 250, 0.80) 0%, rgba(245, 248, 250, 0) 76%),
       radial-gradient(1600px 1200px at 84% 5100px, rgba(245, 205, 219, 0.70) 0%, rgba(245, 205, 219, 0) 78%),
-
-      /* синее “внизу слева” */
       radial-gradient(1700px 1300px at 18% 5600px, rgba(95, 146, 204, 0.72) 0%, rgba(95, 146, 204, 0) 80%),
-
-      /* самый низ (ещё облака) */
       radial-gradient(1500px 1200px at 18% 7300px, rgba(92, 142, 198, 0.74) 0%, rgba(92, 142, 198, 0) 77%),
       radial-gradient(1550px 1250px at 76% 7800px, rgba(120, 170, 222, 0.62) 0%, rgba(120, 170, 222, 0) 78%);
 
     background-repeat: no-repeat;
   }
 
-  /* 2) Белые “блики” по всей высоте страницы */
+  /* 2) Белые “блики” */
   body::after {
     content: "";
-    position: absolute; /* НЕ fixed */
+    position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
@@ -96,41 +81,18 @@ html {
     background-repeat: no-repeat;
   }
 
-    /* 3) Композиция элементов на всю страницу (public/bg/elements.png) */
+  /* 3) Композиция элементов на всю страницу (public/bg/elements.png) */
   .page-bg {
-    position: relative;
-    z-index: 0;
     min-height: 100vh;
-    isolation: isolate; /* чтобы слой жил внутри page-bg */
-  }
 
-  .page-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;              /* ВАЖНО: НЕ отрицательный */
-    pointer-events: none;
-
+    /* ключевое: рисуем как фон элемента */
     background-image: url("/bg/elements.png");
     background-repeat: no-repeat;
     background-position: top center;
     background-size: min(1920px, 100vw) auto;
 
-    opacity: 1;
-    transform: translateZ(0);
-    will-change: transform;
-  }
-
-  /* Поднимаем весь контент поверх декоративного слоя */
-  .page-bg > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: 1920px) {
-    .page-bg::before {
-      background-size: 100%;
-    }
+    /* если элементы слишком нежные - временно поставь 0.35-0.6 для “видимости” */
+    /* opacity НЕ трогаем: она применится и к контенту, если поставить на .page-bg */
   }
 }
 
